@@ -1,64 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tickme/providers/tick_category_provider.dart';
+import 'package:tickme/providers/time_entry_provider.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+class SettingsScreen extends ConsumerWidget {
+  static const routeName = '/settings';
+
+  const SettingsScreen({super.key});
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings'),
-      ),
-      body: ListView(
-        children: [
-          ListTile(
-            title: Text('About Tickme'),
-            trailing: Icon(Icons.info),
-            onTap: () {
-              // Implement your about screen logic here
-              print('About Tickme');
-            },
-          ),
-          ListTile(
-            title: Text('Reset Data'),
-            trailing: Icon(Icons.delete_forever),
-            onTap: () {
-              // Implement your data reset logic here
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: Text('Confirm Reset'),
-                  content: Text('Are you sure you want to reset all data?'),
-                  actions: <Widget>[
-                    TextButton(
-                      style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                      child: Text('Cancel'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                      child: Text('Reset'),
-                      onPressed: () {
-                        // Implement your data reset logic here
-                        print('Resetting data');
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          // Add other settings options here
-        ],
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ListView(
+      children: [
+        ListTile(
+          title: const Text('Reset Data'),
+          trailing: Icon(Icons.delete_forever),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text('Confirm Reset'),
+                content: Text('Are you sure you want to reset all records?'),
+                actions: <Widget>[
+                  TextButton(
+                    style: TextButton.styleFrom(foregroundColor: Colors.blue),
+                    child: Text('Cancel'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(foregroundColor: Colors.blue),
+                    child: Text('Reset'),
+                    onPressed: () {
+                      ref.read(timerProvider.notifier).erase();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+        ListTile(
+          title: const Text('Delete Categories'),
+          trailing: Icon(Icons.delete_forever),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text('Confirm Deleting'),
+                content:
+                    Text('Are you sure you want to delete all categories?'),
+                actions: <Widget>[
+                  TextButton(
+                    style: TextButton.styleFrom(foregroundColor: Colors.blue),
+                    child: Text('Cancel'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(foregroundColor: Colors.blue),
+                    child: Text('Reset'),
+                    onPressed: () {
+                      ref.read(tickCategoryProvider.notifier).erase();
+                      ref.read(timerProvider.notifier).erase();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

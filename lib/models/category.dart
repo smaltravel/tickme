@@ -1,20 +1,23 @@
-class Category {
-  String id;
-  String name;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-  Category({
+part 'generated/category.g.dart';
+
+@immutable
+@JsonSerializable()
+class Category {
+  final String id;
+  final String name;
+
+  const Category({
     required this.id,
     required this.name,
   });
 
   //For JSON serialization / deserialization
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-      };
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json['id'],
-        name: json['name'],
-      );
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
 }
