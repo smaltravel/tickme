@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tickme/models/active_timer.dart';
 import 'package:tickme/models/category.dart';
+import 'package:tickme/providers/active_timer_provider.dart';
 import 'package:tickme/providers/tick_category_provider.dart';
 
 final _tickCard = Provider<Category>((ref) => throw UnimplementedError());
@@ -11,18 +13,19 @@ class TickTileHook extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final card = ref.watch(_tickCard);
+    final activeTimer = ref.watch(activeTickProvider);
 
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       color: Colors.blueAccent,
       child: Center(
         child: Column(
           children: [
             ElevatedButton(
-              onPressed: () => {}, // TODO: start/stop time
+              onPressed: () => _startStopTimer(ref, card, activeTimer),
               child: Text(
                 card.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
                 ),
@@ -35,6 +38,21 @@ class TickTileHook extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _startStopTimer(
+      WidgetRef ref, Category timerCategory, ActiveTimer? timer) {
+    if (timer != null) {
+      // Stop current activity
+      ref.read(activeTickProvider.notifier).stop();
+
+      // If user tapped on another activity start it immediately
+      if (timer.categoryId != timerCategory.id) {
+        ref.read(activeTickProvider.notifier).run(timerCategory.id);
+      }
+    } else {
+      ref.read(activeTickProvider.notifier).run(timerCategory.id);
+    }
   }
 
   Future<void> _showEditCategoryDialog(
@@ -93,20 +111,20 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tickme - Home'),
+        title: const Text('Tickme - Home'),
       ),
       body: GridView.builder(
         itemCount: ticks.length + 1,
         gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (context, index) => index < ticks.length - 1
             ? ProviderScope(
                 overrides: [_tickCard.overrideWithValue(ticks[index])],
-                child: GridTile(child: const TickTileHook()),
+                child: const GridTile(child: TickTileHook()),
               )
             : GridTile(
                 child: IconButton(
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add),
                 onPressed: () => _showNewCategoryDialog(context, ref),
               )),
       ),

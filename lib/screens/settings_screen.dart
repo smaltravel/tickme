@@ -14,24 +14,25 @@ class SettingsScreen extends ConsumerWidget {
       children: [
         ListTile(
           title: const Text('Reset Data'),
-          trailing: Icon(Icons.delete_forever),
+          trailing: const Icon(Icons.delete_forever),
           onTap: () {
             showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: Text('Confirm Reset'),
-                content: Text('Are you sure you want to reset all records?'),
+                title: const Text('Confirm Reset'),
+                content:
+                    const Text('Are you sure you want to reset all records?'),
                 actions: <Widget>[
                   TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                    child: Text('Reset'),
+                    child: const Text('Reset'),
                     onPressed: () {
                       ref.read(timerProvider.notifier).erase();
                       Navigator.of(context).pop();
@@ -44,25 +45,25 @@ class SettingsScreen extends ConsumerWidget {
         ),
         ListTile(
           title: const Text('Delete Categories'),
-          trailing: Icon(Icons.delete_forever),
+          trailing: const Icon(Icons.delete_forever),
           onTap: () {
             showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: Text('Confirm Deleting'),
-                content:
-                    Text('Are you sure you want to delete all categories?'),
+                title: const Text('Confirm Deleting'),
+                content: const Text(
+                    'Are you sure you want to delete all categories?'),
                 actions: <Widget>[
                   TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                    child: Text('Cancel'),
+                    child: const Text('Cancel'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                    child: Text('Reset'),
+                    child: const Text('Reset'),
                     onPressed: () {
                       ref.read(tickCategoryProvider.notifier).erase();
                       ref.read(timerProvider.notifier).erase();
