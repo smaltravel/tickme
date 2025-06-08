@@ -19,22 +19,16 @@ class TickTileHook extends HookConsumerWidget {
       padding: const EdgeInsets.all(8.0),
       color: Colors.blueAccent,
       child: Center(
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () => _startStopTimer(ref, card, activeTimer),
-              child: Text(
-                card.name,
-                style: const TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                ),
-              ),
+        child: InkWell(
+          onTap: () => _startStopTimer(ref, card, activeTimer),
+          onLongPress: () => _showEditCategoryDialog(context, ref, card),
+          child: Text(
+            card.name,
+            style: const TextStyle(
+              fontSize: 20.0,
+              color: Colors.black,
             ),
-            InkWell(
-              onLongPress: () => _showEditCategoryDialog(context, ref, card),
-            )
-          ],
+          ),
         ),
       ),
     );
@@ -109,25 +103,20 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ticks = ref.watch(tickCategoryProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tickme - Home'),
-      ),
-      body: GridView.builder(
-        itemCount: ticks.length + 1,
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemBuilder: (context, index) => index < ticks.length - 1
-            ? ProviderScope(
-                overrides: [_tickCard.overrideWithValue(ticks[index])],
-                child: const GridTile(child: TickTileHook()),
-              )
-            : GridTile(
-                child: IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () => _showNewCategoryDialog(context, ref),
-              )),
-      ),
+    return GridView.builder(
+      itemCount: ticks.length + 1,
+      gridDelegate:
+          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+      itemBuilder: (context, index) => index < ticks.length
+          ? ProviderScope(
+              overrides: [_tickCard.overrideWithValue(ticks[index])],
+              child: const GridTile(child: TickTileHook()),
+            )
+          : GridTile(
+              child: IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () => _showNewCategoryDialog(context, ref),
+            )),
     );
   }
 

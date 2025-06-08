@@ -15,8 +15,9 @@ class ActiveTick extends _$ActiveTick {
   ActiveTimer? build() {
     final pref = ref.watch(sharedPreferencesProvider);
     final data = pref.getString(_sharedPrefKey);
-    final currentState =
-        data != null ? ActiveTimer.fromJson(jsonDecode(data)) : null;
+    final currentState = data != null && data != "null"
+        ? ActiveTimer.fromJson(jsonDecode(data))
+        : null;
 
     ref.listenSelf(
         (_, curr) => pref.setString(_sharedPrefKey, jsonEncode(curr)));

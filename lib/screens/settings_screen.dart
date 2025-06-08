@@ -63,7 +63,7 @@ class SettingsScreen extends ConsumerWidget {
                   ),
                   TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                    child: const Text('Reset'),
+                    child: const Text('Delete'),
                     onPressed: () {
                       ref.read(tickCategoryProvider.notifier).erase();
                       ref.read(timerProvider.notifier).erase();
