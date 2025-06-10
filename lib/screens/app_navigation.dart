@@ -58,6 +58,7 @@ class ShellWrapper extends StatelessWidget {
     return PopScope(
       canPop: canPop,
       child: Scaffold(
+        backgroundColor: Colors.blueGrey[50],
         appBar: AppBar(
           title: Text(
             'Tickme',

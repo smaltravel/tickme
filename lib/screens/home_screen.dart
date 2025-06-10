@@ -15,18 +15,20 @@ class TickTileHook extends HookConsumerWidget {
     final card = ref.watch(_tickCard);
     final activeTimer = ref.watch(activeTickProvider);
 
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      color: Colors.blueAccent,
-      child: Center(
-        child: InkWell(
-          onTap: () => _startStopTimer(ref, card, activeTimer),
-          onLongPress: () => _showEditCategoryDialog(context, ref, card),
-          child: Text(
-            card.name,
-            style: const TextStyle(
-              fontSize: 20.0,
-              color: Colors.black,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 3 - 11.0,
+      height: 100.0,
+      child: Card(
+        child: Center(
+          child: InkWell(
+            onTap: () => _startStopTimer(ref, card, activeTimer),
+            onLongPress: () => _showEditCategoryDialog(context, ref, card),
+            child: Text(
+              card.name,
+              style: const TextStyle(
+                fontSize: 20.0,
+                color: Colors.black,
+              ),
             ),
           ),
         ),
@@ -102,21 +104,64 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ticks = ref.watch(tickCategoryProvider);
+    final activeTimer = ref.watch(activeTickProvider);
 
-    return GridView.builder(
-      itemCount: ticks.length + 1,
-      gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-      itemBuilder: (context, index) => index < ticks.length
-          ? ProviderScope(
-              overrides: [_tickCard.overrideWithValue(ticks[index])],
-              child: const GridTile(child: TickTileHook()),
-            )
-          : GridTile(
-              child: IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () => _showNewCategoryDialog(context, ref),
-            )),
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        spacing: 8.0,
+        children: [
+          if (activeTimer != null)
+            SizedBox(
+              width: double.infinity,
+              child: Card(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      title: const Text('Active Timer'),
+                      subtitle: Text(activeTimer.categoryId),
+                    ),
+                    const Center(
+                      child: Text(
+                        '00:00:00',
+                        style: TextStyle(fontSize: 40.0),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          ref.read(activeTickProvider.notifier).stop(),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.red,
+                      ),
+                      child: const Text(
+                        'Stop',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8.0,
+            children: [
+              ...ticks.map(
+                (tick) => ProviderScope(
+                  overrides: [_tickCard.overrideWithValue(tick)],
+                  child: const TickTileHook(),
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () => _showNewCategoryDialog(context, ref),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
