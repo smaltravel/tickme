@@ -56,4 +56,20 @@ class DatabaseService {
     final db = await database;
     return await db.delete(_tableName);
   }
+
+  static Future<List<TimeEntryModel>> readTimeEntriesPartition(
+      int offset, int limit) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      _tableName,
+      orderBy:
+          'startTime DESC', // Order by start time for consistent pagination
+      limit: limit,
+      offset: offset,
+    );
+
+    return List.generate(maps.length, (i) {
+      return TimeEntryModel.fromMap(maps[i]);
+    });
+  }
 }

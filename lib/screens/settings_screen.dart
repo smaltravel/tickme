@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tickme/providers/csv_export_service_provider.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -39,6 +40,28 @@ class SettingsScreen extends ConsumerWidget {
                 ],
               ),
             );
+          },
+        ),
+        ListTile(
+          title: const Text('Export to CSV'),
+          trailing: const Icon(Icons.file_download_outlined),
+          onTap: () async {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Exporting data...')),
+            );
+
+            final csvExportService = ref.watch(csvExportServiceProvider);
+            final filePath = await csvExportService.exportToCsv();
+
+            if (filePath != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Data exported to $filePath')),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Failed to export data')),
+              );
+            }
           },
         ),
       ],
