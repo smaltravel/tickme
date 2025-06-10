@@ -1,24 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../time_entry_provider.dart';
+part of '../time_entries_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$timerHash() => r'12afb403ba531dac741b66234c7fc55143f2ac25';
+String _$timeEntriesHash() => r'e6bfcab1cdaeea4ad6086d999dbe526dbab1657a';
 
-/// See also [Timer].
-@ProviderFor(Timer)
-final timerProvider = NotifierProvider<Timer, TimeEntriesStorage>.internal(
-  Timer.new,
-  name: r'timerProvider',
+/// See also [TimeEntries].
+@ProviderFor(TimeEntries)
+final timeEntriesProvider =
+    NotifierProvider<TimeEntries, TimeEntriesStorage>.internal(
+  TimeEntries.new,
+  name: r'timeEntriesProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$timerHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$timeEntriesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Timer = Notifier<TimeEntriesStorage>;
+typedef _$TimeEntries = Notifier<TimeEntriesStorage>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

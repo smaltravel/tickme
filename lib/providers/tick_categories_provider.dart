@@ -1,26 +1,26 @@
 import 'dart:convert';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tickme/models/category.dart';
+import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
 import 'package:uuid/uuid.dart';
 
-part 'generated/tick_category_provider.g.dart';
+part 'generated/tick_categories_provider.g.dart';
 
 const _sharedPrefKey = 'categories_list';
 const _uuid = Uuid();
 
-typedef TickCategoryStorage = List<Category>;
+typedef TickCategoriesStorage = List<TickCategoryModel>;
 
 @Riverpod(keepAlive: true)
-class TickCategory extends _$TickCategory {
+class TickCategories extends _$TickCategories {
   @override
-  TickCategoryStorage build() {
+  TickCategoriesStorage build() {
     final pref = ref.watch(sharedPreferencesProvider);
     final currentState = [
       for (var entry in (jsonDecode(pref.getString(_sharedPrefKey) ?? '[]')
           as List<dynamic>))
-        Category.fromJson(entry as Map<String, dynamic>)
+        TickCategoryModel.fromJson(entry as Map<String, dynamic>)
     ];
 
     ref.listenSelf(
@@ -30,7 +30,7 @@ class TickCategory extends _$TickCategory {
   }
 
   void add(String name) {
-    state = [...state, Category(id: _uuid.v7(), name: name)];
+    state = [...state, TickCategoryModel(id: _uuid.v7(), name: name)];
   }
 
   void remove(String id) {
@@ -44,7 +44,7 @@ class TickCategory extends _$TickCategory {
     state = [
       for (var category in state)
         if (category.id == id)
-          Category(id: category.id, name: name)
+          TickCategoryModel(id: category.id, name: name)
         else
           category
     ];

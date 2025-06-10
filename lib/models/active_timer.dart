@@ -5,18 +5,18 @@ part 'generated/active_timer.g.dart';
 
 @immutable
 @JsonSerializable()
-class ActiveTimer {
+class ActiveTimerModel {
   final String categoryId;
   final DateTime start;
 
-  const ActiveTimer({
+  const ActiveTimerModel({
     required this.categoryId,
     required this.start,
   });
 
   //For JSON serialization / deserialization
-  factory ActiveTimer.fromJson(Map<String, dynamic> json) =>
-      _$ActiveTimerFromJson(json);
+  factory ActiveTimerModel.fromJson(Map<String, dynamic> json) =>
+      _$ActiveTimerModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ActiveTimerToJson(this);
+  Map<String, dynamic> toJson() => _$ActiveTimerModelToJson(this);
 }

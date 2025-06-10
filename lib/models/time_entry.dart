@@ -5,13 +5,13 @@ part 'generated/time_entry.g.dart';
 
 @immutable
 @JsonSerializable()
-class TimeEntry {
+class TimeEntryModel {
   final String id;
   final String categoryId;
   final DateTime startTime;
   final DateTime endTime;
 
-  const TimeEntry({
+  const TimeEntryModel({
     required this.id,
     required this.categoryId,
     required this.startTime,
@@ -19,8 +19,8 @@ class TimeEntry {
   });
 
   //For JSON serialization / deserialization
-  factory TimeEntry.fromJson(Map<String, dynamic> json) =>
-      _$TimeEntryFromJson(json);
+  factory TimeEntryModel.fromJson(Map<String, dynamic> json) =>
+      _$TimeEntryModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TimeEntryToJson(this);
+  Map<String, dynamic> toJson() => _$TimeEntryModelToJson(this);
 }

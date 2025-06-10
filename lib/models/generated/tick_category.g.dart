@@ -1,17 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../category.dart';
+part of '../tick_category.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
+TickCategoryModel _$TickCategoryModelFromJson(Map<String, dynamic> json) =>
+    TickCategoryModel(
       id: json['id'] as String,
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
+Map<String, dynamic> _$TickCategoryModelToJson(TickCategoryModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };

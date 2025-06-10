@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tickme/providers/tick_category_provider.dart';
-import 'package:tickme/providers/time_entry_provider.dart';
+import 'package:tickme/providers/tick_categories_provider.dart';
+import 'package:tickme/providers/time_entries_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
   static const routeName = '/settings';
@@ -34,7 +34,7 @@ class SettingsScreen extends ConsumerWidget {
                     style: TextButton.styleFrom(foregroundColor: Colors.blue),
                     child: const Text('Reset'),
                     onPressed: () {
-                      ref.read(timerProvider.notifier).erase();
+                      ref.read(timeEntriesProvider.notifier).erase();
                       Navigator.of(context).pop();
                     },
                   ),
@@ -65,8 +65,8 @@ class SettingsScreen extends ConsumerWidget {
                     style: TextButton.styleFrom(foregroundColor: Colors.blue),
                     child: const Text('Delete'),
                     onPressed: () {
-                      ref.read(tickCategoryProvider.notifier).erase();
-                      ref.read(timerProvider.notifier).erase();
+                      ref.read(tickCategoriesProvider.notifier).erase();
+                      ref.read(timeEntriesProvider.notifier).erase();
                       Navigator.of(context).pop();
                     },
                   ),

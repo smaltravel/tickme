@@ -6,12 +6,13 @@ part of '../active_timer.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ActiveTimer _$ActiveTimerFromJson(Map<String, dynamic> json) => ActiveTimer(
+ActiveTimerModel _$ActiveTimerModelFromJson(Map<String, dynamic> json) =>
+    ActiveTimerModel(
       categoryId: json['categoryId'] as String,
       start: DateTime.parse(json['start'] as String),
     );
 
-Map<String, dynamic> _$ActiveTimerToJson(ActiveTimer instance) =>
+Map<String, dynamic> _$ActiveTimerModelToJson(ActiveTimerModel instance) =>
     <String, dynamic>{
       'categoryId': instance.categoryId,
       'start': instance.start.toIso8601String(),

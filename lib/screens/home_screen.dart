@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tickme/models/active_timer.dart';
-import 'package:tickme/models/category.dart';
+import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/active_timer_provider.dart';
-import 'package:tickme/providers/tick_category_provider.dart';
+import 'package:tickme/providers/tick_categories_provider.dart';
 
-final _tickCard = Provider<Category>((ref) => throw UnimplementedError());
+final _tickCard =
+    Provider<TickCategoryModel>((ref) => throw UnimplementedError());
 
 class TickTileHook extends HookConsumerWidget {
   const TickTileHook({super.key});
@@ -37,7 +38,7 @@ class TickTileHook extends HookConsumerWidget {
   }
 
   void _startStopTimer(
-      WidgetRef ref, Category timerCategory, ActiveTimer? timer) {
+      WidgetRef ref, TickCategoryModel timerCategory, ActiveTimerModel? timer) {
     if (timer != null) {
       // Stop current activity
       ref.read(activeTickProvider.notifier).stop();
@@ -52,7 +53,7 @@ class TickTileHook extends HookConsumerWidget {
   }
 
   Future<void> _showEditCategoryDialog(
-      BuildContext context, WidgetRef ref, Category old) {
+      BuildContext context, WidgetRef ref, TickCategoryModel old) {
     final nameController = TextEditingController(text: old.name);
 
     return showDialog<void>(
@@ -77,7 +78,7 @@ class TickTileHook extends HookConsumerWidget {
           ElevatedButton(
             onPressed: () {
               ref
-                  .read(tickCategoryProvider.notifier)
+                  .read(tickCategoriesProvider.notifier)
                   .rename(id: old.id, name: nameController.text);
               Navigator.of(context).pop();
             },
@@ -85,7 +86,7 @@ class TickTileHook extends HookConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              ref.read(tickCategoryProvider.notifier).remove(old.id);
+              ref.read(tickCategoriesProvider.notifier).remove(old.id);
               Navigator.of(context).pop();
             },
             child: const Text('Remove'),
@@ -103,7 +104,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ticks = ref.watch(tickCategoryProvider);
+    final ticks = ref.watch(tickCategoriesProvider);
     final activeTimer = ref.watch(activeTickProvider);
 
     return Container(
@@ -189,7 +190,9 @@ class HomeScreen extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              ref.read(tickCategoryProvider.notifier).add(nameController.text);
+              ref
+                  .read(tickCategoriesProvider.notifier)
+                  .add(nameController.text);
               Navigator.of(context).pop();
             },
             child: const Text('Add'),

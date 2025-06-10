@@ -6,14 +6,16 @@ part of '../time_entry.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TimeEntry _$TimeEntryFromJson(Map<String, dynamic> json) => TimeEntry(
+TimeEntryModel _$TimeEntryModelFromJson(Map<String, dynamic> json) =>
+    TimeEntryModel(
       id: json['id'] as String,
       categoryId: json['categoryId'] as String,
       startTime: DateTime.parse(json['startTime'] as String),
       endTime: DateTime.parse(json['endTime'] as String),
     );
 
-Map<String, dynamic> _$TimeEntryToJson(TimeEntry instance) => <String, dynamic>{
+Map<String, dynamic> _$TimeEntryModelToJson(TimeEntryModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'categoryId': instance.categoryId,
       'startTime': instance.startTime.toIso8601String(),
