@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tickme/models/active_timer.dart';
+import 'package:tickme/models/time_entry.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
 import 'package:tickme/providers/time_entries_provider.dart';
 
@@ -30,10 +31,10 @@ class ActiveTick extends _$ActiveTick {
   }
 
   void stop() {
-    ref.read(timeEntriesProvider.notifier).add(
+    ref.read(timeEntriesProvider).addTimeEntry(TimeEntryModel(
         categoryId: state!.categoryId,
-        start: state!.start,
-        end: DateTime.now());
+        startTime: state!.start,
+        endTime: DateTime.now()));
     state = null;
   }
 

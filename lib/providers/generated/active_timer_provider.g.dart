@@ -6,7 +6,7 @@ part of '../active_timer_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$activeTickHash() => r'dbae2675c59f3f93b84c3d469fec7fa31892e25f';
+String _$activeTickHash() => r'7dc9a3f79b98cf2d48e94d39b4e27e5a0ad330c3';
 
 /// See also [ActiveTick].
 @ProviderFor(ActiveTick)
@@ -22,4 +22,4 @@ final activeTickProvider =
 
 typedef _$ActiveTick = Notifier<ActiveTimerModel?>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
+import 'package:tickme/providers/time_entries_provider.dart';
 import 'package:uuid/uuid.dart';
 
 part 'generated/tick_categories_provider.g.dart';
@@ -34,6 +35,8 @@ class TickCategories extends _$TickCategories {
   }
 
   void remove(String id) {
+    ref.read(timeEntriesProvider).removeEntriesByCategoryId(id);
+
     state = [
       for (var category in state)
         if (category.id != id) category
@@ -51,6 +54,8 @@ class TickCategories extends _$TickCategories {
   }
 
   void erase() {
+    ref.read(timeEntriesProvider).eraseAllEntries();
+
     state = [];
   }
 }

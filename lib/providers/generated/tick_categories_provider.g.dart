@@ -6,7 +6,7 @@ part of '../tick_categories_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tickCategoriesHash() => r'3c328fd28eec9d9a681c54f2d0d1351bf6c20d10';
+String _$tickCategoriesHash() => r'bc1ce457dce9dcdcd1aae1bd2bd048818bd8da11';
 
 /// See also [TickCategories].
 @ProviderFor(TickCategories)
@@ -23,4 +23,4 @@ final tickCategoriesProvider =
 
 typedef _$TickCategories = Notifier<TickCategoriesStorage>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
