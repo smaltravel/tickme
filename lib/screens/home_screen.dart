@@ -97,6 +97,55 @@ class TickTileHook extends HookConsumerWidget {
   }
 }
 
+class ElapsedTimeWidget extends ConsumerWidget {
+  final String categoryName;
+
+  const ElapsedTimeWidget({super.key, required this.categoryName});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final elapsedTime = ref.watch(elapsedTimeNotifierProvider);
+
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              title: const Text('Active Timer'),
+              subtitle: Text(categoryName),
+            ),
+            Center(
+              child: Text(
+                _formatDuration(elapsedTime),
+                style: TextTheme.of(context).headlineMedium,
+              ),
+            ),
+            TextButton(
+              onPressed: () => ref.read(activeTickProvider.notifier).stop(),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+              child: const Text(
+                'Stop',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _formatDuration(Duration duration) {
+    final hours = duration.inHours.toString().padLeft(2, '0');
+    final minutes = (duration.inMinutes % 60).toString().padLeft(2, '0');
+    final seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
+    return '$hours:$minutes:$seconds';
+  }
+}
+
 class HomeScreen extends ConsumerWidget {
   static const routeName = '/home';
 
@@ -114,37 +163,10 @@ class HomeScreen extends ConsumerWidget {
         spacing: 8.0,
         children: [
           if (activeTimer != null)
-            SizedBox(
-              width: double.infinity,
-              child: Card(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ListTile(
-                      title: const Text('Active Timer'),
-                      subtitle: Text(activeTimer.categoryId),
-                    ),
-                    const Center(
-                      child: Text(
-                        '00:00:00',
-                        style: TextStyle(fontSize: 40.0),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () =>
-                          ref.read(activeTickProvider.notifier).stop(),
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.red,
-                      ),
-                      child: const Text(
-                        'Stop',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            ElapsedTimeWidget(
+                categoryName: ticks
+                    .singleWhere((t) => t.id == activeTimer.categoryId)
+                    .name),
           Wrap(
             alignment: WrapAlignment.center,
             spacing: 8.0,
