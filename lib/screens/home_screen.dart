@@ -16,21 +16,14 @@ class TickTileHook extends HookConsumerWidget {
     final card = ref.watch(_tickCard);
     final activeTimer = ref.watch(activeTickProvider);
 
-    return SizedBox(
-      width: MediaQuery.of(context).size.width / 3 - 11.0,
-      height: 100.0,
+    return InkWell(
+      onTap: () => _startStopTimer(ref, card, activeTimer),
+      onLongPress: () => _showEditCategoryDialog(context, ref, card),
       child: Card(
         child: Center(
-          child: InkWell(
-            onTap: () => _startStopTimer(ref, card, activeTimer),
-            onLongPress: () => _showEditCategoryDialog(context, ref, card),
-            child: Text(
-              card.name,
-              style: const TextStyle(
-                fontSize: 20.0,
-                color: Colors.black,
-              ),
-            ),
+          child: Text(
+            card.name,
+            style: TextTheme.of(context).titleMedium,
           ),
         ),
       ),
@@ -113,7 +106,10 @@ class ElapsedTimeWidget extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              title: const Text('Active Timer'),
+              title: Text(
+                'Active Timer',
+                style: TextTheme.of(context).headlineMedium,
+              ),
               subtitle: Text(categoryName),
             ),
             Center(
@@ -146,44 +142,17 @@ class ElapsedTimeWidget extends ConsumerWidget {
   }
 }
 
-class HomeScreen extends ConsumerWidget {
-  static const routeName = '/home';
-
-  const HomeScreen({super.key});
+class AddTickCategoryButton extends ConsumerWidget {
+  const AddTickCategoryButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ticks = ref.watch(tickCategoriesProvider);
-    final activeTimer = ref.watch(activeTickProvider);
-
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        spacing: 8.0,
-        children: [
-          if (activeTimer != null)
-            ElapsedTimeWidget(
-                categoryName: ticks
-                    .singleWhere((t) => t.id == activeTimer.categoryId)
-                    .name),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 8.0,
-            children: [
-              ...ticks.map(
-                (tick) => ProviderScope(
-                  overrides: [_tickCard.overrideWithValue(tick)],
-                  child: const TickTileHook(),
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () => _showNewCategoryDialog(context, ref),
-              ),
-            ],
-          ),
-        ],
+    return InkWell(
+      onTap: () => _showNewCategoryDialog(context, ref),
+      child: const Card(
+        child: Center(
+          child: Icon(Icons.add, size: 40.0),
+        ),
       ),
     );
   }
@@ -221,6 +190,58 @@ class HomeScreen extends ConsumerWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class HomeScreen extends ConsumerWidget {
+  static const routeName = '/home';
+  static const double _runSpacing = 8.0;
+  static const double _spacing = 4.0;
+  static const int _columns = 5;
+
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final ticks = ref.watch(tickCategoriesProvider);
+    final activeTimer = ref.watch(activeTickProvider);
+    final width =
+        (MediaQuery.of(context).size.width - _runSpacing * (_columns - 1)) /
+            _columns;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      spacing: 8.0,
+      children: [
+        if (activeTimer != null)
+          ElapsedTimeWidget(
+              categoryName: ticks
+                  .singleWhere((t) => t.id == activeTimer.categoryId)
+                  .name),
+        SingleChildScrollView(
+          child: Wrap(
+            runSpacing: _runSpacing,
+            spacing: _spacing,
+            alignment: WrapAlignment.center,
+            children: [
+              ...ticks.map((t) => SizedBox(
+                    width: width,
+                    height: width,
+                    child: ProviderScope(
+                      overrides: [_tickCard.overrideWithValue(t)],
+                      child: const TickTileHook(),
+                    ),
+                  )),
+              SizedBox(
+                width: width,
+                height: width,
+                child: const AddTickCategoryButton(),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
