@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/screens/home_screen.dart';
 import 'package:tickme/screens/settings_screen.dart';
 
@@ -29,14 +30,14 @@ class _BottomBarState extends State<BottomBar> {
         context.go(routes[currentPageIndex]);
       },
       selectedIndex: currentPageIndex,
-      destinations: const [
+      destinations: [
         NavigationDestination(
           icon: Icon(Icons.home_filled),
-          label: 'Home',
+          label: context.loc.bottom_bar_home,
         ),
         NavigationDestination(
           icon: Icon(Icons.settings),
-          label: 'Settings',
+          label: context.loc.bottom_bar_settings,
         ),
       ],
     );

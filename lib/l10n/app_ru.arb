@@ -1,0 +1,29 @@
+{
+  "@@locale": "ru",
+  "add": "Добавить",
+  "cancel": "Отмена",
+  "remove": "Удалить",
+  "home_edit_category_rename": "Переименовать",
+  "home_edit_category": "Редактировать категорию",
+  "home_edit_category_name": "имя",
+  "home_active_timer": "Активный таймер",
+  "home_stop": "Остановить",
+  "home_new_category": "Новая категория",
+  "settings_remove_data": "Удалить все данные",
+  "settings_confirm_removing_title": "Подтвердить удаление",
+  "settings_confirm_removing_content": "Вы уверены, что хотите удалить все данные?",
+  "settings_export_to_csv": "Экспорт в CSV",
+  "settings_exporting_data": "Экспорт данных...",
+  "settings_data_exported": "Данные экспортированы в {filePath}",
+  "@settings_data_exported": {
+    "placeholders": {
+      "filePath": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_failed_to_export_data": "Не удалось экспортировать данные",
+  "settings_language": "Язык",
+  "bottom_bar_home": "Главная",
+  "bottom_bar_settings": "Настройки"
+}

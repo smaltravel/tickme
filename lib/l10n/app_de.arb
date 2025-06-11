@@ -1,0 +1,29 @@
+{
+  "@@locale": "de",
+  "add": "Hinzufügen",
+  "cancel": "Abbrechen",
+  "remove": "Entfernen",
+  "home_edit_category_rename": "Umbenennen",
+  "home_edit_category": "Kategorie bearbeiten",
+  "home_edit_category_name": "Name",
+  "home_active_timer": "Aktiver Timer",
+  "home_stop": "Stoppen",
+  "home_new_category": "Neue Kategorie",
+  "settings_remove_data": "Alle Daten entfernen",
+  "settings_confirm_removing_title": "Bestätigung des Entfernens",
+  "settings_confirm_removing_content": "Sind Sie sicher, dass Sie alle Daten entfernen möchten?",
+  "settings_export_to_csv": "Exportieren nach CSV",
+  "settings_exporting_data": "Daten werden exportiert...",
+  "settings_data_exported": "Daten exportiert nach {filePath}",
+  "@settings_data_exported": {
+    "placeholders": {
+      "filePath": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_failed_to_export_data": "Fehler beim Exportieren der Daten",
+  "settings_language": "Sprache",
+  "bottom_bar_home": "Home",
+  "bottom_bar_settings": "Einstellungen"
+}

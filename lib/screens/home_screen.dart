@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/models/active_timer.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/active_timer_provider.dart';
@@ -53,20 +54,21 @@ class TickTileHook extends HookConsumerWidget {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Edit Category'),
+        title: Text(context.loc.home_edit_category),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(labelText: 'name'),
+              decoration: InputDecoration(
+                  labelText: context.loc.home_edit_category_name),
             )
           ],
         ),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text(context.loc.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -75,14 +77,14 @@ class TickTileHook extends HookConsumerWidget {
                   .rename(id: old.id, name: nameController.text);
               Navigator.of(context).pop();
             },
-            child: const Text('Rename'),
+            child: Text(context.loc.home_edit_category_rename),
           ),
           ElevatedButton(
             onPressed: () {
               ref.read(tickCategoriesProvider.notifier).remove(old.id);
               Navigator.of(context).pop();
             },
-            child: const Text('Remove'),
+            child: Text(context.loc.remove),
           )
         ],
       ),
@@ -107,7 +109,7 @@ class ElapsedTimeWidget extends ConsumerWidget {
           children: <Widget>[
             ListTile(
               title: Text(
-                'Active Timer',
+                context.loc.home_active_timer,
                 style: TextTheme.of(context).headlineMedium,
               ),
               subtitle: Text(categoryName),
@@ -123,8 +125,8 @@ class ElapsedTimeWidget extends ConsumerWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.red,
               ),
-              child: const Text(
-                'Stop',
+              child: Text(
+                context.loc.home_stop,
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -164,20 +166,21 @@ class AddTickCategoryButton extends ConsumerWidget {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('New Category'),
+        title: Text(context.loc.home_new_category),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(labelText: 'name'),
+              decoration: InputDecoration(
+                  labelText: context.loc.home_edit_category_name),
             )
           ],
         ),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text(context.loc.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -186,7 +189,7 @@ class AddTickCategoryButton extends ConsumerWidget {
                   .add(nameController.text);
               Navigator.of(context).pop();
             },
-            child: const Text('Add'),
+            child: Text(context.loc.add),
           )
         ],
       ),

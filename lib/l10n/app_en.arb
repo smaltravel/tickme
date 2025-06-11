@@ -1,0 +1,29 @@
+{
+  "@@locale": "en",
+  "add": "Add",
+  "cancel": "Cancel",
+  "remove": "Remove",
+  "home_edit_category_rename": "Rename",
+  "home_edit_category": "Edit Category",
+  "home_edit_category_name": "name",
+  "home_active_timer": "Active Timer",
+  "home_stop": "Stop",
+  "home_new_category": "New Category",
+  "settings_remove_data": "Remove all data",
+  "settings_confirm_removing_title": "Confirm Removing",
+  "settings_confirm_removing_content": "Are you sure you want to remove all data?",
+  "settings_export_to_csv": "Export to CSV",
+  "settings_exporting_data": "Exporting data...",
+  "settings_data_exported": "Data exported to {filePath}",
+  "@settings_data_exported": {
+    "placeholders": {
+      "filePath": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_failed_to_export_data": "Failed to export data",
+  "settings_language": "Language",
+  "bottom_bar_home": "Home",
+  "bottom_bar_settings": "Settings"
+}

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tickme/l10n/app_localizations.dart';
+import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/providers/csv_export_service_provider.dart';
+import 'package:tickme/providers/locale_provider.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -10,28 +13,29 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeServiceProvider);
     return ListView(
       children: [
         ListTile(
-          title: const Text('Erase all data'),
+          title: Text(context.loc.settings_remove_data),
           trailing: const Icon(Icons.delete_forever),
           onTap: () {
             showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: const Text('Confirm Erasing'),
-                content: const Text('Are you sure you want to erase all data?'),
+                title: Text(context.loc.settings_confirm_removing_title),
+                content: Text(context.loc.settings_confirm_removing_content),
                 actions: <Widget>[
                   TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                    child: const Text('Cancel'),
+                    child: Text(context.loc.cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                    child: const Text('Erase'),
+                    child: Text(context.loc.remove),
                     onPressed: () {
                       ref.read(tickCategoriesProvider.notifier).erase();
                       Navigator.of(context).pop();
@@ -43,11 +47,11 @@ class SettingsScreen extends ConsumerWidget {
           },
         ),
         ListTile(
-          title: const Text('Export to CSV'),
+          title: Text(context.loc.settings_export_to_csv),
           trailing: const Icon(Icons.file_download_outlined),
           onTap: () async {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Exporting data...')),
+              SnackBar(content: Text(context.loc.settings_exporting_data)),
             );
 
             final csvExportService = ref.watch(csvExportServiceProvider);
@@ -55,14 +59,33 @@ class SettingsScreen extends ConsumerWidget {
 
             if (filePath != null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Data exported to $filePath')),
+                SnackBar(
+                    content:
+                        Text(context.loc.settings_data_exported(filePath))),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Failed to export data')),
+                SnackBar(
+                    content: Text(context.loc.settings_failed_to_export_data)),
               );
             }
           },
+        ),
+        ListTile(
+          title: Text(context.loc.settings_language),
+          trailing: DropdownButton<String>(
+            value: locale.languageCode,
+            items: AppLocalizations.supportedLocales
+                .map((l) => DropdownMenuItem<String>(
+                      value: l.languageCode,
+                      child: Text(l.languageCode),
+                    ))
+                .toList(),
+            onChanged: (String? newLocale) =>
+                ref.read(localeServiceProvider.notifier).setLocale(
+                      newLocale ?? 'en',
+                    ),
+          ),
         ),
       ],
     );
