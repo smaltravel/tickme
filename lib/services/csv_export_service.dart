@@ -19,7 +19,7 @@ class CsvExportService {
     // 1. Request Storage Permission
     if (await Permission.storage.request().isGranted) {
       // 2. Setup file path and headers
-      final directory = await getTemporaryDirectory();
+      final directory = await getApplicationDocumentsDirectory();
       final filePath =
           '${directory.path}/tickme_export_${DateTime.now().microsecondsSinceEpoch}.csv';
       final file = File(filePath);
