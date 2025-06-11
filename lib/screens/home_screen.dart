@@ -17,14 +17,24 @@ class TickTileHook extends HookConsumerWidget {
     final card = ref.watch(_tickCard);
     final activeTimer = ref.watch(activeTickProvider);
 
+    final isActive = activeTimer != null && activeTimer.categoryId == card.id;
+
     return InkWell(
       onTap: () => _startStopTimer(ref, card, activeTimer),
       onLongPress: () => _showEditCategoryDialog(context, ref, card),
       child: Card(
+        color: isActive ? Colors.lightBlueAccent.shade100 : null,
+        shape: isActive
+            ? RoundedRectangleBorder(
+                side: BorderSide(
+                    color: Colors.lightBlueAccent.shade700, width: 2.0),
+                borderRadius: BorderRadius.circular(8.0),
+              )
+            : null,
         child: Center(
           child: Text(
             card.name,
-            style: TextTheme.of(context).titleMedium,
+            style: TextTheme.of(context).titleSmall,
           ),
         ),
       ),
