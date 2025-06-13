@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/models/active_timer.dart';
@@ -8,6 +10,75 @@ import 'package:tickme/providers/tick_categories_provider.dart';
 
 final _tickCard =
     Provider<TickCategoryModel>((ref) => throw UnimplementedError());
+
+Future<void> _showNewUpdateTickCategoryDialog(
+    BuildContext context, WidgetRef ref, TickCategoryModel? current) {
+  final nameController = TextEditingController(text: current?.name ?? '');
+  IconData currentIcon = current?.icon ?? Icons.question_mark;
+
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) => StatefulBuilder(
+      builder: (context, setState) => AlertDialog(
+        title: Text(current == null
+            ? context.loc.home_new_category
+            : context.loc.home_edit_category),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(currentIcon, size: 40.0),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(
+                  labelText: context.loc.home_edit_category_name),
+              inputFormatters: [LengthLimitingTextInputFormatter(20)],
+            ),
+            const SizedBox(height: 8.0),
+            ElevatedButton(
+              onPressed: () async {
+                IconData? icon = await showIconPicker(context);
+                if (icon != null) {
+                  setState(() {
+                    currentIcon = icon;
+                  });
+                }
+              },
+              child: const Text('Choose an icon'),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(context.loc.cancel),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (current == null) {
+                ref
+                    .read(tickCategoriesProvider.notifier)
+                    .add(nameController.text, currentIcon);
+              } else {
+                ref.read(tickCategoriesProvider.notifier).update(
+                      id: current.id,
+                      name: nameController.text,
+                      icon: currentIcon,
+                    );
+              }
+              Navigator.of(context).pop();
+            },
+            child: Text(current == null
+                ? context.loc.add
+                : context.loc.home_edit_category_rename),
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
 class TickTileHook extends HookConsumerWidget {
   const TickTileHook({super.key});
@@ -21,7 +92,7 @@ class TickTileHook extends HookConsumerWidget {
 
     return InkWell(
       onTap: () => _startStopTimer(ref, card, activeTimer),
-      onLongPress: () => _showEditCategoryDialog(context, ref, card),
+      onLongPress: () => _showNewUpdateTickCategoryDialog(context, ref, card),
       child: Card(
         color: isActive ? Colors.lightBlueAccent.shade100 : null,
         shape: isActive
@@ -31,10 +102,19 @@ class TickTileHook extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(8.0),
               )
             : null,
-        child: Center(
-          child: Text(
-            card.name,
-            style: TextTheme.of(context).titleSmall,
+        child: Container(
+          padding: const EdgeInsets.all(2.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(card.icon, size: 40.0),
+              Text(
+                card.name,
+                style: TextTheme.of(context).titleSmall,
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         ),
       ),
@@ -54,51 +134,6 @@ class TickTileHook extends HookConsumerWidget {
     } else {
       ref.read(activeTickProvider.notifier).run(timerCategory.id);
     }
-  }
-
-  Future<void> _showEditCategoryDialog(
-      BuildContext context, WidgetRef ref, TickCategoryModel old) {
-    final nameController = TextEditingController(text: old.name);
-
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) => AlertDialog(
-        title: Text(context.loc.home_edit_category),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                  labelText: context.loc.home_edit_category_name),
-            )
-          ],
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(context.loc.cancel),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              ref
-                  .read(tickCategoriesProvider.notifier)
-                  .rename(id: old.id, name: nameController.text);
-              Navigator.of(context).pop();
-            },
-            child: Text(context.loc.home_edit_category_rename),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              ref.read(tickCategoriesProvider.notifier).remove(old.id);
-              Navigator.of(context).pop();
-            },
-            child: Text(context.loc.remove),
-          )
-        ],
-      ),
-    );
   }
 }
 
@@ -137,7 +172,7 @@ class ElapsedTimeWidget extends ConsumerWidget {
               ),
               child: Text(
                 context.loc.home_stop,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           ],
@@ -160,48 +195,11 @@ class AddTickCategoryButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () => _showNewCategoryDialog(context, ref),
+      onTap: () => _showNewUpdateTickCategoryDialog(context, ref, null),
       child: const Card(
         child: Center(
           child: Icon(Icons.add, size: 40.0),
         ),
-      ),
-    );
-  }
-
-  Future<void> _showNewCategoryDialog(BuildContext context, WidgetRef ref) {
-    final nameController = TextEditingController();
-
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) => AlertDialog(
-        title: Text(context.loc.home_new_category),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                  labelText: context.loc.home_edit_category_name),
-            )
-          ],
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(context.loc.cancel),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              ref
-                  .read(tickCategoriesProvider.notifier)
-                  .add(nameController.text);
-              Navigator.of(context).pop();
-            },
-            child: Text(context.loc.add),
-          )
-        ],
       ),
     );
   }
@@ -240,7 +238,7 @@ class HomeScreen extends ConsumerWidget {
             children: [
               ...ticks.map((t) => SizedBox(
                     width: width,
-                    height: width,
+                    height: width * 1.5,
                     child: ProviderScope(
                       overrides: [_tickCard.overrideWithValue(t)],
                       child: const TickTileHook(),

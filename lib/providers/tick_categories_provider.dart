@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
@@ -30,8 +31,11 @@ class TickCategories extends _$TickCategories {
     return currentState;
   }
 
-  void add(String name) {
-    state = [...state, TickCategoryModel(id: _uuid.v7(), name: name)];
+  void add(String name, IconData icon) {
+    state = [
+      ...state,
+      TickCategoryModel(id: _uuid.v7(), name: name, icon: icon)
+    ];
   }
 
   void remove(String id) {
@@ -43,11 +47,12 @@ class TickCategories extends _$TickCategories {
     ];
   }
 
-  void rename({required String id, required String name}) {
+  void update(
+      {required String id, required String name, required IconData icon}) {
     state = [
       for (var category in state)
         if (category.id == id)
-          TickCategoryModel(id: category.id, name: name)
+          TickCategoryModel(id: category.id, name: name, icon: icon)
         else
           category
     ];
