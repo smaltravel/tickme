@@ -18,7 +18,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get remove => 'Удалить';
 
   @override
-  String get home_edit_category_rename => 'Переименовать';
+  String get home_edit_category_update => 'Обновить';
 
   @override
   String get home_edit_category => 'Редактировать категорию';
@@ -28,6 +28,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get home_active_timer => 'Активный таймер';
+
+  @override
+  String get home_choose_icon => 'Выбрать иконку';
 
   @override
   String get home_stop => 'Остановить';

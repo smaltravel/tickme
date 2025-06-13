@@ -32,11 +32,11 @@ class _BottomBarState extends State<BottomBar> {
       selectedIndex: currentPageIndex,
       destinations: [
         NavigationDestination(
-          icon: Icon(Icons.home_filled),
+          icon: const Icon(Icons.home_filled),
           label: context.loc.bottom_bar_home,
         ),
         NavigationDestination(
-          icon: Icon(Icons.settings),
+          icon: const Icon(Icons.settings),
           label: context.loc.bottom_bar_settings,
         ),
       ],

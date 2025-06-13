@@ -46,7 +46,7 @@ Future<void> _showNewUpdateTickCategoryDialog(
                   });
                 }
               },
-              child: const Text('Choose an icon'),
+              child: Text(context.loc.home_choose_icon),
             ),
           ],
         ),
@@ -72,7 +72,7 @@ Future<void> _showNewUpdateTickCategoryDialog(
             },
             child: Text(current == null
                 ? context.loc.add
-                : context.loc.home_edit_category_rename),
+                : context.loc.home_edit_category_update),
           ),
         ],
       ),
@@ -196,9 +196,21 @@ class AddTickCategoryButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       onTap: () => _showNewUpdateTickCategoryDialog(context, ref, null),
-      child: const Card(
-        child: Center(
-          child: Icon(Icons.add, size: 40.0),
+      child: Card(
+        child: Container(
+          padding: const EdgeInsets.all(2.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.add, size: 40.0),
+              Text(
+                context.loc.add,
+                style: TextTheme.of(context).titleSmall,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -246,7 +258,7 @@ class HomeScreen extends ConsumerWidget {
                   )),
               SizedBox(
                 width: width,
-                height: width,
+                height: width * 1.5,
                 child: const AddTickCategoryButton(),
               ),
             ],

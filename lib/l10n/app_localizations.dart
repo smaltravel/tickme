@@ -118,11 +118,11 @@ abstract class AppLocalizations {
   /// **'Remove'**
   String get remove;
 
-  /// No description provided for @home_edit_category_rename.
+  /// No description provided for @home_edit_category_update.
   ///
   /// In en, this message translates to:
-  /// **'Rename'**
-  String get home_edit_category_rename;
+  /// **'Update'**
+  String get home_edit_category_update;
 
   /// No description provided for @home_edit_category.
   ///
@@ -141,6 +141,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Active Timer'**
   String get home_active_timer;
+
+  /// No description provided for @home_choose_icon.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Icon'**
+  String get home_choose_icon;
 
   /// No description provided for @home_stop.
   ///

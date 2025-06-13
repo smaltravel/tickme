@@ -18,7 +18,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get remove => 'Entfernen';
 
   @override
-  String get home_edit_category_rename => 'Umbenennen';
+  String get home_edit_category_update => 'Aktualisieren';
 
   @override
   String get home_edit_category => 'Kategorie bearbeiten';
@@ -28,6 +28,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get home_active_timer => 'Aktiver Timer';
+
+  @override
+  String get home_choose_icon => 'Symbol auswählen';
 
   @override
   String get home_stop => 'Stoppen';

@@ -18,7 +18,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get remove => 'Remove';
 
   @override
-  String get home_edit_category_rename => 'Rename';
+  String get home_edit_category_update => 'Update';
 
   @override
   String get home_edit_category => 'Edit Category';
@@ -28,6 +28,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get home_active_timer => 'Active Timer';
+
+  @override
+  String get home_choose_icon => 'Choose Icon';
 
   @override
   String get home_stop => 'Stop';
