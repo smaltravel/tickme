@@ -22,7 +22,7 @@ final elapsedTimeProvider = AutoDisposeStreamProvider<Duration>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ElapsedTimeRef = AutoDisposeStreamProviderRef<Duration>;
-String _$activeTickHash() => r'eb03586bcbec01d5d5c82ac3004fa38f9889b29e';
+String _$activeTickHash() => r'276ffefbec0c6c90a67ea14d4b2261c1f53bab09';
 
 /// See also [ActiveTick].
 @ProviderFor(ActiveTick)

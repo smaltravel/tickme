@@ -69,5 +69,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bottom_bar_home => 'Home';
 
   @override
+  String get bottom_bar_stats => 'Pie Chart';
+
+  @override
   String get bottom_bar_settings => 'Settings';
 }

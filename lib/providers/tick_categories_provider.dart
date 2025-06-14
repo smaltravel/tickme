@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tickme/models/tick_category.dart';
+import 'package:tickme/providers/database_provider.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
-import 'package:tickme/services/database_service.dart';
 import 'package:uuid/uuid.dart';
 
 part 'generated/tick_categories_provider.g.dart';
@@ -39,7 +39,7 @@ class TickCategories extends _$TickCategories {
   }
 
   void remove(String id) {
-    DatabaseService.removeEntriesByCategoryId(id);
+    ref.read(databaseStateProvider.notifier).removeEntriesByCategoryId(id);
 
     state = [
       for (var category in state)
@@ -59,7 +59,7 @@ class TickCategories extends _$TickCategories {
   }
 
   void erase() {
-    DatabaseService.eraseAllEntries();
+    ref.read(databaseStateProvider.notifier).eraseAllEntries();
 
     state = [];
   }

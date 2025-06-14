@@ -72,4 +72,31 @@ class DatabaseService {
       return TimeEntryModel.fromMap(maps[i]);
     });
   }
+
+  static Future<int> countAllEntries() async {
+    final db = await database;
+    final result = await db.rawQuery('SELECT COUNT(*) FROM $_tableName');
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
+  static Future<List<TimeEntryModel>> getTimeEntriesByRange(
+      DateTime start, DateTime end) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      _tableName,
+      where:
+          'startTime >= ? AND endTime >= ? AND startTime <= ? AND endTime <= ?',
+      whereArgs: [
+        start.toIso8601String(),
+        start.toIso8601String(),
+        end.toIso8601String(),
+        end.toIso8601String()
+      ],
+      orderBy: 'startTime DESC',
+    );
+
+    return List.generate(maps.length, (i) {
+      return TimeEntryModel.fromMap(maps[i]);
+    });
+  }
 }

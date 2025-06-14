@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/screens/home_screen.dart';
 import 'package:tickme/screens/settings_screen.dart';
+import 'package:tickme/screens/stats_screen.dart';
 
 const routes = [
   HomeScreen.routeName,
+  StatsScreen.routeName,
   SettingsScreen.routeName,
 ];
 
@@ -34,6 +36,10 @@ class _BottomBarState extends State<BottomBar> {
         NavigationDestination(
           icon: const Icon(Icons.home_filled),
           label: context.loc.bottom_bar_home,
+        ),
+        NavigationDestination(
+          icon: const Icon(Icons.pie_chart),
+          label: context.loc.bottom_bar_stats,
         ),
         NavigationDestination(
           icon: const Icon(Icons.settings),
@@ -87,6 +93,10 @@ class AppNavigation {
           GoRoute(
             path: HomeScreen.routeName,
             builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: StatsScreen.routeName,
+            builder: (context, state) => const StatsScreen(),
           ),
           GoRoute(
             path: SettingsScreen.routeName,

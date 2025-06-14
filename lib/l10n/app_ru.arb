@@ -26,5 +26,6 @@
   "settings_failed_to_export_data": "Не удалось экспортировать данные",
   "settings_language": "Язык",
   "bottom_bar_home": "Главная",
+  "bottom_bar_stats": "Диаграмма",
   "bottom_bar_settings": "Настройки"
 }

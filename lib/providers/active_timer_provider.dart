@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tickme/models/active_timer.dart';
 import 'package:tickme/models/time_entry.dart';
+import 'package:tickme/providers/database_provider.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
-import 'package:tickme/services/database_service.dart';
 
 part 'generated/active_timer_provider.g.dart';
 
@@ -37,7 +37,7 @@ class ActiveTick extends _$ActiveTick {
   }
 
   void stop() {
-    DatabaseService.insertTimeEntry(TimeEntryModel(
+    ref.read(databaseStateProvider.notifier).insertTimeEntry(TimeEntryModel(
         categoryId: state!.categoryId,
         startTime: state!.start,
         endTime: DateTime.now()));

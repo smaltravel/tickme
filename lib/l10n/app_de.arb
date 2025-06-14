@@ -26,5 +26,6 @@
   "settings_failed_to_export_data": "Fehler beim Exportieren der Daten",
   "settings_language": "Sprache",
   "bottom_bar_home": "Home",
+  "bottom_bar_stats": "Kreisdiagramm",
   "bottom_bar_settings": "Einstellungen"
 }

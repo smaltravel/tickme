@@ -70,5 +70,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get bottom_bar_home => 'Главная';
 
   @override
+  String get bottom_bar_stats => 'Диаграмма';
+
+  @override
   String get bottom_bar_settings => 'Настройки';
 }

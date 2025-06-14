@@ -70,5 +70,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get bottom_bar_home => 'Home';
 
   @override
+  String get bottom_bar_stats => 'Kreisdiagramm';
+
+  @override
   String get bottom_bar_settings => 'Einstellungen';
 }

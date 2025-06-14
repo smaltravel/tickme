@@ -214,6 +214,12 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get bottom_bar_home;
 
+  /// No description provided for @bottom_bar_stats.
+  ///
+  /// In en, this message translates to:
+  /// **'Pie Chart'**
+  String get bottom_bar_stats;
+
   /// No description provided for @bottom_bar_settings.
   ///
   /// In en, this message translates to:
