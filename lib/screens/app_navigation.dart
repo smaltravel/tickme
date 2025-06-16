@@ -24,6 +24,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
+      backgroundColor: Colors.white,
       onDestinationSelected: (int index) {
         setState(() {
           currentPageIndex = index;
@@ -65,7 +66,7 @@ class ShellWrapper extends StatelessWidget {
     return PopScope(
       canPop: canPop,
       child: Scaffold(
-        backgroundColor: Colors.blueGrey[50],
+        backgroundColor: const Color(0xfff8fafc),
         appBar: AppBar(
           title: Text(
             'Tickme',

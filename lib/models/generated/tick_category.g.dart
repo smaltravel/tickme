@@ -12,6 +12,7 @@ TickCategoryModel _$TickCategoryModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       icon: TickCategoryModel._deserializeIcon(
           json['icon'] as Map<String, dynamic>),
+      color: TickCategoryModel._deserializeColor(json['color'] as String),
     );
 
 Map<String, dynamic> _$TickCategoryModelToJson(TickCategoryModel instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$TickCategoryModelToJson(TickCategoryModel instance) =>
       'id': instance.id,
       'name': instance.name,
       'icon': serializeIcon(instance.icon),
+      'color': TickCategoryModel.serializeColor(instance.color),
     };

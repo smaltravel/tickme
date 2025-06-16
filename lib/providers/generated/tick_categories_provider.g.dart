@@ -6,7 +6,7 @@ part of '../tick_categories_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tickCategoriesHash() => r'7cb4f6a189d474f2d6a079d0ed1833588d17832e';
+String _$tickCategoriesHash() => r'ed692f229496dde57e20e2cab8274a97229d5f6a';
 
 /// See also [TickCategories].
 @ProviderFor(TickCategories)

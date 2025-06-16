@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/database_provider.dart';
@@ -19,22 +19,32 @@ class TickCategories extends _$TickCategories {
   @override
   TickCategoriesStorage build() {
     final pref = ref.watch(sharedPreferencesProvider);
-    final currentState = [
-      for (var entry in (jsonDecode(pref.getString(_sharedPrefKey) ?? '[]')
-          as List<dynamic>))
-        TickCategoryModel.fromJson(entry as Map<String, dynamic>)
-    ];
+    final curr = <TickCategoryModel>[];
+
+    for (final entry in (jsonDecode(pref.getString(_sharedPrefKey) ?? '[]')
+        as List<dynamic>)) {
+      final e = Map<String, dynamic>.from(entry);
+      e['color'] = entry['color'] ??
+          TickCategoryModel.serializeColor(
+              Colors.primaries[(curr.length + 1) % Colors.primaries.length]);
+      curr.add(TickCategoryModel.fromJson(e));
+    }
 
     ref.listenSelf(
         (_, curr) => pref.setString(_sharedPrefKey, jsonEncode(curr)));
 
-    return currentState;
+    return curr;
   }
 
   void add(String name, IconData icon) {
     state = [
       ...state,
-      TickCategoryModel(id: _uuid.v7(), name: name, icon: icon)
+      TickCategoryModel(
+        id: _uuid.v7(),
+        name: name,
+        icon: icon,
+        color: Colors.primaries[(state.length + 1) % Colors.primaries.length],
+      )
     ];
   }
 
@@ -52,7 +62,12 @@ class TickCategories extends _$TickCategories {
     state = [
       for (var category in state)
         if (category.id == id)
-          TickCategoryModel(id: category.id, name: name, icon: icon)
+          TickCategoryModel(
+            id: category.id,
+            name: name,
+            icon: icon,
+            color: category.color,
+          )
         else
           category
     ];

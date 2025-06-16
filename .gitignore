@@ -4,6 +4,7 @@
 /.dart_tool
 /.idea
 /.vscode
+/.continue
 /build/
 /example/
 /test/
