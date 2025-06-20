@@ -47,55 +47,93 @@ class NoDataPlaceHolder extends StatelessWidget {
   }
 }
 
-class PieChartWidget extends ConsumerWidget {
+class PieChartCard extends ConsumerWidget {
   final Map<String, double> dataMap;
 
-  const PieChartWidget({super.key, required this.dataMap});
+  const PieChartCard({super.key, required this.dataMap});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categories = ref.watch(tickCategoriesProvider);
-    final chartData = _buildChartData(categories);
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 8.0,
-        children: <Widget>[
-          Card(
-            color: Colors.white,
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Card(
+        color: Colors.white,
+        child: Container(
+          margin: const EdgeInsets.all(8.0),
+          child: AspectRatio(
+            aspectRatio: 1.5,
             child: PieChart(
               PieChartData(
-                sections: chartData.map((e) => e.section).toList(),
+                sections: _buildSections(categories),
+                borderData: FlBorderData(show: false),
+                sectionsSpace: 0,
               ),
-              duration: const Duration(milliseconds: 800),
             ),
           ),
-          Expanded(
-              child: Card(
-            color: Colors.white,
-            child: ListView.builder(
-              itemCount: chartData.length,
-              itemBuilder: (context, index) {
-                final data = chartData[index].category;
-                final duration =
-                    Duration(seconds: chartData[index].section.value.toInt());
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: data.color,
-                  ),
-                  title: Text(data.name),
-                  trailing: Icon(data.icon),
-                  subtitle: Text(_fromDuration(duration)),
-                );
-              },
-            ),
-          ))
-        ],
+        ),
       ),
     );
   }
+
+  List<PieChartSectionData> _buildSections(TickCategoriesStorage categories) =>
+      dataMap.entries.map((e) {
+        final category = categories.firstWhere(
+          (c) => c.id == e.key,
+          orElse: () => unknownTickCategory,
+        );
+
+        return PieChartSectionData(
+          value: e.value,
+          color: category.color,
+          badgeWidget: Icon(category.icon),
+          showTitle: false,
+        );
+      }).toList();
+}
+
+class PieChartLegendCard extends ConsumerWidget {
+  final Map<String, double> dataMap;
+
+  const PieChartLegendCard({super.key, required this.dataMap});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categories = ref.watch(tickCategoriesProvider);
+
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      child: Card(
+        color: Colors.white,
+        child: SizedBox.expand(
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: _buildLegend(categories),
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<ListTile> _buildLegend(TickCategoriesStorage categories) =>
+      dataMap.entries.map(
+        (e) {
+          final category = categories.firstWhere(
+            (c) => c.id == e.key,
+            orElse: () => unknownTickCategory,
+          );
+          return ListTile(
+            leading: CircleAvatar(
+              radius: 8.0,
+              backgroundColor: category.color,
+            ),
+            title: Text(category.name),
+            subtitle: Text(_fromDuration(Duration(seconds: e.value.toInt()))),
+            trailing: Icon(category.icon),
+          );
+        },
+      ).toList();
 
   String _fromDuration(Duration duration) {
     String? transform(int val, String unit) =>
@@ -108,25 +146,6 @@ class PieChartWidget extends ConsumerWidget {
     ];
 
     return data.where((e) => e != null).join(' ');
-  }
-
-  List<ChartData> _buildChartData(TickCategoriesStorage categories) {
-    return dataMap.entries.map((entry) {
-      final category = categories.firstWhere(
-        (c) => c.id == entry.key,
-        orElse: () => unknownTickCategory,
-      );
-
-      return ChartData(
-        section: PieChartSectionData(
-          value: entry.value,
-          color: category.color,
-          badgeWidget: Icon(category.icon),
-          showTitle: false,
-        ),
-        category: category,
-      );
-    }).toList();
   }
 }
 
@@ -144,7 +163,6 @@ class StatsScreen extends ConsumerWidget {
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      spacing: 8.0,
       children: <Widget>[
         SegmentedButton(
           segments: const <ButtonSegment<Calendar>>[
@@ -173,9 +191,11 @@ class StatsScreen extends ConsumerWidget {
             }
           },
         ),
-        dataMap.isEmpty
-            ? const NoDataPlaceHolder()
-            : PieChartWidget(dataMap: dataMap),
+        ...<Widget>[
+          if (dataMap.isEmpty) const NoDataPlaceHolder(),
+          if (dataMap.isNotEmpty) PieChartCard(dataMap: dataMap),
+          // if (dataMap.isNotEmpty) PieChartLegendCard(dataMap: dataMap),
+        ],
       ],
     );
   }
