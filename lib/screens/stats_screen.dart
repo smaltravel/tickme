@@ -102,16 +102,30 @@ class PieChartLegendCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final categories = ref.watch(tickCategoriesProvider);
 
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      child: Card(
-        color: Colors.white,
-        child: SizedBox.expand(
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: _buildLegend(categories),
-          ),
-        ),
+    return SingleChildScrollView(
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Card(
+            color: Colors.white,
+            // child: SizedBox.expand(
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: _buildLegend(categories),
+            //   ),
+            // ),
+            // child: Container(
+            //   margin: const EdgeInsets.all(8.0),
+            //   child: const SizedBox.expand(
+            //     child: SizedBox(
+            //       height: 30,
+            //       width: 30,
+            //       child: Text('hello'),
+            //     ),
+            //   ),
+            // ),
+            child: Column(
+              children: [..._buildLegend(categories)],
+            )),
       ),
     );
   }
@@ -141,8 +155,9 @@ class PieChartLegendCard extends ConsumerWidget {
 
     final data = [
       transform(duration.inDays, 'd'),
-      transform(duration.inHours, 'h'),
-      transform(duration.inMinutes, 'm'),
+      transform(duration.inHours % 24, 'h'),
+      transform(duration.inMinutes % 60, 'm'),
+      transform(duration.inSeconds % 60, 's')
     ];
 
     return data.where((e) => e != null).join(' ');
@@ -194,7 +209,7 @@ class StatsScreen extends ConsumerWidget {
         ...<Widget>[
           if (dataMap.isEmpty) const NoDataPlaceHolder(),
           if (dataMap.isNotEmpty) PieChartCard(dataMap: dataMap),
-          // if (dataMap.isNotEmpty) PieChartLegendCard(dataMap: dataMap),
+          if (dataMap.isNotEmpty) PieChartLegendCard(dataMap: dataMap),
         ],
       ],
     );
