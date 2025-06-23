@@ -104,7 +104,7 @@ class ChartWithLegendWidget extends ConsumerWidget {
             ),
             title: Text(category.name),
             subtitle: Text(_fromDuration(Duration(seconds: e.value.toInt()))),
-            trailing: Icon(category.icon),
+            trailing: Icon(category.icon.data),
           );
         },
       ).toList();
@@ -133,7 +133,7 @@ class ChartWithLegendWidget extends ConsumerWidget {
         return PieChartSectionData(
           value: e.value,
           color: category.color,
-          badgeWidget: Icon(category.icon),
+          badgeWidget: Icon(category.icon.data),
           showTitle: false,
         );
       }).toList();

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_iconpicker/Models/icon_picker_icon.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/database_provider.dart';
@@ -36,7 +37,7 @@ class TickCategories extends _$TickCategories {
     return curr;
   }
 
-  void add(String name, IconData icon) {
+  void add(String name, IconPickerIcon icon) {
     state = [
       ...state,
       TickCategoryModel(
@@ -57,8 +58,11 @@ class TickCategories extends _$TickCategories {
     ];
   }
 
-  void update(
-      {required String id, required String name, required IconData icon}) {
+  void update({
+    required String id,
+    required String name,
+    required IconPickerIcon icon,
+  }) {
     state = [
       for (var category in state)
         if (category.id == id)

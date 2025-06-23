@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_iconpicker/Models/configuration.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
@@ -14,7 +15,7 @@ final _tickCard =
 Future<void> _showNewUpdateTickCategoryDialog(
     BuildContext context, WidgetRef ref, TickCategoryModel? current) {
   final nameController = TextEditingController(text: current?.name ?? '');
-  IconData currentIcon = current?.icon ?? Icons.question_mark;
+  IconPickerIcon currentIcon = current?.icon ?? unknownTickIcon;
 
   return showDialog<void>(
     context: context,
@@ -28,7 +29,7 @@ Future<void> _showNewUpdateTickCategoryDialog(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(currentIcon, size: 40.0),
+            Icon(currentIcon.data, size: 40.0),
             const SizedBox(height: 8.0),
             TextField(
               controller: nameController,
@@ -39,7 +40,12 @@ Future<void> _showNewUpdateTickCategoryDialog(
             const SizedBox(height: 8.0),
             ElevatedButton(
               onPressed: () async {
-                IconData? icon = await showIconPicker(context);
+                IconPickerIcon? icon = await showIconPicker(
+                  context,
+                  configuration: SinglePickerConfiguration(
+                    iconPackModes: [IconPack.material],
+                  ),
+                );
                 if (icon != null) {
                   setState(() {
                     currentIcon = icon;
@@ -108,7 +114,7 @@ class TickTileHook extends HookConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(card.icon, size: 40.0),
+              Icon(card.icon.data, size: 40.0),
               Text(
                 card.name,
                 style: TextTheme.of(context).titleSmall,

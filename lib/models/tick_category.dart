@@ -7,8 +7,14 @@ part 'generated/tick_category.g.dart';
 const unknownTickCategory = TickCategoryModel(
   id: 'unknown',
   name: 'Unknown',
-  icon: Icons.question_mark,
+  icon: unknownTickIcon,
   color: Colors.grey,
+);
+
+const unknownTickIcon = IconPickerIcon(
+  name: 'unknown',
+  data: Icons.question_mark,
+  pack: IconPack.material,
 );
 
 @immutable
@@ -21,7 +27,7 @@ class TickCategoryModel {
     fromJson: _deserializeIcon,
     toJson: serializeIcon,
   )
-  final IconData icon;
+  final IconPickerIcon icon;
 
   @JsonKey(
     fromJson: _deserializeColor,
@@ -42,9 +48,9 @@ class TickCategoryModel {
 
   Map<String, dynamic> toJson() => _$TickCategoryModelToJson(this);
 
-  static IconData _deserializeIcon(Map<String, dynamic> map) {
-    final iconData = deserializeIcon(map, iconPack: IconPack.material);
-    return iconData ?? const IconData(58287);
+  static IconPickerIcon _deserializeIcon(Map<String, dynamic> map) {
+    final iconData = deserializeIcon(map);
+    return iconData ?? unknownTickIcon;
   }
 
   static Color _deserializeColor(String hexColor) {
