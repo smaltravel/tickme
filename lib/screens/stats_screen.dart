@@ -47,56 +47,10 @@ class NoDataPlaceHolder extends StatelessWidget {
   }
 }
 
-class PieChartCard extends ConsumerWidget {
+class ChartWithLegendWidget extends ConsumerWidget {
   final Map<String, double> dataMap;
 
-  const PieChartCard({super.key, required this.dataMap});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final categories = ref.watch(tickCategoriesProvider);
-
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Card(
-        color: Colors.white,
-        child: Container(
-          margin: const EdgeInsets.all(8.0),
-          child: AspectRatio(
-            aspectRatio: 1.5,
-            child: PieChart(
-              PieChartData(
-                sections: _buildSections(categories),
-                borderData: FlBorderData(show: false),
-                sectionsSpace: 0,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  List<PieChartSectionData> _buildSections(TickCategoriesStorage categories) =>
-      dataMap.entries.map((e) {
-        final category = categories.firstWhere(
-          (c) => c.id == e.key,
-          orElse: () => unknownTickCategory,
-        );
-
-        return PieChartSectionData(
-          value: e.value,
-          color: category.color,
-          badgeWidget: Icon(category.icon),
-          showTitle: false,
-        );
-      }).toList();
-}
-
-class PieChartLegendCard extends ConsumerWidget {
-  final Map<String, double> dataMap;
-
-  const PieChartLegendCard({super.key, required this.dataMap});
+  const ChartWithLegendWidget({super.key, required this.dataMap});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -105,27 +59,33 @@ class PieChartLegendCard extends ConsumerWidget {
     return SingleChildScrollView(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Card(
-            color: Colors.white,
-            // child: SizedBox.expand(
-            //   child: ListView(
-            //     scrollDirection: Axis.horizontal,
-            //     children: _buildLegend(categories),
-            //   ),
-            // ),
-            // child: Container(
-            //   margin: const EdgeInsets.all(8.0),
-            //   child: const SizedBox.expand(
-            //     child: SizedBox(
-            //       height: 30,
-            //       width: 30,
-            //       child: Text('hello'),
-            //     ),
-            //   ),
-            // ),
-            child: Column(
-              children: [..._buildLegend(categories)],
-            )),
+        child: Column(
+          spacing: 8.0,
+          children: [
+            Card(
+              color: Colors.white,
+              child: Container(
+                margin: const EdgeInsets.all(8.0),
+                child: AspectRatio(
+                  aspectRatio: 1.5,
+                  child: PieChart(
+                    PieChartData(
+                      sections: _buildSections(categories),
+                      borderData: FlBorderData(show: false),
+                      sectionsSpace: 0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Card(
+              color: Colors.white,
+              child: Column(
+                children: <Widget>[..._buildLegend(categories)],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -162,6 +122,21 @@ class PieChartLegendCard extends ConsumerWidget {
 
     return data.where((e) => e != null).join(' ');
   }
+
+  List<PieChartSectionData> _buildSections(TickCategoriesStorage categories) =>
+      dataMap.entries.map((e) {
+        final category = categories.firstWhere(
+          (c) => c.id == e.key,
+          orElse: () => unknownTickCategory,
+        );
+
+        return PieChartSectionData(
+          value: e.value,
+          color: category.color,
+          badgeWidget: Icon(category.icon),
+          showTitle: false,
+        );
+      }).toList();
 }
 
 class StatsScreen extends ConsumerWidget {
@@ -208,8 +183,8 @@ class StatsScreen extends ConsumerWidget {
         ),
         ...<Widget>[
           if (dataMap.isEmpty) const NoDataPlaceHolder(),
-          if (dataMap.isNotEmpty) PieChartCard(dataMap: dataMap),
-          if (dataMap.isNotEmpty) PieChartLegendCard(dataMap: dataMap),
+          if (dataMap.isNotEmpty)
+            Expanded(child: ChartWithLegendWidget(dataMap: dataMap)),
         ],
       ],
     );
