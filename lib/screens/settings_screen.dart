@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tickme/l10n/app_localizations.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/providers/csv_export_service_provider.dart';
@@ -56,12 +57,13 @@ class SettingsScreen extends ConsumerWidget {
 
             final csvExportService = ref.watch(csvExportServiceProvider);
             final filePath = await csvExportService.exportToCsv();
+            final shareResult = await SharePlus.instance.share(ShareParams(
+              files: [XFile(filePath)],
+            ));
 
-            if (filePath != null) {
+            if (shareResult.status == ShareResultStatus.success) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content:
-                        Text(context.loc.settings_data_exported(filePath))),
+                SnackBar(content: Text('CSV data exported')),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
