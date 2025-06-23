@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/screens/home_screen.dart';
@@ -63,6 +64,11 @@ class ShellWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return PopScope(
       canPop: canPop,
       child: Scaffold(
