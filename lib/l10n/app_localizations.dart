@@ -193,8 +193,8 @@ abstract class AppLocalizations {
   /// No description provided for @settings_data_exported.
   ///
   /// In en, this message translates to:
-  /// **'Data exported to {filePath}'**
-  String settings_data_exported(String filePath);
+  /// **'CSV data exported'**
+  String get settings_data_exported;
 
   /// No description provided for @settings_failed_to_export_data.
   ///

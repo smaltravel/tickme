@@ -15,14 +15,7 @@
   "settings_confirm_removing_content": "Sind Sie sicher, dass Sie alle Daten entfernen möchten?",
   "settings_export_to_csv": "Exportieren nach CSV",
   "settings_exporting_data": "Daten werden exportiert...",
-  "settings_data_exported": "Daten exportiert nach {filePath}",
-  "@settings_data_exported": {
-    "placeholders": {
-      "filePath": {
-        "type": "String"
-      }
-    }
-  },
+  "settings_data_exported": "CSV-Daten exportiert",
   "settings_failed_to_export_data": "Fehler beim Exportieren der Daten",
   "settings_language": "Sprache",
   "bottom_bar_home": "Home",

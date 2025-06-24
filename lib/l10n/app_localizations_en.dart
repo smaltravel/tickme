@@ -55,9 +55,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_exporting_data => 'Exporting data...';
 
   @override
-  String settings_data_exported(String filePath) {
-    return 'Data exported to $filePath';
-  }
+  String get settings_data_exported => 'CSV data exported';
 
   @override
   String get settings_failed_to_export_data => 'Failed to export data';

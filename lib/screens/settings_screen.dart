@@ -63,7 +63,7 @@ class SettingsScreen extends ConsumerWidget {
 
             if (shareResult.status == ShareResultStatus.success) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('CSV data exported')),
+                SnackBar(content: Text(context.loc.settings_data_exported)),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(

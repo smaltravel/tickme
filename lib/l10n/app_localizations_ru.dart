@@ -55,9 +55,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settings_exporting_data => 'Экспорт данных...';
 
   @override
-  String settings_data_exported(String filePath) {
-    return 'Данные экспортированы в $filePath';
-  }
+  String get settings_data_exported => 'CSV данные экспортированы';
 
   @override
   String get settings_failed_to_export_data =>
