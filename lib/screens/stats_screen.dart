@@ -1,3 +1,4 @@
+import 'package:duration/duration.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -55,6 +56,8 @@ class ChartWithLegendWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categories = ref.watch(tickCategoriesProvider);
+    final wholeTime =
+        dataMap.values.reduce((value, element) => value + element);
 
     return SingleChildScrollView(
       child: Container(
@@ -70,7 +73,7 @@ class ChartWithLegendWidget extends ConsumerWidget {
                   aspectRatio: 1.5,
                   child: PieChart(
                     PieChartData(
-                      sections: _buildSections(categories),
+                      sections: _buildSections(categories, wholeTime),
                       borderData: FlBorderData(show: false),
                       sectionsSpace: 0,
                     ),
@@ -103,27 +106,15 @@ class ChartWithLegendWidget extends ConsumerWidget {
               backgroundColor: category.color,
             ),
             title: Text(category.name),
-            subtitle: Text(_fromDuration(Duration(seconds: e.value.toInt()))),
+            subtitle: Text(Duration(seconds: e.value.toInt())
+                .pretty(abbreviated: true, delimiter: ' ', spacer: '')),
             trailing: Icon(category.icon.data),
           );
         },
       ).toList();
 
-  String _fromDuration(Duration duration) {
-    String? transform(int val, String unit) =>
-        val != 0 ? val.toString() + unit : null;
-
-    final data = [
-      transform(duration.inDays, 'd'),
-      transform(duration.inHours % 24, 'h'),
-      transform(duration.inMinutes % 60, 'm'),
-      transform(duration.inSeconds % 60, 's')
-    ];
-
-    return data.where((e) => e != null).join(' ');
-  }
-
-  List<PieChartSectionData> _buildSections(TickCategoriesStorage categories) =>
+  List<PieChartSectionData> _buildSections(
+          TickCategoriesStorage categories, double wholeTime) =>
       dataMap.entries.map((e) {
         final category = categories.firstWhere(
           (c) => c.id == e.key,
@@ -133,7 +124,8 @@ class ChartWithLegendWidget extends ConsumerWidget {
         return PieChartSectionData(
           value: e.value,
           color: category.color,
-          badgeWidget: Icon(category.icon.data),
+          badgeWidget:
+              e.value / wholeTime > 0.05 ? Icon(category.icon.data) : null,
           showTitle: false,
         );
       }).toList();

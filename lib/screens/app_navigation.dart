@@ -25,7 +25,6 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      backgroundColor: Colors.white,
       onDestinationSelected: (int index) {
         setState(() {
           currentPageIndex = index;
@@ -40,11 +39,11 @@ class _BottomBarState extends State<BottomBar> {
           label: context.loc.bottom_bar_home,
         ),
         NavigationDestination(
-          icon: const Icon(Icons.pie_chart),
+          icon: const Icon(Icons.pie_chart_outline),
           label: context.loc.bottom_bar_stats,
         ),
         NavigationDestination(
-          icon: const Icon(Icons.settings),
+          icon: const Icon(Icons.settings_outlined),
           label: context.loc.bottom_bar_settings,
         ),
       ],
@@ -72,12 +71,8 @@ class ShellWrapper extends StatelessWidget {
     return PopScope(
       canPop: canPop,
       child: Scaffold(
-        backgroundColor: const Color(0xfff8fafc),
         appBar: AppBar(
-          title: Text(
-            'Tickme',
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
+          title: Text('Tickme'),
         ),
         bottomNavigationBar: const BottomBar(),
         body: child,

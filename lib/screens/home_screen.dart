@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconpicker/Models/configuration.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tickme/common/tickme_light_theme.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/models/active_timer.dart';
 import 'package:tickme/models/tick_category.dart';
@@ -100,14 +101,8 @@ class TickTileHook extends HookConsumerWidget {
       onTap: () => _startStopTimer(ref, card, activeTimer),
       onLongPress: () => _showNewUpdateTickCategoryDialog(context, ref, card),
       child: Card(
-        color: isActive ? Colors.lightBlueAccent.shade100 : null,
-        shape: isActive
-            ? RoundedRectangleBorder(
-                side: BorderSide(
-                    color: Colors.lightBlueAccent.shade700, width: 2.0),
-                borderRadius: BorderRadius.circular(8.0),
-              )
-            : null,
+        color: isActive ? TickmeCardThemeData.selected.surfaceTintColor : null,
+        shape: isActive ? TickmeCardThemeData.selected.shape : null,
         child: Container(
           padding: const EdgeInsets.all(2.0),
           child: Column(
@@ -143,17 +138,39 @@ class TickTileHook extends HookConsumerWidget {
   }
 }
 
-class ElapsedTimeWidget extends ConsumerWidget {
-  final String categoryName;
+class TimeBlockAtom extends StatelessWidget {
+  final String val;
+  final double width;
 
-  const ElapsedTimeWidget({super.key, required this.categoryName});
+  const TimeBlockAtom({super.key, required this.val, required this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      child: Center(
+        child: Text(
+          val,
+          style: EstimatedTimerTextTheme.style,
+        ),
+      ),
+    );
+  }
+}
+
+class ElapsedTimeWidget extends ConsumerWidget {
+  final ActiveTimerModel activeTimer;
+
+  const ElapsedTimeWidget({super.key, required this.activeTimer});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final elapsedTime = ref.watch(elapsedTimeNotifierProvider);
+    final category = ref
+        .watch(tickCategoriesProvider)
+        .firstWhere((e) => e.id == activeTimer.categoryId);
 
-    return SizedBox(
-      width: double.infinity,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -161,14 +178,27 @@ class ElapsedTimeWidget extends ConsumerWidget {
             ListTile(
               title: Text(
                 context.loc.home_active_timer,
-                style: TextTheme.of(context).headlineMedium,
+                style: TextTheme.of(context).titleMedium,
               ),
-              subtitle: Text(categoryName),
+              subtitle: Text(category.name),
             ),
             Center(
-              child: Text(
-                _formatDuration(elapsedTime),
-                style: TextTheme.of(context).headlineMedium,
+              child: StreamBuilder<DateTime>(
+                initialData: DateTime.now(),
+                stream: Stream.periodic(
+                    const Duration(seconds: 1), (_) => DateTime.now()),
+                builder: (context, snapshot) => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: _formatDuration(
+                          snapshot.data!.difference(activeTimer.start))
+                      .asMap()
+                      .entries
+                      .map((e) => TimeBlockAtom(
+                            val: e.value,
+                            width: e.key % 2 == 0 ? 50.0 : 5,
+                          ))
+                      .toList(),
+                ),
               ),
             ),
             TextButton(
@@ -178,7 +208,10 @@ class ElapsedTimeWidget extends ConsumerWidget {
               ),
               child: Text(
                 context.loc.home_stop,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                ),
               ),
             ),
           ],
@@ -187,11 +220,11 @@ class ElapsedTimeWidget extends ConsumerWidget {
     );
   }
 
-  String _formatDuration(Duration duration) {
+  List<String> _formatDuration(Duration duration) {
     final hours = duration.inHours.toString().padLeft(2, '0');
     final minutes = (duration.inMinutes % 60).toString().padLeft(2, '0');
     final seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
-    return '$hours:$minutes:$seconds';
+    return [hours, ':', minutes, ':', seconds];
   }
 }
 
@@ -245,9 +278,8 @@ class HomeScreen extends ConsumerWidget {
       children: [
         if (activeTimer != null)
           ElapsedTimeWidget(
-              categoryName: ticks
-                  .singleWhere((t) => t.id == activeTimer.categoryId)
-                  .name),
+            activeTimer: activeTimer,
+          ),
         SingleChildScrollView(
           child: Wrap(
             runSpacing: _runSpacing,

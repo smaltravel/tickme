@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tickme/common/tickme_light_theme.dart';
 import 'package:tickme/l10n/app_localizations.dart';
 import 'package:tickme/providers/locale_provider.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
@@ -26,9 +27,7 @@ class TickmeApp extends ConsumerWidget {
     final locale = ref.watch(localeServiceProvider);
     return MaterialApp.router(
       title: 'Tickme',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: TickMeLightTheme.theme,
       routerConfig: AppNavigation.router,
       localizationsDelegates: const [
         AppLocalizations.delegate,
