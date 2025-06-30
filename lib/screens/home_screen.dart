@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconpicker/Models/configuration.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tickme/assets/icon_pack.dart';
 import 'package:tickme/common/tickme_light_theme.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/models/active_timer.dart';
@@ -44,7 +45,10 @@ Future<void> _showNewUpdateTickCategoryDialog(
                 IconPickerIcon? icon = await showIconPicker(
                   context,
                   configuration: SinglePickerConfiguration(
-                    iconPackModes: [IconPack.material],
+                    showTooltips: false,
+                    showSearchBar: false,
+                    iconPackModes: [IconPack.custom],
+                    customIconPack: categoriesIconPack,
                   ),
                 );
                 if (icon != null) {
