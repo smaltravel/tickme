@@ -3,6 +3,9 @@
   "add": "Добавить",
   "cancel": "Отмена",
   "remove": "Удалить",
+  "day": "День",
+  "week": "Неделя",
+  "month": "Месяц",
   "home_edit_category_update": "Обновить",
   "home_edit_category": "Редактировать категорию",
   "home_edit_category_name": "имя",
@@ -20,5 +23,6 @@
   "settings_language": "Язык",
   "bottom_bar_home": "Главная",
   "bottom_bar_stats": "Диаграмма",
-  "bottom_bar_settings": "Настройки"
+  "bottom_bar_settings": "Настройки",
+  "stats_no_data": "Нет данных"
 }

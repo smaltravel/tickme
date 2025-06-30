@@ -18,6 +18,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get remove => 'Remove';
 
   @override
+  String get day => 'Day';
+
+  @override
+  String get week => 'Week';
+
+  @override
+  String get month => 'Month';
+
+  @override
   String get home_edit_category_update => 'Update';
 
   @override
@@ -71,4 +80,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bottom_bar_settings => 'Settings';
+
+  @override
+  String get stats_no_data => 'No Data Yet';
 }

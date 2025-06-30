@@ -118,6 +118,24 @@ abstract class AppLocalizations {
   /// **'Remove'**
   String get remove;
 
+  /// No description provided for @day.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get day;
+
+  /// No description provided for @week.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get week;
+
+  /// No description provided for @month.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get month;
+
   /// No description provided for @home_edit_category_update.
   ///
   /// In en, this message translates to:
@@ -225,6 +243,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get bottom_bar_settings;
+
+  /// No description provided for @stats_no_data.
+  ///
+  /// In en, this message translates to:
+  /// **'No Data Yet'**
+  String get stats_no_data;
 }
 
 class _AppLocalizationsDelegate

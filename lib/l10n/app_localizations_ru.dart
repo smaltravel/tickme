@@ -18,6 +18,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get remove => 'Удалить';
 
   @override
+  String get day => 'День';
+
+  @override
+  String get week => 'Неделя';
+
+  @override
+  String get month => 'Месяц';
+
+  @override
   String get home_edit_category_update => 'Обновить';
 
   @override
@@ -72,4 +81,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get bottom_bar_settings => 'Настройки';
+
+  @override
+  String get stats_no_data => 'Нет данных';
 }

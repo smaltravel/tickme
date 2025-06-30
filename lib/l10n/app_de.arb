@@ -3,6 +3,9 @@
   "add": "Hinzufügen",
   "cancel": "Abbrechen",
   "remove": "Entfernen",
+  "day": "Tag",
+  "week": "Woche",
+  "month": "Monat",
   "home_edit_category_update": "Aktualisieren",
   "home_edit_category": "Kategorie bearbeiten",
   "home_edit_category_name": "Name",
@@ -20,5 +23,6 @@
   "settings_language": "Sprache",
   "bottom_bar_home": "Home",
   "bottom_bar_stats": "Kreisdiagramm",
-  "bottom_bar_settings": "Einstellungen"
+  "bottom_bar_settings": "Einstellungen",
+  "stats_no_data": "Keine Daten vorhanden"
 }

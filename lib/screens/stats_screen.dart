@@ -2,6 +2,7 @@ import 'package:duration/duration.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/models/time_entry.dart';
 import 'package:tickme/models/time_range.dart';
@@ -39,7 +40,7 @@ class NoDataPlaceHolder extends StatelessWidget {
             ),
           ),
           Text(
-            'No Data Yet',
+            context.loc.stats_no_data,
             style: TextTheme.of(context).headlineSmall,
           ),
         ],
@@ -147,20 +148,20 @@ class StatsScreen extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         SegmentedButton(
-          segments: const <ButtonSegment<Calendar>>[
+          segments: <ButtonSegment<Calendar>>[
             ButtonSegment<Calendar>(
               value: Calendar.day,
-              label: Text('Day'),
+              label: Text(context.loc.day),
               icon: Icon(Icons.calendar_today),
             ),
             ButtonSegment<Calendar>(
               value: Calendar.week,
-              label: Text('Week'),
+              label: Text(context.loc.week),
               icon: Icon(Icons.calendar_view_week),
             ),
             ButtonSegment<Calendar>(
               value: Calendar.month,
-              label: Text('Month'),
+              label: Text(context.loc.month),
               icon: Icon(Icons.calendar_month),
             ),
           ],

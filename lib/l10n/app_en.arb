@@ -3,6 +3,9 @@
   "add": "Add",
   "cancel": "Cancel",
   "remove": "Remove",
+  "day": "Day",
+  "week": "Week",
+  "month": "Month",
   "home_edit_category_update": "Update",
   "home_edit_category": "Edit Category",
   "home_edit_category_name": "name",
@@ -20,5 +23,6 @@
   "settings_language": "Language",
   "bottom_bar_home": "Home",
   "bottom_bar_stats": "Pie Chart",
-  "bottom_bar_settings": "Settings"
+  "bottom_bar_settings": "Settings",
+  "stats_no_data": "No Data Yet"
 }
