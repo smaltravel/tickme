@@ -402,4 +402,54 @@ const Map<String, IconPickerIcon> categoriesIconPack = {
     data: Icons.bedtime,
     pack: IconPack.material,
   ),
+  'business': IconPickerIcon(
+    name: 'business',
+    data: Icons.business,
+    pack: IconPack.material,
+  ),
+  'computer': IconPickerIcon(
+    name: 'computer',
+    data: Icons.computer,
+    pack: IconPack.material,
+  ),
+  'tiktok': IconPickerIcon(
+    name: 'tiktok',
+    data: Icons.tiktok,
+    pack: IconPack.material,
+  ),
+  'explore': IconPickerIcon(
+    name: 'explore',
+    data: Icons.explore,
+    pack: IconPack.material,
+  ),
+  'people': IconPickerIcon(
+    name: 'people',
+    data: Icons.people,
+    pack: IconPack.material,
+  ),
+  'school': IconPickerIcon(
+    name: 'school',
+    data: Icons.school,
+    pack: IconPack.material,
+  ),
+  'science': IconPickerIcon(
+    name: 'science',
+    data: Icons.science,
+    pack: IconPack.material,
+  ),
+  'sports': IconPickerIcon(
+    name: 'sports',
+    data: Icons.sports,
+    pack: IconPack.material,
+  ),
+  'key': IconPickerIcon(
+    name: 'key',
+    data: Icons.key,
+    pack: IconPack.material,
+  ),
+  'phone_enabled': IconPickerIcon(
+    name: 'phone_enabled',
+    data: Icons.phone_enabled,
+    pack: IconPack.material,
+  ),
 };
