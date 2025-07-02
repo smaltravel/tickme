@@ -84,4 +84,8 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get stats_no_data => 'Нет данных';
+
+  @override
+  String get app_description =>
+      'Простое приложение для отслеживания времени, призванное помочь вам отслеживать и анализировать, как вы тратите свое время на различные виды деятельности.';
 }

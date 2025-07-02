@@ -84,4 +84,8 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get stats_no_data => 'Keine Daten vorhanden';
+
+  @override
+  String get app_description =>
+      'Eine einfache Anwendung zur Zeiterfassung, mit der Sie überwachen und analysieren können, wie Sie Ihre Zeit bei verschiedenen Aktivitäten verbringen.';
 }

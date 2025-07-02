@@ -24,5 +24,6 @@
   "bottom_bar_home": "Home",
   "bottom_bar_stats": "Pie Chart",
   "bottom_bar_settings": "Settings",
-  "stats_no_data": "No Data Yet"
+  "stats_no_data": "No Data Yet",
+  "app_description": "A simple time tracking application designed to help you monitor and analyze how you spend your time across different activities."
 }

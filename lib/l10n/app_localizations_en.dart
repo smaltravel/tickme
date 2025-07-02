@@ -83,4 +83,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stats_no_data => 'No Data Yet';
+
+  @override
+  String get app_description =>
+      'A simple time tracking application designed to help you monitor and analyze how you spend your time across different activities.';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tickme/l10n/app_localizations.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
@@ -17,6 +18,23 @@ class SettingsScreen extends ConsumerWidget {
     final locale = ref.watch(localeServiceProvider);
     return ListView(
       children: [
+        FutureBuilder(
+            future: PackageInfo.fromPlatform(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListTile(
+                  title: Text(
+                      '${snapshot.data!.appName} ${snapshot.data!.version}'),
+                  leading: Image.asset('assets/app/icon.webp'),
+                  subtitle: Text(context.loc.app_description),
+                );
+              } else {
+                // Displaying LoadingSpinner to indicate waiting state
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }),
         ListTile(
           title: Text(context.loc.settings_remove_data),
           trailing: const Icon(Icons.delete_forever),

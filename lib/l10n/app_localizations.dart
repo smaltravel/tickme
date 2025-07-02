@@ -249,6 +249,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Data Yet'**
   String get stats_no_data;
+
+  /// No description provided for @app_description.
+  ///
+  /// In en, this message translates to:
+  /// **'A simple time tracking application designed to help you monitor and analyze how you spend your time across different activities.'**
+  String get app_description;
 }
 
 class _AppLocalizationsDelegate

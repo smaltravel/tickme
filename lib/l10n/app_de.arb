@@ -24,5 +24,6 @@
   "bottom_bar_home": "Home",
   "bottom_bar_stats": "Kreisdiagramm",
   "bottom_bar_settings": "Einstellungen",
-  "stats_no_data": "Keine Daten vorhanden"
+  "stats_no_data": "Keine Daten vorhanden",
+  "app_description": "Eine einfache Anwendung zur Zeiterfassung, mit der Sie überwachen und analysieren können, wie Sie Ihre Zeit bei verschiedenen Aktivitäten verbringen."
 }
