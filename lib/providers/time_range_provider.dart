@@ -1,19 +1,18 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tickme/constants/shared_prefs_keys.dart';
 import 'package:tickme/models/time_range.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
 
 part 'generated/time_range_provider.g.dart';
 
-const _sharedPrefKey = 'time_range';
+const _defaultRange = Calendar.day;
 
 @Riverpod(keepAlive: true)
 class TimeRangeNotifier extends _$TimeRangeNotifier {
-  static const _defaultRange = Calendar.day;
-
   @override
   TimeRangeModel build() {
     final pref = ref.watch(sharedPreferencesProvider);
-    final data = pref.getString(_sharedPrefKey);
+    final data = pref.getString(SharedPrefsKeys.timeRange);
     final currentState = data != null
         ? Calendar.values.firstWhere(
             (e) => e.name == data,
@@ -22,7 +21,7 @@ class TimeRangeNotifier extends _$TimeRangeNotifier {
         : _defaultRange;
 
     ref.listenSelf((_, TimeRangeModel curr) =>
-        pref.setString(_sharedPrefKey, curr.calendar.name));
+        pref.setString(SharedPrefsKeys.timeRange, curr.calendar.name));
 
     return _calculateRange(currentState);
   }

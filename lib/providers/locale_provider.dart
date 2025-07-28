@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tickme/constants/shared_prefs_keys.dart';
 import 'package:tickme/l10n/app_localizations.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
-
-const _sharedPrefKey = 'app_language';
 
 final localeServiceProvider =
     NotifierProvider<LocaleService, Locale>(LocaleService.new);
@@ -24,11 +23,11 @@ class LocaleService extends Notifier<Locale> {
   Locale build() {
     final prefs = ref.watch(sharedPreferencesProvider);
 
-    ref.listenSelf(
-        (_, curr) => prefs.setString(_sharedPrefKey, curr.languageCode));
+    ref.listenSelf((_, curr) =>
+        prefs.setString(SharedPrefsKeys.appLanguage, curr.languageCode));
 
     return _lookupLocaleOrDefault(
-        prefs.getString(_sharedPrefKey) ?? _defaultLocale);
+        prefs.getString(SharedPrefsKeys.appLanguage) ?? _defaultLocale);
   }
 
   void setLocale(String localeName) =>

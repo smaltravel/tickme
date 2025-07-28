@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/Models/icon_picker_icon.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tickme/constants/shared_prefs_keys.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/database_provider.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
@@ -10,7 +11,6 @@ import 'package:uuid/uuid.dart';
 
 part 'generated/tick_categories_provider.g.dart';
 
-const _sharedPrefKey = 'categories_list';
 const _uuid = Uuid();
 
 typedef TickCategoriesStorage = List<TickCategoryModel>;
@@ -22,8 +22,9 @@ class TickCategories extends _$TickCategories {
     final pref = ref.watch(sharedPreferencesProvider);
     final curr = <TickCategoryModel>[];
 
-    for (final entry in (jsonDecode(pref.getString(_sharedPrefKey) ?? '[]')
-        as List<dynamic>)) {
+    for (final entry
+        in (jsonDecode(pref.getString(SharedPrefsKeys.categoriesList) ?? '[]')
+            as List<dynamic>)) {
       final e = Map<String, dynamic>.from(entry);
       e['color'] = entry['color'] ??
           TickCategoryModel.serializeColor(
@@ -31,8 +32,8 @@ class TickCategories extends _$TickCategories {
       curr.add(TickCategoryModel.fromJson(e));
     }
 
-    ref.listenSelf(
-        (_, curr) => pref.setString(_sharedPrefKey, jsonEncode(curr)));
+    ref.listenSelf((_, curr) =>
+        pref.setString(SharedPrefsKeys.categoriesList, jsonEncode(curr)));
 
     return curr;
   }

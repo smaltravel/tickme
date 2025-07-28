@@ -6,7 +6,7 @@ part of '../time_range_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$timeRangeNotifierHash() => r'5cabe83bbf6f777629e056af7565f0011d847e10';
+String _$timeRangeNotifierHash() => r'0860aa75b45f26e7043b31714d77bbb69f180ce0';
 
 /// See also [TimeRangeNotifier].
 @ProviderFor(TimeRangeNotifier)

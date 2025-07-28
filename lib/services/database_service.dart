@@ -1,12 +1,10 @@
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:tickme/constants/database_constants.dart';
 import 'package:tickme/models/time_entry.dart';
 
 class DatabaseService {
   static Database? _database;
-  static const String _dbName = 'tickme.db';
-  static const int _dbVersion = 1;
-  static const String _tableName = 'time_entries';
 
   static Future<Database> get database async {
     if (_database != null) return _database!;
@@ -15,20 +13,14 @@ class DatabaseService {
   }
 
   static Future<Database> _initDatabase() async {
-    final path = '${await getApplicationCacheDirectory()}$_dbName';
+    final path =
+        '${await getApplicationCacheDirectory()}${DatabaseConstants.dbName}';
 
     return await openDatabase(
       path,
-      version: _dbVersion,
+      version: DatabaseConstants.dbVersion,
       onCreate: (db, version) async {
-        await db.execute('''
-          CREATE TABLE $_tableName (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            categoryId STRING NOT NULL UNIQUE,
-            startTime STRING NOT NULL,
-            endTime STRING NOT NULL
-          )
-        ''');
+        await db.execute(DatabaseConstants.createTimeEntriesTable);
       },
     );
   }
@@ -38,7 +30,7 @@ class DatabaseService {
   static Future<int> insertTimeEntry(TimeEntryModel entry) async {
     final db = await database;
     return await db.insert(
-      _tableName,
+      DatabaseConstants.timeEntriesTable,
       entry.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -47,24 +39,23 @@ class DatabaseService {
   static Future<int> removeEntriesByCategoryId(String categoryId) async {
     final db = await database;
     return await db.delete(
-      _tableName,
-      where: 'categoryId = ?',
+      DatabaseConstants.timeEntriesTable,
+      where: '${DatabaseConstants.categoryIdColumn} = ?',
       whereArgs: [categoryId],
     );
   }
 
   static Future<int> eraseAllEntries() async {
     final db = await database;
-    return await db.delete(_tableName);
+    return await db.delete(DatabaseConstants.timeEntriesTable);
   }
 
   static Future<List<TimeEntryModel>> readTimeEntriesPartition(
       int offset, int limit) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
-      _tableName,
-      orderBy:
-          'startTime DESC', // Order by start time for consistent pagination
+      DatabaseConstants.timeEntriesTable,
+      orderBy: DatabaseConstants.orderByStartTime,
       limit: limit,
       offset: offset,
     );
@@ -76,7 +67,7 @@ class DatabaseService {
 
   static Future<int> countAllEntries() async {
     final db = await database;
-    final result = await db.rawQuery('SELECT COUNT(*) FROM $_tableName');
+    final result = await db.rawQuery(DatabaseConstants.countAllEntries);
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
@@ -84,16 +75,15 @@ class DatabaseService {
       DateTime start, DateTime end) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
-      _tableName,
-      where:
-          'startTime >= ? AND endTime >= ? AND startTime <= ? AND endTime <= ?',
+      DatabaseConstants.timeEntriesTable,
+      where: DatabaseConstants.selectTimeEntriesByRange,
       whereArgs: [
         start.toIso8601String(),
         start.toIso8601String(),
         end.toIso8601String(),
         end.toIso8601String()
       ],
-      orderBy: 'startTime DESC',
+      orderBy: DatabaseConstants.orderByStartTime,
     );
 
     return List.generate(maps.length, (i) {
