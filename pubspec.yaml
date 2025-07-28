@@ -2,7 +2,7 @@ name: tickme
 description: A simple time tracking app. Powered by AI. Verified by human.
 
 publish_to: none
-version: 1.0.0
+version: 1.0.1
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
