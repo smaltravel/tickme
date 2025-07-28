@@ -15,7 +15,7 @@ class DatabaseService {
   }
 
   static Future<Database> _initDatabase() async {
-    final path = '${await getApplicationDocumentsDirectory()}$_dbName';
+    final path = '${await getApplicationCacheDirectory()}$_dbName';
 
     return await openDatabase(
       path,
