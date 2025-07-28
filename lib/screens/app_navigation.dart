@@ -54,12 +54,29 @@ class _BottomBarState extends State<BottomBar> {
 class ShellWrapper extends StatelessWidget {
   const ShellWrapper({
     required this.child,
+    required this.state,
     bool? canPop,
     super.key,
   }) : canPop = canPop ?? false;
 
   final bool canPop;
   final Widget child;
+  final GoRouterState state;
+
+  String _getCurrentPageName(BuildContext context) {
+    final location = state.uri.path;
+
+    switch (location) {
+      case HomeScreen.routeName:
+        return context.loc.bottom_bar_home;
+      case StatsScreen.routeName:
+        return context.loc.bottom_bar_stats;
+      case SettingsScreen.routeName:
+        return context.loc.bottom_bar_settings;
+      default:
+        return 'Tickme';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +89,7 @@ class ShellWrapper extends StatelessWidget {
       canPop: canPop,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Tickme'),
+          title: Text(_getCurrentPageName(context)),
         ),
         bottomNavigationBar: const BottomBar(),
         body: child,
@@ -108,7 +125,8 @@ class AppNavigation {
                 color: Color(0xFFF1F5F9), child: SettingsScreen()),
           )
         ],
-        builder: (context, state, child) => ShellWrapper(child: child),
+        builder: (context, state, child) =>
+            ShellWrapper(state: state, child: child),
       ),
     ],
   );
