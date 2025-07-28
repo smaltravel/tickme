@@ -6,7 +6,7 @@ part of '../database_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$databaseStateHash() => r'436a9f24a93a5fa438438609a78bcc8dffede7a3';
+String _$databaseStateHash() => r'bdad2eeb4896bd9eef9ec4a52156d911182459b9';
 
 /// See also [DatabaseState].
 @ProviderFor(DatabaseState)

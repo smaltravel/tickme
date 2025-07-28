@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tickme/models/time_entry.dart';
+import 'package:tickme/providers/repository_provider.dart';
 import 'package:tickme/providers/time_range_provider.dart';
-import 'package:tickme/services/database_service.dart';
 
 part 'generated/database_provider.g.dart';
 
@@ -18,28 +19,57 @@ class DatabaseState extends _$DatabaseState {
   @override
   Future<TimeEntries> build() async {
     final range = ref.watch(timeRangeNotifierProvider);
-    return await DatabaseService.getTimeEntriesByRange(range.start, range.end);
+    final repository = ref.watch(timeEntryRepositoryProvider);
+
+    try {
+      return await repository.getTimeEntriesByRange(range.start, range.end);
+    } catch (e) {
+      // Log error for debugging
+      debugPrint('DatabaseState build error: $e');
+      rethrow;
+    }
   }
 
   Future<void> insertTimeEntry(TimeEntryModel data) async {
-    await DatabaseService.insertTimeEntry(data);
-    final range = ref.read(timeRangeNotifierProvider);
-    state = AsyncData(
-        await DatabaseService.getTimeEntriesByRange(range.start, range.end));
+    final repository = ref.read(timeEntryRepositoryProvider);
+
+    try {
+      await repository.insertTimeEntry(data);
+      final range = ref.read(timeRangeNotifierProvider);
+      state = AsyncData(
+          await repository.getTimeEntriesByRange(range.start, range.end));
+    } catch (e) {
+      debugPrint('insertTimeEntry error: $e');
+      state = AsyncError(e, StackTrace.current);
+    }
   }
 
   Future<void> removeEntriesByCategoryId(String categoryId) async {
-    await DatabaseService.removeEntriesByCategoryId(categoryId);
-    final range = ref.read(timeRangeNotifierProvider);
-    state = AsyncData(
-        await DatabaseService.getTimeEntriesByRange(range.start, range.end));
+    final repository = ref.read(timeEntryRepositoryProvider);
+
+    try {
+      await repository.removeEntriesByCategoryId(categoryId);
+      final range = ref.read(timeRangeNotifierProvider);
+      state = AsyncData(
+          await repository.getTimeEntriesByRange(range.start, range.end));
+    } catch (e) {
+      debugPrint('removeEntriesByCategoryId error: $e');
+      state = AsyncError(e, StackTrace.current);
+    }
   }
 
   Future<void> eraseAllEntries() async {
-    await DatabaseService.eraseAllEntries();
-    final range = ref.read(timeRangeNotifierProvider);
-    state = AsyncData(
-        await DatabaseService.getTimeEntriesByRange(range.start, range.end));
+    final repository = ref.read(timeEntryRepositoryProvider);
+
+    try {
+      await repository.eraseAllEntries();
+      final range = ref.read(timeRangeNotifierProvider);
+      state = AsyncData(
+          await repository.getTimeEntriesByRange(range.start, range.end));
+    } catch (e) {
+      debugPrint('eraseAllEntries error: $e');
+      state = AsyncError(e, StackTrace.current);
+    }
   }
 }
 
