@@ -1,3 +1,4 @@
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tickme/models/time_entry.dart';
 
@@ -14,7 +15,7 @@ class DatabaseService {
   }
 
   static Future<Database> _initDatabase() async {
-    final path = '${await getDatabasesPath()}$_dbName';
+    final path = '${await getApplicationDocumentsDirectory()}$_dbName';
 
     return await openDatabase(
       path,
