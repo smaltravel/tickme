@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tickme/common/tickme_light_theme.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/screens/home_screen.dart';
 import 'package:tickme/screens/settings_screen.dart';
