@@ -111,7 +111,7 @@ class _$TickCategoryModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _TickCategoryModel implements TickCategoryModel {
   const _TickCategoryModel(
-      {required this.id,
+      {this.id,
       required this.name,
       @JsonKey(fromJson: _deserializeIcon, toJson: serializeIcon)
       required this.icon,

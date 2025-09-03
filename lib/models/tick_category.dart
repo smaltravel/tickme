@@ -22,7 +22,7 @@ const unknownTickIcon = IconPickerIcon(
 @freezed
 abstract class TickCategoryModel with _$TickCategoryModel {
   const factory TickCategoryModel({
-    required int? id,
+    int? id,
     required String name,
     @JsonKey(
       fromJson: _deserializeIcon,
