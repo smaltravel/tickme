@@ -30,6 +30,7 @@ dependencies:
   share_plus: ^11.0.0
   duration: ^4.0.3
   package_info_plus: ^8.3.0
+  freezed_annotation: ^3.1.0
 
 dev_dependencies:
   build_runner: ^2.4.11
@@ -37,6 +38,7 @@ dev_dependencies:
     sdk: flutter
   riverpod_generator: ^2.4.0
   flutter_lints: ^6.0.0
+  freezed: ^3.1.0
 
 flutter:
   assets:
