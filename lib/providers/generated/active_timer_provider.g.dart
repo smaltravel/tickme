@@ -6,7 +6,7 @@ part of '../active_timer_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$activeTickHash() => r'216bdae485191e6e1ae7d563b252199a462d36d6';
+String _$activeTickHash() => r'121c32ec00adb653ed3ce63160c36cc930bdc75a';
 
 /// See also [ActiveTick].
 @ProviderFor(ActiveTick)
