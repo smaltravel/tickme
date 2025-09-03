@@ -8,7 +8,7 @@ part of '../active_timer.dart';
 
 _ActiveTimerModel _$ActiveTimerModelFromJson(Map<String, dynamic> json) =>
     _ActiveTimerModel(
-      categoryId: json['categoryId'] as String,
+      categoryId: (json['categoryId'] as num).toInt(),
       start: DateTime.parse(json['start'] as String),
     );
 

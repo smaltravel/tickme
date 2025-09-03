@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ActiveTimerModel {
-  String get categoryId;
+  int get categoryId;
   DateTime get start;
 
   /// Create a copy of ActiveTimerModel
@@ -54,7 +54,7 @@ abstract mixin class $ActiveTimerModelCopyWith<$Res> {
           ActiveTimerModel value, $Res Function(ActiveTimerModel) _then) =
       _$ActiveTimerModelCopyWithImpl;
   @useResult
-  $Res call({String categoryId, DateTime start});
+  $Res call({int categoryId, DateTime start});
 }
 
 /// @nodoc
@@ -77,7 +77,7 @@ class _$ActiveTimerModelCopyWithImpl<$Res>
       categoryId: null == categoryId
           ? _self.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       start: null == start
           ? _self.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -94,7 +94,7 @@ class _ActiveTimerModel implements ActiveTimerModel {
       _$ActiveTimerModelFromJson(json);
 
   @override
-  final String categoryId;
+  final int categoryId;
   @override
   final DateTime start;
 
@@ -141,7 +141,7 @@ abstract mixin class _$ActiveTimerModelCopyWith<$Res>
       __$ActiveTimerModelCopyWithImpl;
   @override
   @useResult
-  $Res call({String categoryId, DateTime start});
+  $Res call({int categoryId, DateTime start});
 }
 
 /// @nodoc
@@ -164,7 +164,7 @@ class __$ActiveTimerModelCopyWithImpl<$Res>
       categoryId: null == categoryId
           ? _self.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       start: null == start
           ? _self.start
           : start // ignore: cast_nullable_to_non_nullable

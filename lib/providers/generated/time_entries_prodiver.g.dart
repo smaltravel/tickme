@@ -1,25 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../active_timer_provider.dart';
+part of '../time_entries_prodiver.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$activeTickHash() => r'216bdae485191e6e1ae7d563b252199a462d36d6';
+String _$timeEntriesHash() => r'2ac04740ce0a2f5658313dae80c9ec6a03032864';
 
-/// See also [ActiveTick].
-@ProviderFor(ActiveTick)
-final activeTickProvider =
-    NotifierProvider<ActiveTick, ActiveTimerModel?>.internal(
-  ActiveTick.new,
-  name: r'activeTickProvider',
+/// See also [TimeEntries].
+@ProviderFor(TimeEntries)
+final timeEntriesProvider = AsyncNotifierProvider<TimeEntries, int>.internal(
+  TimeEntries.new,
+  name: r'timeEntriesProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$activeTickHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$timeEntriesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ActiveTick = Notifier<ActiveTimerModel?>;
+typedef _$TimeEntries = AsyncNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -26,7 +26,7 @@ class ActiveTick extends _$ActiveTick {
     return currentState;
   }
 
-  void run(String categoryId) {
+  void run(int categoryId) {
     state = ActiveTimerModel(categoryId: categoryId, start: DateTime.now());
   }
 

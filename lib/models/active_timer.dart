@@ -6,7 +6,7 @@ part 'generated/active_timer.g.dart';
 @freezed
 abstract class ActiveTimerModel with _$ActiveTimerModel {
   const factory ActiveTimerModel({
-    required String categoryId,
+    required int categoryId,
     required DateTime start,
   }) = _ActiveTimerModel;
 
