@@ -24,7 +24,7 @@ class TickmeApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(localeServiceProvider);
+    final locale = ref.watch(appLocaleProvider);
     return MaterialApp.router(
       title: 'Tickme',
       theme: TickMeLightTheme.theme,

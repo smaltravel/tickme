@@ -1,25 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../active_timer_provider.dart';
+part of '../locale_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$activeTickHash() => r'2120053aa7e60eeb16a9138d8ff5d10a6b0397cf';
+String _$appLocaleHash() => r'65eebeb9aedc1ead7a9453f991d2836cb89155f0';
 
-/// See also [ActiveTick].
-@ProviderFor(ActiveTick)
-final activeTickProvider =
-    NotifierProvider<ActiveTick, ActiveTimerModel?>.internal(
-  ActiveTick.new,
-  name: r'activeTickProvider',
+/// See also [AppLocale].
+@ProviderFor(AppLocale)
+final appLocaleProvider = NotifierProvider<AppLocale, Locale>.internal(
+  AppLocale.new,
+  name: r'appLocaleProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$activeTickHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$appLocaleHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ActiveTick = Notifier<ActiveTimerModel?>;
+typedef _$AppLocale = Notifier<Locale>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
