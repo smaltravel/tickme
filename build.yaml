@@ -6,6 +6,7 @@ targets:
           build_extensions:
             "^lib/providers/{{}}.dart": "lib/providers/generated/{{}}.g.dart"
             "^lib/models/{{}}.dart": "lib/models/generated/{{}}.g.dart"
+            "^lib/navigation/{{}}.dart": "lib/navigation/generated/{{}}.gr.dart"
       freezed:freezed:
         options:
           union_key: "type"
@@ -17,3 +18,7 @@ targets:
           equals: true
           build_extensions:
             "^lib/models/{{}}.dart": "lib/models/generated/{{}}.freezed.dart"
+      auto_route_generator:auto_route_generator:
+        options:
+          generate_route_list: true
+          generate_navigator_keys: true

@@ -6,7 +6,7 @@ import 'package:tickme/common/tickme_light_theme.dart';
 import 'package:tickme/l10n/app_localizations.dart';
 import 'package:tickme/providers/locale_provider.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
-import 'package:tickme/screens/app_navigation.dart';
+import 'package:tickme/navigation/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +28,7 @@ class TickmeApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Tickme',
       theme: TickMeLightTheme.theme,
-      routerConfig: AppNavigation.router,
+      routerConfig: AppRouter().config(),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
