@@ -12,11 +12,11 @@ part of 'app_router.dart';
 
 /// generated route for
 /// [AnalyticsScreen]
-class AnalyticsRoute extends PageRouteInfo<void> {
-  const AnalyticsRoute({List<PageRouteInfo>? children})
-      : super(AnalyticsRoute.name, initialChildren: children);
+class AnalyticsTab extends PageRouteInfo<void> {
+  const AnalyticsTab({List<PageRouteInfo>? children})
+      : super(AnalyticsTab.name, initialChildren: children);
 
-  static const String name = 'AnalyticsRoute';
+  static const String name = 'AnalyticsTab';
 
   static PageInfo page = PageInfo(
     name,
@@ -28,11 +28,11 @@ class AnalyticsRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [HomeScreen]
-class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute({List<PageRouteInfo>? children})
-      : super(HomeRoute.name, initialChildren: children);
+class CategoriesTab extends PageRouteInfo<void> {
+  const CategoriesTab({List<PageRouteInfo>? children})
+      : super(CategoriesTab.name, initialChildren: children);
 
-  static const String name = 'HomeRoute';
+  static const String name = 'CategoriesTab';
 
   static PageInfo page = PageInfo(
     name,
@@ -43,12 +43,28 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [SettingsScreen]
-class SettingsRoute extends PageRouteInfo<void> {
-  const SettingsRoute({List<PageRouteInfo>? children})
-      : super(SettingsRoute.name, initialChildren: children);
+/// [MainScreen]
+class MainRoute extends PageRouteInfo<void> {
+  const MainRoute({List<PageRouteInfo>? children})
+      : super(MainRoute.name, initialChildren: children);
 
-  static const String name = 'SettingsRoute';
+  static const String name = 'MainRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MainScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [SettingsScreen]
+class SettingsTab extends PageRouteInfo<void> {
+  const SettingsTab({List<PageRouteInfo>? children})
+      : super(SettingsTab.name, initialChildren: children);
+
+  static const String name = 'SettingsTab';
 
   static PageInfo page = PageInfo(
     name,

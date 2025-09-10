@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
 import 'package:tickme/views/widgets/home/tick_app_bar.dart';
 
-@RoutePage()
+@RoutePage(name: 'CategoriesTab')
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -28,6 +28,6 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Widget _buildBody(TickCategoriesState categories) {
-    return Center(child: Text('Home'));
+    return Center(child: Text('Categories: ${categories.length}'));
   }
 }

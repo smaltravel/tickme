@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:tickme/l10n/app_localizations_context.dart';
-import 'package:tickme/views/screens/home_screen.dart';
+import 'package:tickme/views/screens/categories_screen.dart';
+import 'package:tickme/views/screens/main_screen.dart';
 import 'package:tickme/views/screens/analytics_screen.dart';
 import 'package:tickme/views/screens/settings_screen.dart';
 
@@ -14,19 +14,23 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => <AutoRoute>[
         AutoRoute(
-          path: '/home',
+          page: MainRoute.page,
           initial: true,
-          page: HomeRoute.page,
-        ),
-        AutoRoute(
-          path: '/analytics',
-          page: AnalyticsRoute.page,
-          title: (context, _) => context.loc.bottom_bar_stats,
-        ),
-        AutoRoute(
-          path: '/settings',
-          page: SettingsRoute.page,
-          title: (context, _) => context.loc.bottom_bar_settings,
+          children: <AutoRoute>[
+            AutoRoute(
+              path: 'categories',
+              page: CategoriesTab.page,
+              initial: true,
+            ),
+            AutoRoute(
+              path: 'analytics',
+              page: AnalyticsTab.page,
+            ),
+            AutoRoute(
+              path: 'settings',
+              page: SettingsTab.page,
+            ),
+          ],
         ),
       ];
 }
