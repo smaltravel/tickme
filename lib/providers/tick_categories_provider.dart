@@ -10,12 +10,12 @@ typedef TickCategoriesState = List<TickCategoryModel>;
 @Riverpod(keepAlive: true)
 class TickCategories extends _$TickCategories {
   @override
-  Future<TickCategoriesState> build() async =>
-      (await DatabaseService.query(DatabaseConstants.tickCategoriesTable))
-          .map((row) => TickCategoryModel.fromJson(row))
-          .toList();
+  Future<TickCategoriesState> build() =>
+      DatabaseService.query(DatabaseConstants.tickCategoriesTable).then(
+          (rows) =>
+              rows.map((row) => TickCategoryModel.fromJson(row)).toList());
 
-  Future<void> add(TickCategoryModel category) async {
+  Future<void> createCategory(TickCategoryModel category) async {
     await DatabaseService.insert(
         DatabaseConstants.tickCategoriesTable, category.toJson());
 
@@ -23,7 +23,7 @@ class TickCategories extends _$TickCategories {
     ref.invalidateSelf();
   }
 
-  Future<void> remove(String id) async {
+  Future<void> removeCategory(String id) async {
     await DatabaseService.delete(
         DatabaseConstants.tickCategoriesTable, 'id = ?', [id]);
 
@@ -31,7 +31,7 @@ class TickCategories extends _$TickCategories {
     ref.invalidateSelf();
   }
 
-  Future<void> refresh(TickCategoryModel category) async {
+  Future<void> updateCategory(TickCategoryModel category) async {
     await DatabaseService.update(DatabaseConstants.tickCategoriesTable,
         category.toJson(), 'id = ?', [category.id]);
 

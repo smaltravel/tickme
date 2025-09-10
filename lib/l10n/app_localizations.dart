@@ -136,6 +136,12 @@ abstract class AppLocalizations {
   /// **'Month'**
   String get month;
 
+  /// No description provided for @home_color_picker_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a color'**
+  String get home_color_picker_title;
+
   /// No description provided for @home_edit_category_update.
   ///
   /// In en, this message translates to:
@@ -153,6 +159,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'name'**
   String get home_edit_category_name;
+
+  /// No description provided for @home_select_color.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Color'**
+  String get home_select_color;
 
   /// No description provided for @home_active_timer.
   ///

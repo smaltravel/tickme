@@ -27,6 +27,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get month => 'Месяц';
 
   @override
+  String get home_color_picker_title => 'Выбрать цвет';
+
+  @override
   String get home_edit_category_update => 'Обновить';
 
   @override
@@ -34,6 +37,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get home_edit_category_name => 'имя';
+
+  @override
+  String get home_select_color => 'Выбрать цвет';
 
   @override
   String get home_active_timer => 'Активный таймер';

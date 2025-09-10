@@ -27,6 +27,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get month => 'Monat';
 
   @override
+  String get home_color_picker_title => 'Farbe auswählen';
+
+  @override
   String get home_edit_category_update => 'Aktualisieren';
 
   @override
@@ -34,6 +37,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get home_edit_category_name => 'Name';
+
+  @override
+  String get home_select_color => 'Farbe auswählen';
 
   @override
   String get home_active_timer => 'Aktiver Timer';
