@@ -25,19 +25,27 @@ class ActiveTick extends _$ActiveTick {
     return currentState;
   }
 
-  void run(int categoryId) {
+  void _run(int categoryId) {
     state = ActiveTimerModel(categoryId: categoryId, start: DateTime.now());
   }
 
-  void stop() {
+  void _stop({bool needUpdate = false}) {
     ref.read(timeEntriesProvider.notifier).insert(TimeEntryModel(
         categoryId: state!.categoryId,
         startTime: state!.start,
         endTime: DateTime.now()));
-    state = null;
+
+    if (needUpdate) state = null;
   }
 
-  void erase() {
-    state = null;
+  void update(int categoryId) {
+    if (state == null) {
+      _run(categoryId);
+    } else if (state!.categoryId == categoryId) {
+      _stop(needUpdate: true);
+    } else {
+      _stop();
+      _run(categoryId);
+    }
   }
 }

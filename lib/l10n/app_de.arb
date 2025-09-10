@@ -15,6 +15,8 @@
   "home_choose_icon": "Symbol auswählen",
   "home_stop": "Stoppen",
   "home_new_category": "Neue Kategorie",
+  "home_no_categories": "Keine Kategorien vorhanden",
+  "home_tap_to_add_category": "Tippen Sie +, um Ihre erste Kategorie hinzuzufügen",
   "settings_remove_data": "Alle Daten entfernen",
   "settings_confirm_removing_title": "Bestätigung des Entfernens",
   "settings_confirm_removing_content": "Sind Sie sicher, dass Sie alle Daten entfernen möchten?",
@@ -27,5 +29,7 @@
   "bottom_bar_stats": "Kreisdiagramm",
   "bottom_bar_settings": "Einstellungen",
   "stats_no_data": "Keine Daten vorhanden",
+  "category_modal_edit": "Bearbeiten",
+  "category_modal_delete": "Löschen",
   "app_description": "Eine einfache Anwendung zur Zeiterfassung, mit der Sie überwachen und analysieren können, wie Sie Ihre Zeit bei verschiedenen Aktivitäten verbringen."
 }

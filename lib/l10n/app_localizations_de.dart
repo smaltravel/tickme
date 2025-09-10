@@ -54,6 +54,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get home_new_category => 'Neue Kategorie';
 
   @override
+  String get home_no_categories => 'Keine Kategorien vorhanden';
+
+  @override
+  String get home_tap_to_add_category =>
+      'Tippen Sie +, um Ihre erste Kategorie hinzuzufügen';
+
+  @override
   String get settings_remove_data => 'Alle Daten entfernen';
 
   @override
@@ -90,6 +97,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get stats_no_data => 'Keine Daten vorhanden';
+
+  @override
+  String get category_modal_edit => 'Bearbeiten';
+
+  @override
+  String get category_modal_delete => 'Löschen';
 
   @override
   String get app_description =>

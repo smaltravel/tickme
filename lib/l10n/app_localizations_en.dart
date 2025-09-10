@@ -54,6 +54,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_new_category => 'New Category';
 
   @override
+  String get home_no_categories => 'No categories yet';
+
+  @override
+  String get home_tap_to_add_category => 'Tap + to add your first category';
+
+  @override
   String get settings_remove_data => 'Remove all data';
 
   @override
@@ -89,6 +95,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stats_no_data => 'No Data Yet';
+
+  @override
+  String get category_modal_edit => 'Edit';
+
+  @override
+  String get category_modal_delete => 'Delete';
 
   @override
   String get app_description =>

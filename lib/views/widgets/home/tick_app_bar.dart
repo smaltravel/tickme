@@ -33,7 +33,9 @@ class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         if (activeTimer != null)
           IconButton(
-            onPressed: () => ref.read(activeTickProvider.notifier).stop(),
+            onPressed: () => ref
+                .read(activeTickProvider.notifier)
+                .update(activeTimer.categoryId),
             icon: const Icon(Icons.stop),
           ),
         IconButton(

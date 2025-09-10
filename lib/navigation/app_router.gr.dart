@@ -27,7 +27,7 @@ class AnalyticsTab extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [HomeScreen]
+/// [CategoriesScreen]
 class CategoriesTab extends PageRouteInfo<void> {
   const CategoriesTab({List<PageRouteInfo>? children})
       : super(CategoriesTab.name, initialChildren: children);
@@ -37,7 +37,7 @@ class CategoriesTab extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const HomeScreen();
+      return const CategoriesScreen();
     },
   );
 }

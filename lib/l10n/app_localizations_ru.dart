@@ -54,6 +54,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get home_new_category => 'Новая категория';
 
   @override
+  String get home_no_categories => 'Нет категорий';
+
+  @override
+  String get home_tap_to_add_category =>
+      'Нажмите +, чтобы добавить свою первую категорию';
+
+  @override
   String get settings_remove_data => 'Удалить все данные';
 
   @override
@@ -90,6 +97,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get stats_no_data => 'Нет данных';
+
+  @override
+  String get category_modal_edit => 'Редактировать';
+
+  @override
+  String get category_modal_delete => 'Удалить';
 
   @override
   String get app_description =>

@@ -190,6 +190,18 @@ abstract class AppLocalizations {
   /// **'New Category'**
   String get home_new_category;
 
+  /// No description provided for @home_no_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'No categories yet'**
+  String get home_no_categories;
+
+  /// No description provided for @home_tap_to_add_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap + to add your first category'**
+  String get home_tap_to_add_category;
+
   /// No description provided for @settings_remove_data.
   ///
   /// In en, this message translates to:
@@ -261,6 +273,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Data Yet'**
   String get stats_no_data;
+
+  /// No description provided for @category_modal_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get category_modal_edit;
+
+  /// No description provided for @category_modal_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get category_modal_delete;
 
   /// No description provided for @app_description.
   ///

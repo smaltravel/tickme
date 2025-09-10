@@ -15,6 +15,8 @@
   "home_choose_icon": "Choose Icon",
   "home_stop": "Stop",
   "home_new_category": "New Category",
+  "home_no_categories": "No categories yet",
+  "home_tap_to_add_category": "Tap + to add your first category",
   "settings_remove_data": "Remove all data",
   "settings_confirm_removing_title": "Confirm Removing",
   "settings_confirm_removing_content": "Are you sure you want to remove all data?",
@@ -27,5 +29,7 @@
   "bottom_bar_stats": "Pie Chart",
   "bottom_bar_settings": "Settings",
   "stats_no_data": "No Data Yet",
+  "category_modal_edit": "Edit",
+  "category_modal_delete": "Delete",
   "app_description": "A simple time tracking application designed to help you monitor and analyze how you spend your time across different activities."
 }

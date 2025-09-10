@@ -23,7 +23,7 @@ class TickCategories extends _$TickCategories {
     ref.invalidateSelf();
   }
 
-  Future<void> removeCategory(String id) async {
+  Future<void> removeCategory(int id) async {
     await DatabaseService.delete(
         DatabaseConstants.tickCategoriesTable, 'id = ?', [id]);
 
