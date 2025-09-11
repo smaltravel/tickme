@@ -1,6 +1,7 @@
 {
   "@@locale": "de",
   "add": "Hinzufügen",
+  "apply": "Anwenden",
   "cancel": "Abbrechen",
   "remove": "Entfernen",
   "day": "Tag",

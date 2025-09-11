@@ -9,7 +9,7 @@ import 'package:tickme/views/dialogs/tick_category_modal.dart';
 import 'package:tickme/views/widgets/home/no_categories.dart';
 import 'package:tickme/views/widgets/home/tick_app_bar.dart';
 import 'package:tickme/views/widgets/home/tick_category.dart';
-import 'package:tickme/views/dialogs/tick_category.dart';
+import 'package:tickme/views/dialogs/tick_category_builder.dart';
 
 @RoutePage(name: 'CategoriesTab')
 class CategoriesScreen extends ConsumerWidget {
@@ -25,7 +25,10 @@ class CategoriesScreen extends ConsumerWidget {
         appBar: TickAppBar(categories: categories),
         body: _buildBody(context, ref, categories, activeTimer),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => showTickCategoryDialog(context, ref, null),
+          onPressed: () => showDialog(
+              context: context,
+              builder: (context) =>
+                  buildTickCategoryDialog(context, ref, null)),
           child: const Icon(Icons.add),
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/active_timer_provider.dart';
-import 'package:tickme/views/dialogs/tick_category.dart';
+import 'package:tickme/views/dialogs/tick_category_builder.dart';
 import 'package:tickme/views/widgets/home/timer_display.dart';
 
 class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
@@ -39,7 +39,10 @@ class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
             icon: const Icon(Icons.stop),
           ),
         IconButton(
-            onPressed: () => showTickCategoryDialog(context, ref, null),
+            onPressed: () => showDialog(
+                context: context,
+                builder: (context) =>
+                    buildTickCategoryDialog(context, ref, null)),
             icon: const Icon(Icons.add))
       ],
     );

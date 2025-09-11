@@ -12,6 +12,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get add => 'Hinzufügen';
 
   @override
+  String get apply => 'Anwenden';
+
+  @override
   String get cancel => 'Abbrechen';
 
   @override

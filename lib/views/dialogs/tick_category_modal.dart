@@ -4,7 +4,7 @@ import 'package:tickme/common/constants/app.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
-import 'package:tickme/views/dialogs/tick_category.dart';
+import 'package:tickme/views/dialogs/tick_category_builder.dart';
 
 Future<void> showTickCategoryModal(
     BuildContext context, WidgetRef ref, TickCategoryModel category) {
@@ -20,7 +20,10 @@ Future<void> showTickCategoryModal(
             title: Text(context.loc.category_modal_edit),
             onTap: () {
               Navigator.pop(context);
-              showTickCategoryDialog(context, ref, category);
+              showDialog(
+                  context: context,
+                  builder: (context) =>
+                      buildTickCategoryDialog(context, ref, category));
             },
           ),
           ListTile(
