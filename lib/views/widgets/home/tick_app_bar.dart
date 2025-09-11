@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/active_timer_provider.dart';
-import 'package:tickme/views/dialogs/tick_category_builder.dart';
 import 'package:tickme/views/widgets/common/tick_avatar.dart';
 import 'package:tickme/views/widgets/home/timer_display.dart';
 
@@ -19,9 +18,21 @@ class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
         : null;
 
     return AppBar(
+      elevation: 0,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       leading: activeCategory != null
-          ? Padding(
-              padding: const EdgeInsets.all(8.0),
+          ? Container(
+              margin: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: activeCategory.color.withValues(alpha: 0.3),
+                    blurRadius: 8.0,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
               child: TickAvatar(category: activeCategory),
             )
           : null,
@@ -30,21 +41,28 @@ class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
               startTime: activeTimer.start,
               categoryName: activeCategory.name,
             )
-          : null,
+          : Text(
+              'TickMe',
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                  ),
+            ),
       actions: [
         if (activeTimer != null)
-          IconButton(
-            onPressed: () => ref
-                .read(activeTickProvider.notifier)
-                .update(activeTimer.categoryId),
-            icon: const Icon(Icons.stop),
+          Container(
+            margin: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              onPressed: () => ref
+                  .read(activeTickProvider.notifier)
+                  .update(activeTimer.categoryId),
+              icon: const Icon(Icons.stop),
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.red.shade50,
+                foregroundColor: Colors.red.shade700,
+              ),
+            ),
           ),
-        IconButton(
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) =>
-                    buildTickCategoryDialog(context, ref, null)),
-            icon: const Icon(Icons.add))
       ],
     );
   }

@@ -24,7 +24,7 @@ class _TimerDisplayState extends State<TimerDisplay>
   void initState() {
     super.initState();
     _blinkController = AnimationController(
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
     _blinkAnimation = Tween<double>(
@@ -51,37 +51,58 @@ class _TimerDisplayState extends State<TimerDisplay>
       builder: (context, snapshot) {
         final now = snapshot.data ?? DateTime.now();
         final duration = now.difference(widget.startTime);
+        final timeParts = formatDuration(duration);
 
-        return Column(
+        return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Timer display
-            AnimatedBuilder(
-              animation: _blinkAnimation,
-              builder: (context, child) {
-                return Text(
-                  formatDuration(duration).join(':'),
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.bold,
-                        color: _blinkAnimation.value > 0.5
-                            ? Theme.of(context).textTheme.headlineMedium?.color
-                            : Colors.transparent,
-                      ),
-                );
-              },
+            // Timer display with fixed width to prevent shifting
+            Container(
+              width: 140,
+              height: 40,
+              alignment: Alignment.center,
+              child: AnimatedBuilder(
+                animation: _blinkAnimation,
+                builder: (context, child) {
+                  return Text(
+                    '${timeParts[0]}:${timeParts[1]}:${timeParts[2]}',
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontFamily: 'Courier New',
+                          fontWeight: FontWeight.bold,
+                          color: _blinkAnimation.value > 0.5
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context)
+                                  .primaryColor
+                                  .withValues(alpha: 0.3),
+                          letterSpacing: 0,
+                        ),
+                    textAlign: TextAlign.center,
+                  );
+                },
+              ),
             ),
-            const SizedBox(height: 4),
-            // Category name
-            Text(
-              widget.categoryName,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.color
-                        ?.withValues(alpha: 0.7),
-                  ),
+            const SizedBox(width: 12),
+            // Category name with fixed width to prevent shifting
+            SizedBox(
+              width: 80,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Text(
+                  widget.categoryName,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ),
           ],
         );
