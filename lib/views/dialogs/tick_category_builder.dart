@@ -54,8 +54,11 @@ Widget buildTickCategoryDialog(
           child: Text(context.loc.cancel),
         ),
         ElevatedButton(
-          onPressed: () => _saveChanges(
-              ref, currentCategory.copyWith(name: nameController.text)),
+          onPressed: () {
+            Navigator.of(context).pop();
+            _saveChanges(
+                ref, currentCategory.copyWith(name: nameController.text));
+          },
           child: Text(category == null
               ? context.loc.add
               : context.loc.home_edit_category_update),

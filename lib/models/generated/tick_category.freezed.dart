@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$TickCategoryModel {
   int? get id;
   String get name;
-  @JsonKey(fromJson: _deserializeIcon, toJson: serializeIcon)
+  @JsonKey(fromJson: _deserializeIcon, toJson: _serializeIcon)
   IconPickerIcon get icon;
   @JsonKey(fromJson: deserializeColor, toJson: serializeColor)
   Color get color;
@@ -62,7 +62,7 @@ abstract mixin class $TickCategoryModelCopyWith<$Res> {
   $Res call(
       {int? id,
       String name,
-      @JsonKey(fromJson: _deserializeIcon, toJson: serializeIcon)
+      @JsonKey(fromJson: _deserializeIcon, toJson: _serializeIcon)
       IconPickerIcon icon,
       @JsonKey(fromJson: deserializeColor, toJson: serializeColor)
       Color color});
@@ -113,7 +113,7 @@ class _TickCategoryModel implements TickCategoryModel {
   const _TickCategoryModel(
       {this.id,
       required this.name,
-      @JsonKey(fromJson: _deserializeIcon, toJson: serializeIcon)
+      @JsonKey(fromJson: _deserializeIcon, toJson: _serializeIcon)
       required this.icon,
       @JsonKey(fromJson: deserializeColor, toJson: serializeColor)
       required this.color});
@@ -125,7 +125,7 @@ class _TickCategoryModel implements TickCategoryModel {
   @override
   final String name;
   @override
-  @JsonKey(fromJson: _deserializeIcon, toJson: serializeIcon)
+  @JsonKey(fromJson: _deserializeIcon, toJson: _serializeIcon)
   final IconPickerIcon icon;
   @override
   @JsonKey(fromJson: deserializeColor, toJson: serializeColor)
@@ -178,7 +178,7 @@ abstract mixin class _$TickCategoryModelCopyWith<$Res>
   $Res call(
       {int? id,
       String name,
-      @JsonKey(fromJson: _deserializeIcon, toJson: serializeIcon)
+      @JsonKey(fromJson: _deserializeIcon, toJson: _serializeIcon)
       IconPickerIcon icon,
       @JsonKey(fromJson: deserializeColor, toJson: serializeColor)
       Color color});

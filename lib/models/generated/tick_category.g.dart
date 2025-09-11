@@ -10,7 +10,7 @@ _TickCategoryModel _$TickCategoryModelFromJson(Map<String, dynamic> json) =>
     _TickCategoryModel(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String,
-      icon: _deserializeIcon(json['icon'] as Map<String, dynamic>),
+      icon: _deserializeIcon(json['icon'] as String),
       color: deserializeColor(json['color'] as String),
     );
 
@@ -18,6 +18,6 @@ Map<String, dynamic> _$TickCategoryModelToJson(_TickCategoryModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'icon': serializeIcon(instance.icon),
+      'icon': _serializeIcon(instance.icon),
       'color': serializeColor(instance.color),
     };

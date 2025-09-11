@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -28,7 +30,7 @@ abstract class TickCategoryModel with _$TickCategoryModel {
     required String name,
     @JsonKey(
       fromJson: _deserializeIcon,
-      toJson: serializeIcon,
+      toJson: _serializeIcon,
     )
     required IconPickerIcon icon,
     @JsonKey(
@@ -43,6 +45,11 @@ abstract class TickCategoryModel with _$TickCategoryModel {
       _$TickCategoryModelFromJson(json);
 }
 
-IconPickerIcon _deserializeIcon(Map<String, dynamic> map) {
-  return deserializeIcon(map) ?? unknownTickIcon;
+IconPickerIcon _deserializeIcon(String jsonMap) {
+  return deserializeIcon(jsonDecode(jsonMap) as Map<String, dynamic>) ??
+      unknownTickIcon;
+}
+
+String _serializeIcon(IconPickerIcon icon) {
+  return jsonEncode(serializeIcon(icon));
 }
