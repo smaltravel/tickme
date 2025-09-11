@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/active_timer_provider.dart';
 import 'package:tickme/views/dialogs/tick_category_builder.dart';
+import 'package:tickme/views/widgets/common/tick_avatar.dart';
 import 'package:tickme/views/widgets/home/timer_display.dart';
 
 class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
@@ -19,9 +20,9 @@ class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
     return AppBar(
       leading: activeCategory != null
-          ? CircleAvatar(
-              backgroundColor: activeCategory.color,
-              child: Icon(activeCategory.icon.data),
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TickAvatar(category: activeCategory),
             )
           : null,
       title: activeTimer != null && activeCategory != null

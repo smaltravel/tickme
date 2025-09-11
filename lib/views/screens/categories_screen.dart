@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tickme/common/constants/app.dart';
 import 'package:tickme/models/active_timer.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
 import 'package:tickme/providers/active_timer_provider.dart';
@@ -52,13 +51,13 @@ class CategoriesScreen extends ConsumerWidget {
     if (categories.isEmpty) return const NoCategoriesCard();
 
     return Padding(
-      padding: const EdgeInsets.all(AppConstants.defaultPadding),
+      padding: const EdgeInsets.all(16.0),
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.8,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+          crossAxisCount: 3,
+          childAspectRatio: 0.9,
+          crossAxisSpacing: 12.0,
+          mainAxisSpacing: 12.0,
         ),
         itemCount: categories.length,
         itemBuilder: (context, index) {

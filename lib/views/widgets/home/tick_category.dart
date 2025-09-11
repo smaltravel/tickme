@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tickme/models/tick_category.dart';
-import 'package:tickme/common/constants/app.dart';
+import 'package:tickme/views/widgets/common/tick_avatar.dart';
 
 class TickCategoryCard extends StatelessWidget {
   final TickCategoryModel category;
@@ -18,59 +18,45 @@ class TickCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: AppConstants.defaultIconSize * 2,
-      height: AppConstants.defaultIconSize * 2,
-      child: Material(
-        color: isSelected
-            ? category.color.withValues(alpha: AppConstants.defaultColorAlpha)
-            : Colors.transparent,
-        borderRadius: BorderRadius.circular(AppConstants.defaultBorderRadius),
-        child: InkWell(
-          onTap: onTap,
-          onLongPress: onLongPress,
-          borderRadius: BorderRadius.circular(AppConstants.defaultBorderRadius),
-          child: Container(
-            padding: const EdgeInsets.all(AppConstants.defaultPadding),
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(AppConstants.defaultBorderRadius),
-              border: isSelected
-                  ? Border.all(color: category.color, width: 2.0)
-                  : null,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Icon with background circle
-                Container(
-                  width: AppConstants.defaultIconSize,
-                  height: AppConstants.defaultIconSize,
-                  decoration: BoxDecoration(
-                    color: category.color
-                        .withValues(alpha: AppConstants.defaultColorAlpha),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    category.icon.data,
-                    size: AppConstants.defaultIconSize * 0.6,
-                    color: category.color,
-                  ),
-                ),
-                const SizedBox(height: AppConstants.defaultSizedBox),
-                // Category name
-                Text(
-                  category.name,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: isSelected ? category.color : null,
-                      ),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
+    return Card(
+      elevation: isSelected ? 4.0 : 2.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+        side: BorderSide(
+          color: isSelected ? category.color : Colors.grey.shade300,
+          width: isSelected ? 2.0 : 1.0,
+        ),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        onLongPress: onLongPress,
+        borderRadius: BorderRadius.circular(12.0),
+        child: Container(
+          padding: const EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+            color: isSelected
+                ? category.color.withValues(alpha: 0.05)
+                : Colors.transparent,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TickAvatar(category: category),
+              const SizedBox(height: 8.0),
+              // Category name
+              Text(
+                category.name,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: isSelected ? category.color : Colors.grey.shade800,
+                      fontSize: 12.0,
+                    ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
         ),
       ),
