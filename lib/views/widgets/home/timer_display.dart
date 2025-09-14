@@ -1,5 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:tickme/common/tickme_light_theme.dart';
 import 'package:tickme/common/utils/time.dart';
+
+class _TimeBlockAtom extends StatelessWidget {
+  final String value;
+  final double width;
+  final double? opacity;
+
+  const _TimeBlockAtom({
+    required this.value,
+    required this.width,
+    this.opacity,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      margin: const EdgeInsets.only(right: 4.0),
+      height: 40,
+      alignment: Alignment.center,
+      child: Text(
+        value,
+        style: EstimatedTimerTextTheme.style.copyWith(
+          color: opacity != null
+              ? EstimatedTimerTextTheme.style.color!.withValues(alpha: opacity)
+              : EstimatedTimerTextTheme.style.color!,
+        ),
+      ),
+    );
+  }
+}
 
 class TimerDisplay extends StatefulWidget {
   final DateTime startTime;
@@ -51,57 +82,52 @@ class _TimerDisplayState extends State<TimerDisplay>
       builder: (context, snapshot) {
         final now = snapshot.data ?? DateTime.now();
         final duration = now.difference(widget.startTime);
-        final timeParts = formatDuration(duration);
+        final timeString = formatDuration(duration).join(':');
 
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Timer display with fixed width to prevent shifting
             Container(
-              width: 140,
-              height: 40,
               alignment: Alignment.center,
               child: AnimatedBuilder(
                 animation: _blinkAnimation,
                 builder: (context, child) {
-                  return Text(
-                    '${timeParts[0]}:${timeParts[1]}:${timeParts[2]}',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontFamily: 'Courier New',
-                          fontWeight: FontWeight.bold,
-                          color: _blinkAnimation.value > 0.5
-                              ? Theme.of(context).primaryColor
-                              : Theme.of(context)
-                                  .primaryColor
-                                  .withValues(alpha: 0.3),
-                          letterSpacing: 0,
-                        ),
-                    textAlign: TextAlign.center,
+                  return Row(
+                    children: timeString
+                        .split('')
+                        .asMap()
+                        .entries
+                        .map((e) => _TimeBlockAtom(
+                              value: e.value,
+                              width: (e.key + 1) % 3 == 0 ? 5 : 15,
+                              opacity: (e.key + 1) % 3 != 0
+                                  ? null
+                                  : _blinkAnimation.value > 0.5
+                                      ? 1.0
+                                      : 0.3,
+                            ))
+                        .toList(),
                   );
                 },
               ),
             ),
             const SizedBox(width: 12),
-            // Category name with fixed width to prevent shifting
-            SizedBox(
-              width: 80,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Text(
-                  widget.categoryName,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Text(
+                widget.categoryName,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
