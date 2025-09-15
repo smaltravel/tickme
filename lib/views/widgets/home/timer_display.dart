@@ -50,6 +50,7 @@ class _TimerDisplayState extends State<TimerDisplay>
     with TickerProviderStateMixin {
   late AnimationController _blinkController;
   late Animation<double> _blinkAnimation;
+  int _lastSecond = -1;
 
   @override
   void initState() {
@@ -83,6 +84,14 @@ class _TimerDisplayState extends State<TimerDisplay>
         final now = snapshot.data ?? DateTime.now();
         final duration = now.difference(widget.startTime);
         final timeString = formatDuration(duration).join(':');
+
+        // Synchronize blinking animation with timer updates
+        final currentSecond = duration.inSeconds;
+        if (currentSecond != _lastSecond) {
+          _lastSecond = currentSecond;
+          _blinkController.reset();
+          _blinkController.forward();
+        }
 
         return Row(
           mainAxisSize: MainAxisSize.min,
