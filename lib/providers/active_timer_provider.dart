@@ -38,7 +38,11 @@ class ActiveTick extends _$ActiveTick {
     if (needUpdate) state = null;
   }
 
-  void update(int categoryId) {
+  void update(int? categoryId) {
+    if (categoryId == null || categoryId == -1) {
+      return;
+    }
+
     if (state == null) {
       _run(categoryId);
     } else if (state!.categoryId == categoryId) {

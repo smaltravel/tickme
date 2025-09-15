@@ -21,7 +21,13 @@ class CategoriesScreen extends ConsumerWidget {
 
     return repository.when(
       data: (categories) => Scaffold(
-        appBar: TickAppBar(categories: categories),
+        appBar: TickAppBar(
+          categories: categories,
+          activeTimer: activeTimer,
+          onStopTimer: () => ref
+              .read(activeTickProvider.notifier)
+              .update(activeTimer?.categoryId),
+        ),
         body: _buildBody(context, ref, categories, activeTimer),
         floatingActionButton: FloatingActionButton(
           onPressed: () => showDialog(

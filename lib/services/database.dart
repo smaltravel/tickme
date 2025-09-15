@@ -13,8 +13,8 @@ class DatabaseService {
   }
 
   static Future<Database> _initDatabase() async {
-    final path =
-        '${await getApplicationCacheDirectory()}${DatabaseConstants.databaseName}';
+    final appDir = await getApplicationDocumentsDirectory();
+    final path = '${appDir.path}/${DatabaseConstants.databaseName}';
 
     return await openDatabase(
       path,

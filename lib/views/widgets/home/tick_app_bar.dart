@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tickme/models/active_timer.dart';
 import 'package:tickme/models/tick_category.dart';
-import 'package:tickme/providers/active_timer_provider.dart';
 import 'package:tickme/views/widgets/common/tick_avatar.dart';
 import 'package:tickme/views/widgets/home/timer_display.dart';
 
-class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
+class TickAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<TickCategoryModel> categories;
+  final ActiveTimerModel? activeTimer;
+  final VoidCallback onStopTimer;
 
-  const TickAppBar({super.key, required this.categories});
+  const TickAppBar({
+    super.key,
+    required this.categories,
+    this.activeTimer,
+    required this.onStopTimer,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final activeTimer = ref.watch(activeTickProvider);
+  Widget build(BuildContext context) {
     final activeCategory = activeTimer != null
-        ? categories.firstWhere((e) => e.id == activeTimer.categoryId)
+        ? categories.firstWhere((e) => e.id == activeTimer!.categoryId)
         : null;
 
     return AppBar(
@@ -38,7 +43,7 @@ class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
           : null,
       title: activeTimer != null && activeCategory != null
           ? TimerDisplay(
-              startTime: activeTimer.start,
+              startTime: activeTimer!.start,
               categoryName: activeCategory.name,
             )
           : Text(
@@ -53,9 +58,7 @@ class TickAppBar extends ConsumerWidget implements PreferredSizeWidget {
           Container(
             margin: const EdgeInsets.only(right: 8.0),
             child: IconButton(
-              onPressed: () => ref
-                  .read(activeTickProvider.notifier)
-                  .update(activeTimer.categoryId),
+              onPressed: onStopTimer,
               icon: const Icon(Icons.stop),
               style: IconButton.styleFrom(
                 backgroundColor: Colors.red.shade50,
