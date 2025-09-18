@@ -30,6 +30,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get month => 'Месяц';
 
   @override
+  String get custom => 'Пользовательский';
+
+  @override
   String get home_color_picker_title => 'Выбрать цвет';
 
   @override
@@ -93,13 +96,34 @@ class AppLocalizationsRu extends AppLocalizations {
   String get bottom_bar_home => 'Главная';
 
   @override
-  String get bottom_bar_stats => 'Диаграмма';
+  String get bottom_bar_stats => 'Графики';
 
   @override
   String get bottom_bar_settings => 'Настройки';
 
   @override
   String get stats_no_data => 'Нет данных';
+
+  @override
+  String stats_active_filters(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString фильтров',
+      two: '2 фильтра',
+      one: '1 фильтр',
+      zero: 'Нет фильтров',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stats_total_time => 'Общее время';
 
   @override
   String get category_modal_edit => 'Редактировать';

@@ -3,17 +3,21 @@ import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/models/time_entry.dart';
 import 'package:tickme/views/widgets/analytics/category_distribution_chart.dart';
 import 'package:tickme/views/widgets/analytics/usage_frequency_chart.dart';
-import 'package:tickme/views/widgets/analytics/daily_pattern_chart.dart';
+import 'package:tickme/views/widgets/analytics/interruption_frequency_chart.dart';
 import 'package:tickme/views/widgets/analytics/quick_stats_section.dart';
 
 class AnalyticsCharts extends StatelessWidget {
   final List<TimeEntryModel> timeEntries;
   final List<TickCategoryModel> categories;
+  final DateTime startDate;
+  final DateTime endDate;
 
   const AnalyticsCharts({
     super.key,
     required this.timeEntries,
     required this.categories,
+    required this.startDate,
+    required this.endDate,
   });
 
   @override
@@ -45,12 +49,16 @@ class AnalyticsCharts extends StatelessWidget {
         ),
         const SizedBox(height: 16),
 
-        // Daily Activity Pattern (Line Chart)
+        // Interruption Frequency (Line Chart)
         _buildChartCard(
           context,
-          'Daily Activity Pattern',
+          'Interruption Frequency',
           Icons.timeline,
-          DailyPatternChart(timeEntries: timeEntries),
+          InterruptionFrequencyChart(
+            timeEntries: timeEntries,
+            startDate: startDate,
+            endDate: endDate,
+          ),
         ),
         const SizedBox(height: 16),
 

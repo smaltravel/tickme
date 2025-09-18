@@ -30,6 +30,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get month => 'Month';
 
   @override
+  String get custom => 'Custom';
+
+  @override
   String get home_color_picker_title => 'Pick a color';
 
   @override
@@ -91,13 +94,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bottom_bar_home => 'Home';
 
   @override
-  String get bottom_bar_stats => 'Pie Chart';
+  String get bottom_bar_stats => 'Charts';
 
   @override
   String get bottom_bar_settings => 'Settings';
 
   @override
   String get stats_no_data => 'No Data Yet';
+
+  @override
+  String stats_active_filters(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString filters',
+      one: '1 filter',
+      zero: 'No filters',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stats_total_time => 'Total Time';
 
   @override
   String get category_modal_edit => 'Edit';

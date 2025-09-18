@@ -43,7 +43,7 @@ class AnalyticsTimeFrames extends StatelessWidget {
           _buildTimeFrameButton(
             context,
             AnalyticsTimeFrame.custom,
-            'Custom',
+            context.loc.custom,
             Icons.tune,
           ),
         ],

@@ -142,6 +142,12 @@ abstract class AppLocalizations {
   /// **'Month'**
   String get month;
 
+  /// No description provided for @custom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get custom;
+
   /// No description provided for @home_color_picker_title.
   ///
   /// In en, this message translates to:
@@ -265,7 +271,7 @@ abstract class AppLocalizations {
   /// No description provided for @bottom_bar_stats.
   ///
   /// In en, this message translates to:
-  /// **'Pie Chart'**
+  /// **'Charts'**
   String get bottom_bar_stats;
 
   /// No description provided for @bottom_bar_settings.
@@ -279,6 +285,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Data Yet'**
   String get stats_no_data;
+
+  /// A plural message for the number of active filters
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No filters} =1{1 filter} other{{count} filters}}'**
+  String stats_active_filters(num count);
+
+  /// No description provided for @stats_total_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Time'**
+  String get stats_total_time;
 
   /// No description provided for @category_modal_edit.
   ///

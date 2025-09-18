@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/models/time_entry.dart';
 
 class AnalyticsSummary extends StatelessWidget {
@@ -36,7 +37,7 @@ class AnalyticsSummary extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Total Time',
+                      context.loc.stats_total_time,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: Colors.grey.shade600,
                           ),
@@ -64,7 +65,7 @@ class AnalyticsSummary extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          '$activeFiltersCount filter${activeFiltersCount > 1 ? 's' : ''}',
+                          context.loc.stats_active_filters(activeFiltersCount),
                           style: TextStyle(
                             fontSize: 12,
                             color: Theme.of(context).primaryColor,

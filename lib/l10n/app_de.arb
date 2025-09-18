@@ -7,6 +7,7 @@
   "day": "Tag",
   "week": "Woche",
   "month": "Monat",
+  "custom": "Benutzerdefiniert",
   "home_color_picker_title": "Farbe auswählen",
   "home_edit_category_update": "Aktualisieren",
   "home_edit_category": "Kategorie bearbeiten",
@@ -27,9 +28,22 @@
   "settings_failed_to_export_data": "Fehler beim Exportieren der Daten",
   "settings_language": "Sprache",
   "bottom_bar_home": "Home",
-  "bottom_bar_stats": "Kreisdiagramm",
+  "bottom_bar_stats": "Charts",
   "bottom_bar_settings": "Einstellungen",
   "stats_no_data": "Keine Daten vorhanden",
+  "stats_active_filters": "{count, plural, =0{Keine Filter} =1{1 Filter} other{{count} Filter}}",
+  "@stats_active_filters": {
+    "description": "Eine Plural-Nachricht für die Anzahl der aktiven Filter",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "0",
+        "description": "Anzahl der aktiven Filter"
+      }
+    }
+  },
+  "stats_total_time": "Gesamtzeit",
   "category_modal_edit": "Bearbeiten",
   "category_modal_delete": "Löschen",
   "app_description": "Eine einfache Anwendung zur Zeiterfassung, mit der Sie überwachen und analysieren können, wie Sie Ihre Zeit bei verschiedenen Aktivitäten verbringen."

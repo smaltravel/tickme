@@ -7,6 +7,7 @@
   "day": "День",
   "week": "Неделя",
   "month": "Месяц",
+  "custom": "Пользовательский",
   "home_color_picker_title": "Выбрать цвет",
   "home_edit_category_update": "Обновить",
   "home_edit_category": "Редактировать категорию",
@@ -27,9 +28,22 @@
   "settings_failed_to_export_data": "Не удалось экспортировать данные",
   "settings_language": "Язык",
   "bottom_bar_home": "Главная",
-  "bottom_bar_stats": "Диаграмма",
+  "bottom_bar_stats": "Графики",
   "bottom_bar_settings": "Настройки",
   "stats_no_data": "Нет данных",
+  "stats_active_filters": "{count, plural, =0{Нет фильтров} =1{1 фильтр} =2{2 фильтра} other{{count} фильтров}}",
+  "@stats_active_filters": {
+    "description": "Сообщение для количества активных фильтров",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "0",
+        "description": "Количество активных фильтров"
+      }
+    }
+  },
+  "stats_total_time": "Общее время",
   "category_modal_edit": "Редактировать",
   "category_modal_delete": "Удалить",
   "app_description": "Простое приложение для отслеживания времени, призванное помочь вам отслеживать и анализировать, как вы тратите свое время на различные виды деятельности."

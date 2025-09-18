@@ -44,3 +44,29 @@ List<String> formatDuration(Duration duration) {
     duration.inSeconds.remainder(60).toString().padLeft(2, '0'),
   ];
 }
+
+class TimeIntervalResolver {
+  final DateTime _startThisDay;
+  final DateTime _endThisDay;
+  final DateTime _startThisWeek;
+  final DateTime _endThisWeek;
+  final DateTime _startThisMonth;
+  final DateTime _endThisMonth;
+
+  TimeIntervalResolver({required DateTime seed})
+      : _startThisDay = DateTime(seed.year, seed.month, seed.day),
+        _endThisDay = DateTime(seed.year, seed.month, seed.day, 23, 59, 59),
+        _startThisWeek =
+            DateTime(seed.year, seed.month, seed.day - seed.weekday + 1),
+        _endThisWeek =
+            DateTime(seed.year, seed.month, seed.day + (7 - seed.weekday)),
+        _startThisMonth = DateTime(seed.year, seed.month, 1),
+        _endThisMonth = DateTime(seed.year, seed.month + 1, 0, 23, 59, 59);
+
+  DateTime get startThisDay => _startThisDay;
+  DateTime get endThisDay => _endThisDay;
+  DateTime get startThisWeek => _startThisWeek;
+  DateTime get endThisWeek => _endThisWeek;
+  DateTime get startThisMonth => _startThisMonth;
+  DateTime get endThisMonth => _endThisMonth;
+}

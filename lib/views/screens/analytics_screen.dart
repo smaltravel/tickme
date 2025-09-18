@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tickme/common/utils/time.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/models/time_entry.dart';
@@ -10,6 +12,7 @@ import 'package:tickme/views/widgets/analytics/analytics_filters.dart';
 import 'package:tickme/views/widgets/analytics/analytics_summary.dart';
 import 'package:tickme/views/widgets/analytics/analytics_time_frames.dart';
 
+@RoutePage(name: 'AnalyticsTab')
 class AnalyticsScreen extends ConsumerStatefulWidget {
   const AnalyticsScreen({super.key});
 
@@ -30,30 +33,19 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
   }
 
   void _updateDateRange() {
-    final now = DateTime.now();
+    final interval = TimeIntervalResolver(seed: DateTime.now());
     switch (_selectedTimeFrame) {
       case AnalyticsTimeFrame.day:
-        _startDate = DateTime(now.year, now.month, now.day);
-        _endDate = DateTime(now.year, now.month, now.day, 23, 59, 59);
+        _startDate = interval.startThisDay;
+        _endDate = interval.endThisDay;
         break;
       case AnalyticsTimeFrame.week:
-        final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-        _startDate =
-            DateTime(startOfWeek.year, startOfWeek.month, startOfWeek.day);
-        _endDate = _startDate
-            .add(const Duration(days: 6, hours: 23, minutes: 59, seconds: 59));
-        // Ensure end date is not in the future
-        if (_endDate.isAfter(now)) {
-          _endDate = now;
-        }
+        _startDate = interval.startThisWeek;
+        _endDate = interval.endThisWeek;
         break;
       case AnalyticsTimeFrame.month:
-        _startDate = DateTime(now.year, now.month, 1);
-        _endDate = DateTime(now.year, now.month + 1, 0, 23, 59, 59);
-        // Ensure end date is not in the future
-        if (_endDate.isAfter(now)) {
-          _endDate = now;
-        }
+        _startDate = interval.startThisMonth;
+        _endDate = interval.endThisMonth;
         break;
       case AnalyticsTimeFrame.custom:
         // Custom dates are set by the user
@@ -72,14 +64,6 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
       Set<int> categories, DateTime? startDate, DateTime? endDate) {
     setState(() {
       _selectedCategories = categories;
-      final now = DateTime.now();
-
-      if (startDate != null) {
-        _startDate = startDate.isAfter(now) ? now : startDate;
-      }
-      if (endDate != null) {
-        _endDate = endDate.isAfter(now) ? now : endDate;
-      }
 
       // Ensure start date is not after end date
       if (_startDate.isAfter(_endDate)) {
@@ -99,7 +83,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Analytics'),
+        title: Text(context.loc.bottom_bar_stats),
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
@@ -154,6 +138,8 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
             AnalyticsCharts(
               timeEntries: timeEntries,
               categories: categories,
+              startDate: _startDate,
+              endDate: _endDate,
             ),
         ],
       ),
