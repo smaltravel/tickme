@@ -164,14 +164,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Это навсегда удалит все ваши данные. Это действие нельзя отменить.';
 
   @override
-  String get reset_data_final_warning =>
-      'Введите \'RESET\' для подтверждения удаления всех данных:';
-
-  @override
-  String get type_reset_to_confirm => 'Введите RESET для подтверждения';
-
-  @override
   String get reset => 'Сбросить';
+
+  @override
+  String get reset_data_success => 'Все данные были успешно сброшены';
+
+  @override
+  String get reset_data_error => 'Ошибка при сбросе данных';
 
   @override
   String get about => 'О приложении';

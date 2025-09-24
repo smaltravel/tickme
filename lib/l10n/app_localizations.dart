@@ -370,23 +370,23 @@ abstract class AppLocalizations {
   /// **'This will permanently delete all your data. This action cannot be undone.'**
   String get reset_data_warning;
 
-  /// No description provided for @reset_data_final_warning.
-  ///
-  /// In en, this message translates to:
-  /// **'Type \'RESET\' to confirm deletion of all data:'**
-  String get reset_data_final_warning;
-
-  /// No description provided for @type_reset_to_confirm.
-  ///
-  /// In en, this message translates to:
-  /// **'Type RESET to confirm'**
-  String get type_reset_to_confirm;
-
   /// No description provided for @reset.
   ///
   /// In en, this message translates to:
   /// **'Reset'**
   String get reset;
+
+  /// No description provided for @reset_data_success.
+  ///
+  /// In en, this message translates to:
+  /// **'All data has been reset successfully'**
+  String get reset_data_success;
+
+  /// No description provided for @reset_data_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reset data'**
+  String get reset_data_error;
 
   /// No description provided for @about.
   ///

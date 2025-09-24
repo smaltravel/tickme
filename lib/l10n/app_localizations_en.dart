@@ -161,14 +161,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'This will permanently delete all your data. This action cannot be undone.';
 
   @override
-  String get reset_data_final_warning =>
-      'Type \'RESET\' to confirm deletion of all data:';
-
-  @override
-  String get type_reset_to_confirm => 'Type RESET to confirm';
-
-  @override
   String get reset => 'Reset';
+
+  @override
+  String get reset_data_success => 'All data has been reset successfully';
+
+  @override
+  String get reset_data_error => 'Failed to reset data';
 
   @override
   String get about => 'About';

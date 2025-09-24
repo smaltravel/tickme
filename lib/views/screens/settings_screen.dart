@@ -4,6 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/providers/settings_provider.dart';
+import 'package:tickme/providers/tick_categories_provider.dart';
+import 'package:tickme/views/dialogs/confirmation_dialog.dart';
 import 'package:tickme/views/dialogs/language_builder.dart';
 import 'package:tickme/views/dialogs/theme_builder.dart';
 import 'package:tickme/views/widgets/settings/section_header.dart';
@@ -81,7 +83,17 @@ class SettingsScreen extends ConsumerWidget {
             title: Text(context.loc.reset_data),
             subtitle: Text(context.loc.reset_data_subtitle),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: null, // TODO: Implement reset
+            onTap: () => showDialog(
+                context: context,
+                builder: (context) => ConfirmationDialog(
+                      title: context.loc.reset_data,
+                      message: context.loc.reset_data_warning,
+                      confirmText: context.loc.reset,
+                      confirmColor: Colors.red,
+                      onConfirm: () => ref
+                          .read(tickCategoriesProvider.notifier)
+                          .removeAllCategories(),
+                    )),
           ),
 
           const Divider(),

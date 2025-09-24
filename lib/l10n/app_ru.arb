@@ -56,9 +56,9 @@
   "reset_data": "Сбросить данные",
   "reset_data_subtitle": "Удалить все данные",
   "reset_data_warning": "Это навсегда удалит все ваши данные. Это действие нельзя отменить.",
-  "reset_data_final_warning": "Введите 'RESET' для подтверждения удаления всех данных:",
-  "type_reset_to_confirm": "Введите RESET для подтверждения",
   "reset": "Сбросить",
+  "reset_data_success": "Все данные были успешно сброшены",
+  "reset_data_error": "Ошибка при сбросе данных",
   "about": "О приложении",
   "theme_mode": "{mode, select, light{Светлая} dark{Тёмная} other{Системная}}",
   "@theme_mode": {

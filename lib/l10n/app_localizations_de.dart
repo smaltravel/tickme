@@ -163,14 +163,14 @@ class AppLocalizationsDe extends AppLocalizations {
       'Dies wird alle Ihre Daten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden.';
 
   @override
-  String get reset_data_final_warning =>
-      'Geben Sie \'RESET\' ein, um die Löschung aller Daten zu bestätigen:';
-
-  @override
-  String get type_reset_to_confirm => 'RESET eingeben, um zu bestätigen';
-
-  @override
   String get reset => 'Zurücksetzen';
+
+  @override
+  String get reset_data_success =>
+      'Alle Daten wurden erfolgreich zurückgesetzt';
+
+  @override
+  String get reset_data_error => 'Fehler beim Zurücksetzen der Daten';
 
   @override
   String get about => 'Über';

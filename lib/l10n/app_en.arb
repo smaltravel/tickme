@@ -56,9 +56,9 @@
   "reset_data": "Reset Data",
   "reset_data_subtitle": "Delete all data",
   "reset_data_warning": "This will permanently delete all your data. This action cannot be undone.",
-  "reset_data_final_warning": "Type 'RESET' to confirm deletion of all data:",
-  "type_reset_to_confirm": "Type RESET to confirm",
   "reset": "Reset",
+  "reset_data_success": "All data has been reset successfully",
+  "reset_data_error": "Failed to reset data",
   "about": "About",
   "theme_mode": "{mode, select, light{Light} dark{Dark} other{System}}",
   "@theme_mode": {

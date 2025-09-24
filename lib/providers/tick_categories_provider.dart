@@ -31,6 +31,14 @@ class TickCategories extends _$TickCategories {
     ref.invalidateSelf();
   }
 
+  Future<void> removeAllCategories() async {
+    await DatabaseService.delete(
+        DatabaseConstants.tickCategoriesTable, '1 = 1', []);
+
+    // Update the state with new categories
+    ref.invalidateSelf();
+  }
+
   Future<void> updateCategory(TickCategoryModel category) async {
     await DatabaseService.update(DatabaseConstants.tickCategoriesTable,
         category.toJson(), 'id = ?', [category.id]);
