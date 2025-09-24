@@ -315,6 +315,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A simple time tracking application designed to help you monitor and analyze how you spend your time across different activities.'**
   String get app_description;
+
+  /// No description provided for @appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearance;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// No description provided for @data_management.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Management'**
+  String get data_management;
+
+  /// No description provided for @export_data.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Data'**
+  String get export_data;
+
+  /// No description provided for @export_data_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Export to CSV'**
+  String get export_data_subtitle;
+
+  /// No description provided for @reset_data.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Data'**
+  String get reset_data;
+
+  /// No description provided for @reset_data_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all data'**
+  String get reset_data_subtitle;
+
+  /// No description provided for @reset_data_warning.
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete all your data. This action cannot be undone.'**
+  String get reset_data_warning;
+
+  /// No description provided for @reset_data_final_warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Type \'RESET\' to confirm deletion of all data:'**
+  String get reset_data_final_warning;
+
+  /// No description provided for @type_reset_to_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Type RESET to confirm'**
+  String get type_reset_to_confirm;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// A message for the theme mode
+  ///
+  /// In en, this message translates to:
+  /// **'{mode, select, light{Light} dark{Dark} other{System}}'**
+  String theme_mode(String mode);
+
+  /// Choosen language
+  ///
+  /// In en, this message translates to:
+  /// **'{language, select, en{English} de{German} ru{Russian} other{}}'**
+  String language_map(String language);
 }
 
 class _AppLocalizationsDelegate

@@ -134,4 +134,72 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get app_description =>
       'Простое приложение для отслеживания времени, призванное помочь вам отслеживать и анализировать, как вы тратите свое время на различные виды деятельности.';
+
+  @override
+  String get appearance => 'Внешний вид';
+
+  @override
+  String get language => 'Язык';
+
+  @override
+  String get theme => 'Тема';
+
+  @override
+  String get data_management => 'Управление данными';
+
+  @override
+  String get export_data => 'Экспорт данных';
+
+  @override
+  String get export_data_subtitle => 'Экспортировать в CSV';
+
+  @override
+  String get reset_data => 'Сбросить данные';
+
+  @override
+  String get reset_data_subtitle => 'Удалить все данные';
+
+  @override
+  String get reset_data_warning =>
+      'Это навсегда удалит все ваши данные. Это действие нельзя отменить.';
+
+  @override
+  String get reset_data_final_warning =>
+      'Введите \'RESET\' для подтверждения удаления всех данных:';
+
+  @override
+  String get type_reset_to_confirm => 'Введите RESET для подтверждения';
+
+  @override
+  String get reset => 'Сбросить';
+
+  @override
+  String get about => 'О приложении';
+
+  @override
+  String theme_mode(String mode) {
+    String _temp0 = intl.Intl.selectLogic(
+      mode,
+      {
+        'light': 'Светлая',
+        'dark': 'Тёмная',
+        'other': 'Системная',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String language_map(String language) {
+    String _temp0 = intl.Intl.selectLogic(
+      language,
+      {
+        'en': 'Английский',
+        'de': 'Немецкий',
+        'ru': 'Русский',
+        'other': '',
+      },
+    );
+    return '$_temp0';
+  }
 }

@@ -131,4 +131,72 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get app_description =>
       'A simple time tracking application designed to help you monitor and analyze how you spend your time across different activities.';
+
+  @override
+  String get appearance => 'Appearance';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get data_management => 'Data Management';
+
+  @override
+  String get export_data => 'Export Data';
+
+  @override
+  String get export_data_subtitle => 'Export to CSV';
+
+  @override
+  String get reset_data => 'Reset Data';
+
+  @override
+  String get reset_data_subtitle => 'Delete all data';
+
+  @override
+  String get reset_data_warning =>
+      'This will permanently delete all your data. This action cannot be undone.';
+
+  @override
+  String get reset_data_final_warning =>
+      'Type \'RESET\' to confirm deletion of all data:';
+
+  @override
+  String get type_reset_to_confirm => 'Type RESET to confirm';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String theme_mode(String mode) {
+    String _temp0 = intl.Intl.selectLogic(
+      mode,
+      {
+        'light': 'Light',
+        'dark': 'Dark',
+        'other': 'System',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String language_map(String language) {
+    String _temp0 = intl.Intl.selectLogic(
+      language,
+      {
+        'en': 'English',
+        'de': 'German',
+        'ru': 'Russian',
+        'other': '',
+      },
+    );
+    return '$_temp0';
+  }
 }

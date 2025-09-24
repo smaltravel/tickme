@@ -133,4 +133,72 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get app_description =>
       'Eine einfache Anwendung zur Zeiterfassung, mit der Sie überwachen und analysieren können, wie Sie Ihre Zeit bei verschiedenen Aktivitäten verbringen.';
+
+  @override
+  String get appearance => 'Erscheinungsbild';
+
+  @override
+  String get language => 'Sprache';
+
+  @override
+  String get theme => 'Design';
+
+  @override
+  String get data_management => 'Datenverwaltung';
+
+  @override
+  String get export_data => 'Daten exportieren';
+
+  @override
+  String get export_data_subtitle => 'Exportieren nach CSV';
+
+  @override
+  String get reset_data => 'Daten zurücksetzen';
+
+  @override
+  String get reset_data_subtitle => 'Alle Daten löschen';
+
+  @override
+  String get reset_data_warning =>
+      'Dies wird alle Ihre Daten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden.';
+
+  @override
+  String get reset_data_final_warning =>
+      'Geben Sie \'RESET\' ein, um die Löschung aller Daten zu bestätigen:';
+
+  @override
+  String get type_reset_to_confirm => 'RESET eingeben, um zu bestätigen';
+
+  @override
+  String get reset => 'Zurücksetzen';
+
+  @override
+  String get about => 'Über';
+
+  @override
+  String theme_mode(String mode) {
+    String _temp0 = intl.Intl.selectLogic(
+      mode,
+      {
+        'light': 'Hell',
+        'dark': 'Dunkel',
+        'other': 'System',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String language_map(String language) {
+    String _temp0 = intl.Intl.selectLogic(
+      language,
+      {
+        'en': 'English',
+        'de': 'Deutsch',
+        'ru': 'Russisch',
+        'other': '',
+      },
+    );
+    return '$_temp0';
+  }
 }

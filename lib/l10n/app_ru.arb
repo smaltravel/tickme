@@ -46,5 +46,38 @@
   "stats_total_time": "Общее время",
   "category_modal_edit": "Редактировать",
   "category_modal_delete": "Удалить",
-  "app_description": "Простое приложение для отслеживания времени, призванное помочь вам отслеживать и анализировать, как вы тратите свое время на различные виды деятельности."
+  "app_description": "Простое приложение для отслеживания времени, призванное помочь вам отслеживать и анализировать, как вы тратите свое время на различные виды деятельности.",
+  "appearance": "Внешний вид",
+  "language": "Язык",
+  "theme": "Тема",
+  "data_management": "Управление данными",
+  "export_data": "Экспорт данных",
+  "export_data_subtitle": "Экспортировать в CSV",
+  "reset_data": "Сбросить данные",
+  "reset_data_subtitle": "Удалить все данные",
+  "reset_data_warning": "Это навсегда удалит все ваши данные. Это действие нельзя отменить.",
+  "reset_data_final_warning": "Введите 'RESET' для подтверждения удаления всех данных:",
+  "type_reset_to_confirm": "Введите RESET для подтверждения",
+  "reset": "Сбросить",
+  "about": "О приложении",
+  "theme_mode": "{mode, select, light{Светлая} dark{Тёмная} other{Системная}}",
+  "@theme_mode": {
+    "description": "Сообщение для темы",
+    "placeholders": {
+      "mode": {
+        "type": "String",
+        "description": "Тема"
+      }
+    }
+  },
+  "language_map": "{language, select, en{Английский} de{Немецкий} ru{Русский} other{}}",
+  "@language_map": {
+    "description": "Выбранный язык",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "description": "Выбранный язык"
+      }
+    }
+  }
 }
