@@ -388,6 +388,60 @@ abstract class AppLocalizations {
   /// **'Failed to reset data'**
   String get reset_data_error;
 
+  /// No description provided for @time_period.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Period'**
+  String get time_period;
+
+  /// No description provided for @date_range.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Range'**
+  String get date_range;
+
+  /// No description provided for @start_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get start_date;
+
+  /// No description provided for @end_date.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get end_date;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @export_data_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Data exported successfully'**
+  String get export_data_success;
+
+  /// No description provided for @export_data_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to export data'**
+  String get export_data_error;
+
+  /// No description provided for @error_loading_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading categories'**
+  String get error_loading_categories;
+
+  /// No description provided for @whole_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Whole time'**
+  String get whole_time;
+
   /// No description provided for @about.
   ///
   /// In en, this message translates to:

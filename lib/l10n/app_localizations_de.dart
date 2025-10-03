@@ -173,6 +173,33 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reset_data_error => 'Fehler beim Zurücksetzen der Daten';
 
   @override
+  String get time_period => 'Zeitraum';
+
+  @override
+  String get date_range => 'Datumsbereich';
+
+  @override
+  String get start_date => 'Startdatum';
+
+  @override
+  String get end_date => 'Enddatum';
+
+  @override
+  String get categories => 'Kategorien';
+
+  @override
+  String get export_data_success => 'Daten erfolgreich exportiert';
+
+  @override
+  String get export_data_error => 'Fehler beim Exportieren der Daten';
+
+  @override
+  String get error_loading_categories => 'Fehler beim Laden der Kategorien';
+
+  @override
+  String get whole_time => 'Gesamte Zeit';
+
+  @override
   String get about => 'Über';
 
   @override

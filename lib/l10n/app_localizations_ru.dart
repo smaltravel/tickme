@@ -173,6 +173,33 @@ class AppLocalizationsRu extends AppLocalizations {
   String get reset_data_error => 'Ошибка при сбросе данных';
 
   @override
+  String get time_period => 'Временной период';
+
+  @override
+  String get date_range => 'Диапазон дат';
+
+  @override
+  String get start_date => 'Дата начала';
+
+  @override
+  String get end_date => 'Дата окончания';
+
+  @override
+  String get categories => 'Категории';
+
+  @override
+  String get export_data_success => 'Данные успешно экспортированы';
+
+  @override
+  String get export_data_error => 'Ошибка при экспорте данных';
+
+  @override
+  String get error_loading_categories => 'Ошибка загрузки категорий';
+
+  @override
+  String get whole_time => 'Всё время';
+
+  @override
   String get about => 'О приложении';
 
   @override

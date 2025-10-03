@@ -2,20 +2,28 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/providers/settings_provider.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
+import 'package:tickme/services/csv_export_service.dart';
 import 'package:tickme/views/dialogs/confirmation_dialog.dart';
 import 'package:tickme/views/dialogs/language_builder.dart';
 import 'package:tickme/views/dialogs/theme_builder.dart';
+import 'package:tickme/views/widgets/common/analytics_filters.dart';
 import 'package:tickme/views/widgets/settings/section_header.dart';
 
 @RoutePage(name: 'SettingsTab')
-class SettingsScreen extends ConsumerWidget {
+class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends ConsumerState<SettingsScreen> {
+  @override
+  Widget build(BuildContext context) {
     final settings = ref.watch(tickMeAppSettingsProvider);
 
     return Scaffold(
@@ -76,7 +84,7 @@ class SettingsScreen extends ConsumerWidget {
             title: Text(context.loc.export_data),
             subtitle: Text(context.loc.export_data_subtitle),
             trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-            onTap: null, // TODO: Implement export
+            onTap: () => _showFilterModal(context),
           ),
           ListTile(
             leading: const Icon(Icons.delete_forever, color: Colors.red),
@@ -116,6 +124,25 @@ class SettingsScreen extends ConsumerWidget {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  void _showFilterModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => AnalyticsFilters(
+        selectedCategories: {},
+        onFiltersChanged: (categories, startDate, endDate) async {
+          final status =
+              await ExportService.shareCsv(startDate, endDate, categories);
+          if (status == ShareResultStatus.success) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(context.loc.export_data_success)),
+            );
+          }
+        },
       ),
     );
   }

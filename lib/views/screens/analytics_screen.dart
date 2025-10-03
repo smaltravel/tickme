@@ -8,7 +8,7 @@ import 'package:tickme/models/time_entry.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
 import 'package:tickme/providers/time_entries_prodiver.dart';
 import 'package:tickme/views/widgets/analytics/analytics_charts.dart';
-import 'package:tickme/views/widgets/analytics/analytics_filters.dart';
+import 'package:tickme/views/widgets/common/analytics_filters.dart';
 import 'package:tickme/views/widgets/analytics/analytics_summary.dart';
 import 'package:tickme/views/widgets/analytics/analytics_time_frames.dart';
 
@@ -127,7 +127,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
             startDate: _startDate,
             endDate: _endDate,
             selectedCategories: _selectedCategories,
-            onFilterPressed: () => _showFilterModal(categories),
+            onFilterPressed: () => _showFilterModal(),
           ),
           const SizedBox(height: 24),
 
@@ -180,12 +180,11 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> {
     );
   }
 
-  void _showFilterModal(List<TickCategoryModel> categories) {
+  void _showFilterModal() {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (context) => AnalyticsFilters(
-        categories: categories,
         selectedCategories: _selectedCategories,
         startDate: _startDate,
         endDate: _endDate,

@@ -170,6 +170,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reset_data_error => 'Failed to reset data';
 
   @override
+  String get time_period => 'Time Period';
+
+  @override
+  String get date_range => 'Date Range';
+
+  @override
+  String get start_date => 'Start Date';
+
+  @override
+  String get end_date => 'End Date';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get export_data_success => 'Data exported successfully';
+
+  @override
+  String get export_data_error => 'Failed to export data';
+
+  @override
+  String get error_loading_categories => 'Error loading categories';
+
+  @override
+  String get whole_time => 'Whole time';
+
+  @override
   String get about => 'About';
 
   @override
