@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tickme/common/tickme_dark_theme.dart';
 import 'package:tickme/common/tickme_light_theme.dart';
 import 'package:tickme/l10n/app_localizations.dart';
 import 'package:tickme/providers/locale_provider.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
+import 'package:tickme/providers/theme_mode_provider.dart';
 import 'package:tickme/screens/app_navigation.dart';
 
 void main() async {
@@ -25,10 +27,13 @@ class TickmeApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeServiceProvider);
-    return MaterialApp.router(
+    final themeMode = ref.watch(themeModeProvider);
+
+    return MaterialApp(
       title: 'Tickme',
       theme: TickMeLightTheme.theme,
-      routerConfig: AppNavigation.router,
+      darkTheme: TickMeDarkTheme.theme,
+      themeMode: themeMode,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -37,6 +42,7 @@ class TickmeApp extends ConsumerWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       locale: locale,
+      home: const AppNavigation(),
     );
   }
 }

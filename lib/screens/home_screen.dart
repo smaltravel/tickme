@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconpicker/Models/configuration.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:moon_design/moon_design.dart';
 import 'package:tickme/common/icon_pack.dart';
 import 'package:tickme/common/tickme_light_theme.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
@@ -11,8 +12,7 @@ import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/providers/active_timer_provider.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
 
-final _tickCard =
-    Provider<TickCategoryModel>((ref) => throw UnimplementedError());
+final _tickCard = Provider<TickCategoryModel>((ref) => throw UnimplementedError());
 
 Future<void> _showNewUpdateTickCategoryDialog(
     BuildContext context, WidgetRef ref, TickCategoryModel? current) {
@@ -23,69 +23,81 @@ Future<void> _showNewUpdateTickCategoryDialog(
     context: context,
     barrierDismissible: true,
     builder: (BuildContext context) => StatefulBuilder(
-      builder: (context, setState) => AlertDialog(
-        title: Text(current == null
-            ? context.loc.home_new_category
-            : context.loc.home_edit_category),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(currentIcon.data, size: 40.0),
-            const SizedBox(height: 8.0),
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                  labelText: context.loc.home_edit_category_name),
-              inputFormatters: [LengthLimitingTextInputFormatter(20)],
-            ),
-            const SizedBox(height: 8.0),
-            ElevatedButton(
-              onPressed: () async {
-                IconPickerIcon? icon = await showIconPicker(
-                  context,
-                  configuration: SinglePickerConfiguration(
-                    showTooltips: false,
-                    showSearchBar: false,
-                    iconPackModes: [IconPack.custom],
-                    customIconPack: categoriesIconPack,
+      builder: (context, setState) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                current == null ? context.loc.home_new_category : context.loc.home_edit_category,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Icon(currentIcon.data, size: 40.0),
+              const SizedBox(height: 16),
+              MoonTextInput(
+                controller: nameController,
+                hintText: context.loc.home_edit_category_name,
+                inputFormatters: [LengthLimitingTextInputFormatter(20)],
+              ),
+              const SizedBox(height: 16),
+              MoonButton(
+                onTap: () async {
+                  IconPickerIcon? icon = await showIconPicker(
+                    context,
+                    configuration: SinglePickerConfiguration(
+                      showTooltips: false,
+                      showSearchBar: false,
+                      iconPackModes: [IconPack.custom],
+                      customIconPack: categoriesIconPack,
+                    ),
+                  );
+                  if (icon != null) {
+                    setState(() {
+                      currentIcon = icon;
+                    });
+                  }
+                },
+                label: Text(context.loc.home_choose_icon),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  MoonButton(
+                    buttonSize: MoonButtonSize.sm,
+                    backgroundColor: Colors.transparent,
+                    onTap: () => Navigator.of(context).pop(),
+                    label: Text(context.loc.cancel),
                   ),
-                );
-                if (icon != null) {
-                  setState(() {
-                    currentIcon = icon;
-                  });
-                }
-              },
-              child: Text(context.loc.home_choose_icon),
-            ),
-          ],
+                  const SizedBox(width: 8),
+                  MoonButton(
+                    buttonSize: MoonButtonSize.sm,
+                    onTap: () {
+                      if (current == null) {
+                        ref.read(tickCategoriesProvider.notifier).add(nameController.text, currentIcon);
+                      } else {
+                        ref.read(tickCategoriesProvider.notifier).update(
+                              id: current.id,
+                              name: nameController.text,
+                              icon: currentIcon,
+                            );
+                      }
+                      Navigator.of(context).pop();
+                    },
+                    label: Text(current == null ? context.loc.add : context.loc.home_edit_category_update),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(context.loc.cancel),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (current == null) {
-                ref
-                    .read(tickCategoriesProvider.notifier)
-                    .add(nameController.text, currentIcon);
-              } else {
-                ref.read(tickCategoriesProvider.notifier).update(
-                      id: current.id,
-                      name: nameController.text,
-                      icon: currentIcon,
-                    );
-              }
-              Navigator.of(context).pop();
-            },
-            child: Text(current == null
-                ? context.loc.add
-                : context.loc.home_edit_category_update),
-          ),
-        ],
       ),
     ),
   );
@@ -101,33 +113,36 @@ class TickTileHook extends HookConsumerWidget {
 
     final isActive = activeTimer != null && activeTimer.categoryId == card.id;
 
-    return InkWell(
+    return GestureDetector(
       onTap: () => _startStopTimer(ref, card, activeTimer),
       onLongPress: () => _showNewUpdateTickCategoryDialog(context, ref, card),
-      child: Card(
-        color: isActive ? TickmeCardThemeData.selected.surfaceTintColor : null,
-        shape: isActive ? TickmeCardThemeData.selected.shape : null,
-        child: Container(
-          padding: const EdgeInsets.all(2.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(card.icon.data, size: 40.0),
-              Text(
-                card.name,
-                style: TextTheme.of(context).titleSmall,
-                textAlign: TextAlign.center,
-              ),
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+          color: isActive ? Colors.lightBlueAccent.shade100 : Colors.white,
+          borderRadius: BorderRadius.circular(16.0),
+          border: Border.all(
+            color: isActive ? const Color(0xFF0091EA) : const Color(0xFFE2E8F0),
+            width: 1.0,
           ),
+        ),
+        padding: const EdgeInsets.all(2.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(card.icon.data, size: 40.0),
+            Text(
+              card.name,
+              style: TextTheme.of(context).titleSmall,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
   }
 
-  void _startStopTimer(
-      WidgetRef ref, TickCategoryModel timerCategory, ActiveTimerModel? timer) {
+  void _startStopTimer(WidgetRef ref, TickCategoryModel timerCategory, ActiveTimerModel? timer) {
     if (timer != null) {
       // Stop current activity
       ref.read(activeTickProvider.notifier).stop();
@@ -169,57 +184,67 @@ class ElapsedTimeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final category = ref
-        .watch(tickCategoriesProvider)
-        .firstWhere((e) => e.id == activeTimer.categoryId);
+    final category = ref.watch(tickCategoriesProvider).firstWhere((e) => e.id == activeTimer.categoryId);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Card(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              title: Text(
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.0),
+        border: Border.all(
+          color: const Color(0xFFE2E8F0),
+          width: 1.0,
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
                 context.loc.home_active_timer,
                 style: TextTheme.of(context).titleMedium,
               ),
-              subtitle: Text(category.name),
-            ),
-            Center(
-              child: StreamBuilder<DateTime>(
-                initialData: DateTime.now(),
-                stream: Stream.periodic(
-                    const Duration(seconds: 1), (_) => DateTime.now()),
-                builder: (context, snapshot) => Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: _formatDuration(
-                          snapshot.data!.difference(activeTimer.start))
-                      .asMap()
-                      .entries
-                      .map((e) => TimeBlockAtom(
-                            val: e.value,
-                            width: e.key % 2 == 0 ? 50.0 : 5,
-                          ))
-                      .toList(),
-                ),
+              const SizedBox(height: 4),
+              Text(
+                category.name,
+                style: TextTheme.of(context).bodyMedium,
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Center(
+            child: StreamBuilder<DateTime>(
+              initialData: DateTime.now(),
+              stream: Stream.periodic(const Duration(seconds: 1), (_) => DateTime.now()),
+              builder: (context, snapshot) => Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: _formatDuration(snapshot.data!.difference(activeTimer.start))
+                    .asMap()
+                    .entries
+                    .map((e) => TimeBlockAtom(
+                          val: e.value,
+                          width: e.key % 2 == 0 ? 50.0 : 5,
+                        ))
+                    .toList(),
               ),
             ),
-            TextButton(
-              onPressed: () => ref.read(activeTickProvider.notifier).stop(),
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
-              child: Text(
-                context.loc.home_stop,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                ),
+          ),
+          const SizedBox(height: 16),
+          MoonButton(
+            onTap: () => ref.read(activeTickProvider.notifier).stop(),
+            backgroundColor: Colors.red,
+            label: Text(
+              context.loc.home_stop,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -237,23 +262,29 @@ class AddTickCategoryButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => _showNewUpdateTickCategoryDialog(context, ref, null),
-      child: Card(
-        child: Container(
-          padding: const EdgeInsets.all(2.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.add, size: 40.0),
-              Text(
-                context.loc.add,
-                style: TextTheme.of(context).titleSmall,
-                textAlign: TextAlign.center,
-              ),
-            ],
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.0),
+          border: Border.all(
+            color: const Color(0xFFE2E8F0),
+            width: 1.0,
           ),
+        ),
+        padding: const EdgeInsets.all(2.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.add, size: 40.0),
+            Text(
+              context.loc.add,
+              style: TextTheme.of(context).titleSmall,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
@@ -272,41 +303,41 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ticks = ref.watch(tickCategoriesProvider);
     final activeTimer = ref.watch(activeTickProvider);
-    final width =
-        (MediaQuery.of(context).size.width - _runSpacing * (_columns - 1)) /
-            _columns;
+    final width = (MediaQuery.of(context).size.width - _runSpacing * (_columns - 1)) / _columns;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      spacing: 8.0,
-      children: [
-        if (activeTimer != null)
-          ElapsedTimeWidget(
-            activeTimer: activeTimer,
+    return SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        spacing: 8.0,
+        children: [
+          if (activeTimer != null)
+            ElapsedTimeWidget(
+              activeTimer: activeTimer,
+            ),
+          SingleChildScrollView(
+            child: Wrap(
+              runSpacing: _runSpacing,
+              spacing: _spacing,
+              alignment: WrapAlignment.center,
+              children: [
+                ...ticks.map((t) => SizedBox(
+                      width: width,
+                      height: width * 1.5,
+                      child: ProviderScope(
+                        overrides: [_tickCard.overrideWithValue(t)],
+                        child: const TickTileHook(),
+                      ),
+                    )),
+                SizedBox(
+                  width: width,
+                  height: width * 1.5,
+                  child: const AddTickCategoryButton(),
+                ),
+              ],
+            ),
           ),
-        SingleChildScrollView(
-          child: Wrap(
-            runSpacing: _runSpacing,
-            spacing: _spacing,
-            alignment: WrapAlignment.center,
-            children: [
-              ...ticks.map((t) => SizedBox(
-                    width: width,
-                    height: width * 1.5,
-                    child: ProviderScope(
-                      overrides: [_tickCard.overrideWithValue(t)],
-                      child: const TickTileHook(),
-                    ),
-                  )),
-              SizedBox(
-                width: width,
-                height: width * 1.5,
-                child: const AddTickCategoryButton(),
-              ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
