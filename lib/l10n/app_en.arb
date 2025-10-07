@@ -13,6 +13,7 @@
   "home_choose_icon": "Choose Icon",
   "home_stop": "Stop",
   "home_new_category": "New Category",
+  "home_search_categories": "Search categories...",
   "settings_remove_data": "Remove all data",
   "settings_confirm_removing_title": "Confirm Removing",
   "settings_confirm_removing_content": "Are you sure you want to remove all data?",

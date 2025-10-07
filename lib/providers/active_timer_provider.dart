@@ -16,12 +16,9 @@ class ActiveTick extends _$ActiveTick {
   ActiveTimerModel? build() {
     final pref = ref.watch(sharedPreferencesProvider);
     final data = pref.getString(_sharedPrefKey);
-    final currentState = data != null && data != "null"
-        ? ActiveTimerModel.fromJson(jsonDecode(data))
-        : null;
+    final currentState = data != null && data != "null" ? ActiveTimerModel.fromJson(jsonDecode(data)) : null;
 
-    ref.listenSelf(
-        (_, curr) => pref.setString(_sharedPrefKey, jsonEncode(curr)));
+    listenSelf((_, curr) => pref.setString(_sharedPrefKey, jsonEncode(curr)));
 
     return currentState;
   }
@@ -31,10 +28,8 @@ class ActiveTick extends _$ActiveTick {
   }
 
   void stop() {
-    ref.read(databaseStateProvider.notifier).insertTimeEntry(TimeEntryModel(
-        categoryId: state!.categoryId,
-        startTime: state!.start,
-        endTime: DateTime.now()));
+    ref.read(databaseStateProvider.notifier).insertTimeEntry(
+        TimeEntryModel(categoryId: state!.categoryId, startTime: state!.start, endTime: DateTime.now()));
     state = null;
   }
 

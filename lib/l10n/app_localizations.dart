@@ -178,6 +178,12 @@ abstract class AppLocalizations {
   /// **'New Category'**
   String get home_new_category;
 
+  /// No description provided for @home_search_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Search categories...'**
+  String get home_search_categories;
+
   /// No description provided for @settings_remove_data.
   ///
   /// In en, this message translates to:

@@ -48,6 +48,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get home_new_category => 'Новая категория';
 
   @override
+  String get home_search_categories => 'Поиск категорий...';
+
+  @override
   String get settings_remove_data => 'Удалить все данные';
 
   @override

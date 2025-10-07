@@ -48,6 +48,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home_new_category => 'New Category';
 
   @override
+  String get home_search_categories => 'Search categories...';
+
+  @override
   String get settings_remove_data => 'Remove all data';
 
   @override
