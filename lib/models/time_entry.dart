@@ -1,34 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class TimeEntryModel {
-  final int? id;
-  final String categoryId;
-  final DateTime startTime;
-  final DateTime endTime;
+part 'generated/time_entry.freezed.dart';
+part 'generated/time_entry.g.dart';
 
-  const TimeEntryModel({
-    this.id,
-    required this.categoryId,
-    required this.startTime,
-    required this.endTime,
-  });
+@freezed
+abstract class TimeEntryModel with _$TimeEntryModel {
+  const factory TimeEntryModel({
+    int? id,
+    required int categoryId,
+    required DateTime startTime,
+    required DateTime endTime,
+  }) = _TimeEntryModel;
 
-  factory TimeEntryModel.fromMap(Map<String, dynamic> map) {
-    return TimeEntryModel(
-      id: map['id'] as int?,
-      categoryId: map['categoryId'] as String,
-      startTime: DateTime.parse(map['startTime'] as String),
-      endTime: DateTime.parse(map['endTime'] as String),
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'categoryId': categoryId,
-      'startTime': startTime.toIso8601String(),
-      'endTime': endTime.toIso8601String(),
-    };
-  }
+  factory TimeEntryModel.fromJson(Map<String, dynamic> json) =>
+      _$TimeEntryModelFromJson(json);
 }

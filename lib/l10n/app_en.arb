@@ -1,18 +1,24 @@
 {
   "@@locale": "en",
   "add": "Add",
+  "apply": "Apply",
   "cancel": "Cancel",
   "remove": "Remove",
   "day": "Day",
   "week": "Week",
   "month": "Month",
+  "custom": "Custom",
+  "home_color_picker_title": "Pick a color",
   "home_edit_category_update": "Update",
   "home_edit_category": "Edit Category",
   "home_edit_category_name": "name",
+  "home_select_color": "Select Color",
   "home_active_timer": "Active Timer",
   "home_choose_icon": "Choose Icon",
   "home_stop": "Stop",
   "home_new_category": "New Category",
+  "home_no_categories": "No categories yet",
+  "home_tap_to_add_category": "Tap + to add your first category",
   "home_search_categories": "Search categories...",
   "settings_remove_data": "Remove all data",
   "settings_confirm_removing_title": "Confirm Removing",
@@ -27,8 +33,65 @@
   "theme_dark": "Dark",
   "theme_system": "System",
   "bottom_bar_home": "Home",
-  "bottom_bar_stats": "Pie Chart",
+  "bottom_bar_stats": "Charts",
   "bottom_bar_settings": "Settings",
   "stats_no_data": "No Data Yet",
-  "app_description": "A simple time tracking application designed to help you monitor and analyze how you spend your time across different activities."
+  "stats_active_filters": "{count, plural, =0{No filters} =1{1 filter} other{{count} filters}}",
+  "@stats_active_filters": {
+    "description": "A plural message for the number of active filters",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "0",
+        "description": "Number of active filters"
+      }
+    }
+  },
+  "stats_total_time": "Total Time",
+  "category_modal_edit": "Edit",
+  "category_modal_delete": "Delete",
+  "app_description": "A simple time tracking application designed to help you monitor and analyze how you spend your time across different activities.",
+  "appearance": "Appearance",
+  "language": "Language",
+  "theme": "Theme",
+  "data_management": "Data Management",
+  "export_data": "Export Data",
+  "export_data_subtitle": "Export to CSV",
+  "reset_data": "Reset Data",
+  "reset_data_subtitle": "Delete all data",
+  "reset_data_warning": "This will permanently delete all your data. This action cannot be undone.",
+  "reset": "Reset",
+  "reset_data_success": "All data has been reset successfully",
+  "reset_data_error": "Failed to reset data",
+  "time_period": "Time Period",
+  "date_range": "Date Range",
+  "start_date": "Start Date",
+  "end_date": "End Date",
+  "categories": "Categories",
+  "export_data_success": "Data exported successfully",
+  "export_data_error": "Failed to export data",
+  "error_loading_categories": "Error loading categories",
+  "whole_time": "Whole time",
+  "about": "About",
+  "theme_mode": "{mode, select, light{Light} dark{Dark} other{System}}",
+  "@theme_mode": {
+    "description": "A message for the theme mode",
+    "placeholders": {
+      "mode": {
+        "type": "String",
+        "description": "The theme mode"
+      }
+    }
+  },
+  "language_map": "{language, select, en{English} de{German} ru{Russian} other{}}",
+  "@language_map": {
+    "description": "Choosen language",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "description": "The choosen language"
+      }
+    }
+  }
 }

@@ -12,6 +12,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get add => 'Hinzufügen';
 
   @override
+  String get apply => 'Anwenden';
+
+  @override
   String get cancel => 'Abbrechen';
 
   @override
@@ -27,6 +30,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get month => 'Monat';
 
   @override
+  String get custom => 'Benutzerdefiniert';
+
+  @override
+  String get home_color_picker_title => 'Farbe auswählen';
+
+  @override
   String get home_edit_category_update => 'Aktualisieren';
 
   @override
@@ -34,6 +43,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get home_edit_category_name => 'Name';
+
+  @override
+  String get home_select_color => 'Farbe auswählen';
 
   @override
   String get home_active_timer => 'Aktiver Timer';
@@ -46,6 +58,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get home_new_category => 'Neue Kategorie';
+
+  @override
+  String get home_no_categories => 'Keine Kategorien vorhanden';
+
+  @override
+  String get home_tap_to_add_category =>
+      'Tippen Sie +, um Ihre erste Kategorie hinzuzufügen';
 
   @override
   String get home_search_categories => 'Kategorien suchen...';
@@ -92,7 +111,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get bottom_bar_home => 'Home';
 
   @override
-  String get bottom_bar_stats => 'Kreisdiagramm';
+  String get bottom_bar_stats => 'Charts';
 
   @override
   String get bottom_bar_settings => 'Einstellungen';
@@ -101,6 +120,127 @@ class AppLocalizationsDe extends AppLocalizations {
   String get stats_no_data => 'Keine Daten vorhanden';
 
   @override
+  String stats_active_filters(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString Filter',
+      one: '1 Filter',
+      zero: 'Keine Filter',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stats_total_time => 'Gesamtzeit';
+
+  @override
+  String get category_modal_edit => 'Bearbeiten';
+
+  @override
+  String get category_modal_delete => 'Löschen';
+
+  @override
   String get app_description =>
       'Eine einfache Anwendung zur Zeiterfassung, mit der Sie überwachen und analysieren können, wie Sie Ihre Zeit bei verschiedenen Aktivitäten verbringen.';
+
+  @override
+  String get appearance => 'Erscheinungsbild';
+
+  @override
+  String get language => 'Sprache';
+
+  @override
+  String get theme => 'Design';
+
+  @override
+  String get data_management => 'Datenverwaltung';
+
+  @override
+  String get export_data => 'Daten exportieren';
+
+  @override
+  String get export_data_subtitle => 'Exportieren nach CSV';
+
+  @override
+  String get reset_data => 'Daten zurücksetzen';
+
+  @override
+  String get reset_data_subtitle => 'Alle Daten löschen';
+
+  @override
+  String get reset_data_warning =>
+      'Dies wird alle Ihre Daten dauerhaft löschen. Diese Aktion kann nicht rückgängig gemacht werden.';
+
+  @override
+  String get reset => 'Zurücksetzen';
+
+  @override
+  String get reset_data_success =>
+      'Alle Daten wurden erfolgreich zurückgesetzt';
+
+  @override
+  String get reset_data_error => 'Fehler beim Zurücksetzen der Daten';
+
+  @override
+  String get time_period => 'Zeitraum';
+
+  @override
+  String get date_range => 'Datumsbereich';
+
+  @override
+  String get start_date => 'Startdatum';
+
+  @override
+  String get end_date => 'Enddatum';
+
+  @override
+  String get categories => 'Kategorien';
+
+  @override
+  String get export_data_success => 'Daten erfolgreich exportiert';
+
+  @override
+  String get export_data_error => 'Fehler beim Exportieren der Daten';
+
+  @override
+  String get error_loading_categories => 'Fehler beim Laden der Kategorien';
+
+  @override
+  String get whole_time => 'Gesamte Zeit';
+
+  @override
+  String get about => 'Über';
+
+  @override
+  String theme_mode(String mode) {
+    String _temp0 = intl.Intl.selectLogic(
+      mode,
+      {
+        'light': 'Hell',
+        'dark': 'Dunkel',
+        'other': 'System',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String language_map(String language) {
+    String _temp0 = intl.Intl.selectLogic(
+      language,
+      {
+        'en': 'English',
+        'de': 'Deutsch',
+        'ru': 'Russisch',
+        'other': '',
+      },
+    );
+    return '$_temp0';
+  }
 }

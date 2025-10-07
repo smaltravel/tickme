@@ -1,18 +1,24 @@
 {
   "@@locale": "ru",
   "add": "Добавить",
+  "apply": "Применить",
   "cancel": "Отмена",
   "remove": "Удалить",
   "day": "День",
   "week": "Неделя",
   "month": "Месяц",
+  "custom": "Пользовательский",
+  "home_color_picker_title": "Выбрать цвет",
   "home_edit_category_update": "Обновить",
   "home_edit_category": "Редактировать категорию",
   "home_edit_category_name": "имя",
+  "home_select_color": "Выбрать цвет",
   "home_active_timer": "Активный таймер",
   "home_choose_icon": "Выбрать иконку",
   "home_stop": "Остановить",
   "home_new_category": "Новая категория",
+  "home_no_categories": "Нет категорий",
+  "home_tap_to_add_category": "Нажмите +, чтобы добавить свою первую категорию",
   "home_search_categories": "Поиск категорий...",
   "settings_remove_data": "Удалить все данные",
   "settings_confirm_removing_title": "Подтвердить удаление",
@@ -27,8 +33,65 @@
   "theme_dark": "Темная",
   "theme_system": "Системная",
   "bottom_bar_home": "Главная",
-  "bottom_bar_stats": "Диаграмма",
+  "bottom_bar_stats": "Графики",
   "bottom_bar_settings": "Настройки",
   "stats_no_data": "Нет данных",
-  "app_description": "Простое приложение для отслеживания времени, призванное помочь вам отслеживать и анализировать, как вы тратите свое время на различные виды деятельности."
+  "stats_active_filters": "{count, plural, =0{Нет фильтров} =1{1 фильтр} =2{2 фильтра} other{{count} фильтров}}",
+  "@stats_active_filters": {
+    "description": "Сообщение для количества активных фильтров",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "0",
+        "description": "Количество активных фильтров"
+      }
+    }
+  },
+  "stats_total_time": "Общее время",
+  "category_modal_edit": "Редактировать",
+  "category_modal_delete": "Удалить",
+  "app_description": "Простое приложение для отслеживания времени, призванное помочь вам отслеживать и анализировать, как вы тратите свое время на различные виды деятельности.",
+  "appearance": "Внешний вид",
+  "language": "Язык",
+  "theme": "Тема",
+  "data_management": "Управление данными",
+  "export_data": "Экспорт данных",
+  "export_data_subtitle": "Экспортировать в CSV",
+  "reset_data": "Сбросить данные",
+  "reset_data_subtitle": "Удалить все данные",
+  "reset_data_warning": "Это навсегда удалит все ваши данные. Это действие нельзя отменить.",
+  "reset": "Сбросить",
+  "reset_data_success": "Все данные были успешно сброшены",
+  "reset_data_error": "Ошибка при сбросе данных",
+  "time_period": "Временной период",
+  "date_range": "Диапазон дат",
+  "start_date": "Дата начала",
+  "end_date": "Дата окончания",
+  "categories": "Категории",
+  "export_data_success": "Данные успешно экспортированы",
+  "export_data_error": "Ошибка при экспорте данных",
+  "error_loading_categories": "Ошибка загрузки категорий",
+  "whole_time": "Всё время",
+  "about": "О приложении",
+  "theme_mode": "{mode, select, light{Светлая} dark{Тёмная} other{Системная}}",
+  "@theme_mode": {
+    "description": "Сообщение для темы",
+    "placeholders": {
+      "mode": {
+        "type": "String",
+        "description": "Тема"
+      }
+    }
+  },
+  "language_map": "{language, select, en{Английский} de{Немецкий} ru{Русский} other{}}",
+  "@language_map": {
+    "description": "Выбранный язык",
+    "placeholders": {
+      "language": {
+        "type": "String",
+        "description": "Выбранный язык"
+      }
+    }
+  }
 }

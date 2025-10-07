@@ -12,6 +12,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add => 'Add';
 
   @override
+  String get apply => 'Apply';
+
+  @override
   String get cancel => 'Cancel';
 
   @override
@@ -27,6 +30,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get month => 'Month';
 
   @override
+  String get custom => 'Custom';
+
+  @override
+  String get home_color_picker_title => 'Pick a color';
+
+  @override
   String get home_edit_category_update => 'Update';
 
   @override
@@ -34,6 +43,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get home_edit_category_name => 'name';
+
+  @override
+  String get home_select_color => 'Select Color';
 
   @override
   String get home_active_timer => 'Active Timer';
@@ -46,6 +58,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get home_new_category => 'New Category';
+
+  @override
+  String get home_no_categories => 'No categories yet';
+
+  @override
+  String get home_tap_to_add_category => 'Tap + to add your first category';
 
   @override
   String get home_search_categories => 'Search categories...';
@@ -91,7 +109,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bottom_bar_home => 'Home';
 
   @override
-  String get bottom_bar_stats => 'Pie Chart';
+  String get bottom_bar_stats => 'Charts';
 
   @override
   String get bottom_bar_settings => 'Settings';
@@ -100,6 +118,126 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stats_no_data => 'No Data Yet';
 
   @override
+  String stats_active_filters(num count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString filters',
+      one: '1 filter',
+      zero: 'No filters',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get stats_total_time => 'Total Time';
+
+  @override
+  String get category_modal_edit => 'Edit';
+
+  @override
+  String get category_modal_delete => 'Delete';
+
+  @override
   String get app_description =>
       'A simple time tracking application designed to help you monitor and analyze how you spend your time across different activities.';
+
+  @override
+  String get appearance => 'Appearance';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get data_management => 'Data Management';
+
+  @override
+  String get export_data => 'Export Data';
+
+  @override
+  String get export_data_subtitle => 'Export to CSV';
+
+  @override
+  String get reset_data => 'Reset Data';
+
+  @override
+  String get reset_data_subtitle => 'Delete all data';
+
+  @override
+  String get reset_data_warning =>
+      'This will permanently delete all your data. This action cannot be undone.';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get reset_data_success => 'All data has been reset successfully';
+
+  @override
+  String get reset_data_error => 'Failed to reset data';
+
+  @override
+  String get time_period => 'Time Period';
+
+  @override
+  String get date_range => 'Date Range';
+
+  @override
+  String get start_date => 'Start Date';
+
+  @override
+  String get end_date => 'End Date';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get export_data_success => 'Data exported successfully';
+
+  @override
+  String get export_data_error => 'Failed to export data';
+
+  @override
+  String get error_loading_categories => 'Error loading categories';
+
+  @override
+  String get whole_time => 'Whole time';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String theme_mode(String mode) {
+    String _temp0 = intl.Intl.selectLogic(
+      mode,
+      {
+        'light': 'Light',
+        'dark': 'Dark',
+        'other': 'System',
+      },
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String language_map(String language) {
+    String _temp0 = intl.Intl.selectLogic(
+      language,
+      {
+        'en': 'English',
+        'de': 'German',
+        'ru': 'Russian',
+        'other': '',
+      },
+    );
+    return '$_temp0';
+  }
 }

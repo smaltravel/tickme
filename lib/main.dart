@@ -4,11 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tickme/common/tickme_dark_theme.dart';
 import 'package:tickme/common/tickme_light_theme.dart';
+import 'package:tickme/common/tickme_dark_theme.dart';
 import 'package:tickme/l10n/app_localizations.dart';
-import 'package:tickme/providers/locale_provider.dart';
+import 'package:tickme/models/global_app_settings.dart';
+import 'package:tickme/providers/settings_provider.dart';
 import 'package:tickme/providers/shared_preferences_provider.dart';
-import 'package:tickme/providers/theme_mode_provider.dart';
-import 'package:tickme/screens/app_navigation.dart';
+import 'package:tickme/navigation/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,14 +27,24 @@ class TickmeApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locale = ref.watch(localeServiceProvider);
-    final themeMode = ref.watch(themeModeProvider);
+    final settings = ref.watch(tickMeAppSettingsProvider);
 
-    return MaterialApp(
+    // Convert AppThemeMode to Flutter's ThemeMode
+    ThemeMode flutterThemeMode;
+    if (settings.themeMode == AppThemeMode.dark) {
+      flutterThemeMode = ThemeMode.dark;
+    } else if (settings.themeMode == AppThemeMode.light) {
+      flutterThemeMode = ThemeMode.light;
+    } else {
+      flutterThemeMode = ThemeMode.system;
+    }
+
+    return MaterialApp.router(
       title: 'Tickme',
       theme: TickMeLightTheme.theme,
       darkTheme: TickMeDarkTheme.theme,
-      themeMode: themeMode,
+      themeMode: flutterThemeMode,
+      routerConfig: AppRouter().config(),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -41,8 +52,7 @@ class TickmeApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: locale,
-      home: const AppNavigation(),
+      locale: Locale(settings.languageCode),
     );
   }
 }

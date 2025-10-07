@@ -1,55 +1,136 @@
 import 'dart:io';
-
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tickme/providers/tick_categories_provider.dart';
-import 'package:tickme/services/database_service.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:tickme/common/constants/database.dart';
+import 'package:tickme/models/time_entry.dart';
+import 'package:tickme/models/tick_category.dart';
+import 'package:tickme/services/database.dart';
 
-class CsvExportService {
-  final Map<String, String> _categoryMap = {};
+class ExportService {
+  /// Export time entries to CSV file
+  /// Returns the file path of the created CSV file
+  static Future<String> exportToCsv(
+    DateTime? start,
+    DateTime? end,
+    Set<int> categories,
+  ) async {
+    // Create temporary file
+    final directory = await getTemporaryDirectory();
+    final fileName =
+        'tickme_export_${DateFormat('yyyyMMdd_HHmmss').format(DateTime.now())}.csv';
+    final file = File('${directory.path}/$fileName');
 
-  CsvExportService(TickCategoriesStorage categories) {
-    // Initialize the category map with category IDs and names
-    for (var category in categories) {
-      _categoryMap[category.id] = category.name;
-    }
+    // Generate CSV content
+    final csvContent = await _generateCsvContent(start, end, categories);
+
+    // Write CSV content to file
+    await file.writeAsString(csvContent);
+
+    return file.path;
   }
 
-  Future<String> exportToCsv() async {
-    // 2. Setup file path and headers
-    final directory = await getApplicationCacheDirectory();
-    final filePath =
-        '${directory.path}/tickme_export_${DateTime.now().microsecondsSinceEpoch}.csv';
-    final file = File(filePath);
+  /// Share CSV file using the system share dialog
+  /// Returns the share result
+  static Future<ShareResult> shareCsv(
+    DateTime? start,
+    DateTime? end,
+    Set<int> categories,
+  ) async {
+    final filePath = await exportToCsv(start, end, categories);
+    return SharePlus.instance.share(
+      ShareParams(files: [XFile(filePath)]),
+    );
+  }
 
-    // Define headers
-    final headers = ['Category', 'Start Time', 'End Time'];
+  /// Generate CSV content from database data
+  static Future<String> _generateCsvContent(
+    DateTime? start,
+    DateTime? end,
+    Set<int> categories,
+  ) async {
+    final buffer = StringBuffer();
 
-    // Write headers to the file. Use FileMode.write to create/overwrite the file.
-    await file.writeAsString('${headers.join(',')}\n', mode: FileMode.write);
+    // CSV Header
+    buffer.writeln('category,start,end');
 
-    // 3. Read data by partitions and append to file
-    const int pageSize = 100; // Number of entries to read per partition
-    int offset = 0;
+    // Get time entries with filters
+    final entries = await _getTimeEntries(start, end, categories);
 
-    while (true) {
-      final entries =
-          await DatabaseService.readTimeEntriesPartition(offset, pageSize);
+    // Get categories for lookup
+    final categoriesData = await _getCategories();
+    final categoryMap = {
+      for (final category in categoriesData) category.id: category.name
+    };
 
-      if (entries.isEmpty) {
-        break; // No more data to read
-      }
+    // Sort entries by start time
+    final sortedEntries = List<TimeEntryModel>.from(entries)
+      ..sort((a, b) => a.startTime.compareTo(b.startTime));
 
-      // Convert entries to CSV format
-      final csvRows = entries.map((entry) {
-        final categoryName = _categoryMap[entry.categoryId] ?? 'Unknown';
-        return '"$categoryName","${entry.startTime}","${entry.endTime}"';
-      }).join('\n');
+    // Add data rows
+    for (final entry in sortedEntries) {
+      final startTime = entry.startTime;
+      final endTime = entry.endTime;
+      final categoryName = categoryMap[entry.categoryId] ?? 'Unknown';
 
-      // Append the CSV rows to the file
-      await file.writeAsString(csvRows, mode: FileMode.append);
-      offset += pageSize; // Move to the next partition
+      buffer.writeln('${_escapeCsvValue(categoryName)},'
+          '${_escapeCsvValue(DateFormat('yyyy-MM-dd HH:mm:ss').format(startTime))},'
+          '${_escapeCsvValue(DateFormat('yyyy-MM-dd HH:mm:ss').format(endTime))}');
     }
 
-    return filePath; // Return the path of the created CSV file
+    return buffer.toString();
+  }
+
+  /// Get time entries with optional filters
+  static Future<List<TimeEntryModel>> _getTimeEntries(
+    DateTime? start,
+    DateTime? end,
+    Set<int> categories,
+  ) async {
+    final whereConditions = <String>[];
+    final whereArgs = <Object?>[];
+
+    if (start != null) {
+      whereConditions.add('startTime >= ?');
+      whereArgs.add(start.toIso8601String());
+    }
+
+    if (end != null) {
+      whereConditions.add('endTime <= ?');
+      whereArgs.add(end.toIso8601String());
+    }
+
+    if (categories.isNotEmpty) {
+      final placeholders = List.filled(categories.length, '?').join(',');
+      whereConditions.add('categoryId IN ($placeholders)');
+      whereArgs.addAll(categories);
+    }
+
+    final whereClause =
+        whereConditions.isNotEmpty ? whereConditions.join(' AND ') : null;
+
+    final results = await DatabaseService.query(
+      DatabaseConstants.timeEntriesTable,
+      where: whereClause,
+      whereArgs: whereArgs.isNotEmpty ? whereArgs : null,
+      orderBy: 'startTime ASC',
+    );
+
+    return results.map((row) => TimeEntryModel.fromJson(row)).toList();
+  }
+
+  /// Get all categories
+  static Future<List<TickCategoryModel>> _getCategories() async {
+    final results =
+        await DatabaseService.query(DatabaseConstants.tickCategoriesTable);
+    return results.map((row) => TickCategoryModel.fromJson(row)).toList();
+  }
+
+  /// Escape CSV values to handle special characters
+  static String _escapeCsvValue(String value) {
+    if (value.contains(',') || value.contains('"') || value.contains('\n')) {
+      return '"${value.replaceAll('"', '""')}"';
+    }
+    return value;
   }
 }
