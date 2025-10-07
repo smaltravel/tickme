@@ -214,6 +214,12 @@ abstract class AppLocalizations {
   /// **'Tap + to add your first category'**
   String get home_tap_to_add_category;
 
+  /// No description provided for @home_search_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Search categories...'**
+  String get home_search_categories;
+
   /// No description provided for @settings_remove_data.
   ///
   /// In en, this message translates to:
@@ -261,6 +267,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language'**
   String get settings_language;
+
+  /// No description provided for @settings_theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settings_theme;
+
+  /// No description provided for @theme_light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get theme_light;
+
+  /// No description provided for @theme_dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get theme_dark;
+
+  /// No description provided for @theme_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get theme_system;
 
   /// No description provided for @bottom_bar_home.
   ///

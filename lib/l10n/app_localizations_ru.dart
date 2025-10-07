@@ -67,6 +67,9 @@ class AppLocalizationsRu extends AppLocalizations {
       'Нажмите +, чтобы добавить свою первую категорию';
 
   @override
+  String get home_search_categories => 'Поиск категорий...';
+
+  @override
   String get settings_remove_data => 'Удалить все данные';
 
   @override
@@ -91,6 +94,18 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settings_language => 'Язык';
+
+  @override
+  String get settings_theme => 'Тема';
+
+  @override
+  String get theme_light => 'Светлая';
+
+  @override
+  String get theme_dark => 'Темная';
+
+  @override
+  String get theme_system => 'Системная';
 
   @override
   String get bottom_bar_home => 'Главная';

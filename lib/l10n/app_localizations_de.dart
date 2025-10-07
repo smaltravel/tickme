@@ -67,6 +67,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'Tippen Sie +, um Ihre erste Kategorie hinzuzufügen';
 
   @override
+  String get home_search_categories => 'Kategorien suchen...';
+
+  @override
   String get settings_remove_data => 'Alle Daten entfernen';
 
   @override
@@ -91,6 +94,18 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get settings_language => 'Sprache';
+
+  @override
+  String get settings_theme => 'Thema';
+
+  @override
+  String get theme_light => 'Hell';
+
+  @override
+  String get theme_dark => 'Dunkel';
+
+  @override
+  String get theme_system => 'System';
 
   @override
   String get bottom_bar_home => 'Home';

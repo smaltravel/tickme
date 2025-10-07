@@ -1,85 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:moon_design/moon_design.dart';
 
+/// TickMe Light Theme Configuration
+///
+/// Provides a complete ThemeData with MoonTheme as an extension,
+/// following Moon Design System best practices.
 class TickMeLightTheme {
+  // Light theme color palette
+  static const Color backgroundColor = Color(0xFFF1F5F9);
+  static const Color surfaceColor = Colors.white;
+  static const Color primaryColor = Color(0xFF2563EB);
+  static const Color borderColor = Color(0xFFE2E8F0);
+  static const Color inactiveColor = Color(0xFF9CA3AF);
+  static const Color selectedSurfaceColor = Color(0xFFB3E5FC);
+  static const Color selectedBorderColor = Color(0xFF0091EA);
+  static const Color textPrimary = Colors.black;
+  static const Color textSecondary = Color(0xFF1F2937);
+
+  /// Light theme tokens for Moon Design System
+  static final lightTokens = MoonTokens.light.copyWith(
+    colors: MoonColors.light.copyWith(
+      gohan: backgroundColor,
+      goku: surfaceColor,
+      piccolo: primaryColor,
+      krillin: borderColor,
+    ),
+  );
+
+  /// Complete Material theme with MoonTheme extension
   static ThemeData get theme {
-    return ThemeData(
-      // App background color
-      scaffoldBackgroundColor: const Color(0xFFF1F5F9),
-
-      // Card Theme
-      cardTheme: TickmeCardThemeData.regular,
-
-      // AppBar Theme (TopBar)
+    return ThemeData.light().copyWith(
+      useMaterial3: true,
+      scaffoldBackgroundColor: backgroundColor,
+      extensions: <ThemeExtension<dynamic>>[
+        MoonTheme(tokens: lightTokens),
+      ],
       appBarTheme: const AppBarTheme(
         titleTextStyle: TextStyle(
-          color: Colors.black, // text-black
-          fontWeight: FontWeight.w700, // font-bold
-          fontSize: 24.0, // text-2xl
+          color: textPrimary,
+          fontWeight: FontWeight.w700,
+          fontSize: 24.0,
         ),
         centerTitle: false,
-        backgroundColor: Color(0xFFF1F5F9),
+        backgroundColor: backgroundColor,
+        elevation: 0,
+        iconTheme: IconThemeData(color: textPrimary),
       ),
-
-      // NavigationBar Theme (BottomBar)
-      navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: Colors.white, // bg-white
-        elevation: 0, // No shadow specified, border takes care of separation
-        indicatorColor: Colors.transparent,
-        labelTextStyle: WidgetStateProperty.fromMap({
-          WidgetState.selected: TextStyle(
-            fontSize: 12.0,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF2563EB),
-          ),
-          WidgetState.any: TextStyle(
-            fontSize: 12.0,
-            color: Color(0xFF9CA3AF),
-          ),
-        }),
-        iconTheme: WidgetStateProperty.fromMap({
-          WidgetState.selected:
-              IconThemeData(color: Color(0xFF2563EB), size: 30.0),
-          WidgetState.any: IconThemeData(color: Color(0xFF9CA3AF), size: 30.0),
-        }),
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(color: textPrimary),
+        bodyMedium: TextStyle(color: textPrimary),
+        bodySmall: TextStyle(color: inactiveColor),
+        titleLarge: TextStyle(color: textPrimary),
+        titleMedium: TextStyle(color: textPrimary),
+        titleSmall: TextStyle(color: textPrimary),
       ),
+      iconTheme: const IconThemeData(color: textPrimary),
     );
   }
 }
 
-class TickmeCardThemeData {
-  static CardThemeData get regular {
-    return CardThemeData(
-      color: Colors.white,
-      surfaceTintColor: Colors.white,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0), // rounded-2xl is 16px
-        side: const BorderSide(
-          color: Color(0xFFE2E8F0),
-          width: 1.0,
-        ),
-      ),
-      margin: const EdgeInsets.only(bottom: 8.0),
-    );
-  }
-
-  static CardThemeData get selected {
-    return CardThemeData(
-      color: Colors.white,
-      surfaceTintColor: Colors.lightBlueAccent.shade100,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0), // rounded-2xl is 16px
-        side: const BorderSide(
-          color: Color(0xFF0091EA),
-          width: 1.0,
-        ),
-      ),
-      margin: const EdgeInsets.only(bottom: 24.0),
-    );
-  }
-}
-
+/// Estimated Timer Text Theme
+/// Used for displaying the active timer countdown
 class EstimatedTimerTextTheme {
   static TextStyle get style {
     return const TextStyle(
