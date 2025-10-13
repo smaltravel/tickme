@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tickme/common/tickme_dark_theme.dart';
 import 'package:tickme/common/tickme_light_theme.dart';
-import 'package:tickme/common/tickme_dark_theme.dart';
 import 'package:tickme/l10n/app_localizations.dart';
 import 'package:tickme/models/global_app_settings.dart';
 import 'package:tickme/providers/settings_provider.dart';
