@@ -216,28 +216,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String theme_mode(String mode) {
-    String _temp0 = intl.Intl.selectLogic(
-      mode,
-      {
-        'light': 'Light',
-        'dark': 'Dark',
-        'other': 'System',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(mode, {
+      'light': 'Light',
+      'dark': 'Dark',
+      'other': 'System',
+    });
     return '$_temp0';
   }
 
   @override
   String language_map(String language) {
-    String _temp0 = intl.Intl.selectLogic(
-      language,
-      {
-        'en': 'English',
-        'de': 'German',
-        'ru': 'Russian',
-        'other': '',
-      },
-    );
+    String _temp0 = intl.Intl.selectLogic(language, {
+      'en': 'English',
+      'de': 'German',
+      'ru': 'Russian',
+      'other': '',
+    });
     return '$_temp0';
   }
 }
