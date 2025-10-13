@@ -6,6 +6,7 @@ targets:
           build_extensions:
             "^lib/providers/{{}}.dart": "lib/providers/generated/{{}}.g.dart"
             "^lib/models/{{}}.dart": "lib/models/generated/{{}}.g.dart"
+            "^lib/services/{{}}.dart": "lib/services/generated/{{}}.g.dart"
       freezed:freezed:
         options:
           union_key: "type"
@@ -21,3 +22,9 @@ targets:
         options:
           generate_route_list: true
           generate_navigator_keys: true
+
+      drift_dev:drift_dev:
+        options:
+          write_from_json_string_constructor: true
+          named_parameters: true
+          store_date_time_values_as_text: true
