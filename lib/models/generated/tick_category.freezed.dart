@@ -109,14 +109,15 @@ class _$TickCategoryModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _TickCategoryModel implements TickCategoryModel {
+class _TickCategoryModel extends TickCategoryModel {
   const _TickCategoryModel(
       {this.id,
       required this.name,
       @JsonKey(fromJson: _deserializeIcon, toJson: _serializeIcon)
       required this.icon,
       @JsonKey(fromJson: deserializeColor, toJson: serializeColor)
-      required this.color});
+      required this.color})
+      : super._();
   factory _TickCategoryModel.fromJson(Map<String, dynamic> json) =>
       _$TickCategoryModelFromJson(json);
 

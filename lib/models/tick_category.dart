@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -25,6 +26,8 @@ const unknownTickIcon = IconPickerIcon(
 
 @freezed
 abstract class TickCategoryModel with _$TickCategoryModel {
+  const TickCategoryModel._();
+
   const factory TickCategoryModel({
     int? id,
     required String name,
@@ -43,6 +46,22 @@ abstract class TickCategoryModel with _$TickCategoryModel {
   //For JSON serialization / deserialization
   factory TickCategoryModel.fromJson(Map<String, dynamic> json) =>
       _$TickCategoryModelFromJson(json);
+
+  factory TickCategoryModel.fromRow({
+    required int id,
+    required String name,
+    required String icon,
+    required String color,
+  }) =>
+      TickCategoryModel(
+        id: id,
+        name: name,
+        icon: deserializeIcon(jsonDecode(icon)) ?? unknownTickIcon,
+        color: deserializeColor(color),
+      );
+
+  String get iconString => _serializeIcon(icon);
+  String get colorString => serializeColor(color);
 }
 
 IconPickerIcon _deserializeIcon(String jsonMap) {
@@ -52,4 +71,12 @@ IconPickerIcon _deserializeIcon(String jsonMap) {
 
 String _serializeIcon(IconPickerIcon icon) {
   return jsonEncode(serializeIcon(icon));
+}
+
+@drift.UseRowClass(TickCategoryModel, constructor: 'fromRow')
+class TickCategories extends drift.Table {
+  drift.IntColumn get id => integer().autoIncrement()();
+  drift.TextColumn get name => text().unique()();
+  drift.TextColumn get icon => text()();
+  drift.TextColumn get color => text()();
 }
