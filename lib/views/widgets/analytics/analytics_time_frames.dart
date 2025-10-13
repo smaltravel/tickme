@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
-import 'package:tickme/views/screens/analytics_screen.dart';
+import 'package:tickme/models/tick_filter.dart';
 
 class AnalyticsTimeFrames extends StatelessWidget {
-  final AnalyticsTimeFrame selectedTimeFrame;
-  final Function(AnalyticsTimeFrame) onTimeFrameChanged;
+  final TickFilterModel timeFrame;
+  final Function(TimeFrameType) onTimeFrameChanged;
 
   const AnalyticsTimeFrames({
     super.key,
-    required this.selectedTimeFrame,
+    required this.timeFrame,
     required this.onTimeFrameChanged,
   });
 
@@ -24,25 +24,25 @@ class AnalyticsTimeFrames extends StatelessWidget {
         children: [
           _buildTimeFrameButton(
             context,
-            AnalyticsTimeFrame.day,
+            TimeFrameType.day,
             context.loc.day,
             Icons.today,
           ),
           _buildTimeFrameButton(
             context,
-            AnalyticsTimeFrame.week,
+            TimeFrameType.week,
             context.loc.week,
             Icons.date_range,
           ),
           _buildTimeFrameButton(
             context,
-            AnalyticsTimeFrame.month,
+            TimeFrameType.month,
             context.loc.month,
             Icons.calendar_month,
           ),
           _buildTimeFrameButton(
             context,
-            AnalyticsTimeFrame.custom,
+            TimeFrameType.custom,
             context.loc.custom,
             Icons.tune,
           ),
@@ -53,15 +53,15 @@ class AnalyticsTimeFrames extends StatelessWidget {
 
   Widget _buildTimeFrameButton(
     BuildContext context,
-    AnalyticsTimeFrame timeFrame,
+    TimeFrameType btnTimeFrame,
     String label,
     IconData icon,
   ) {
-    final isSelected = selectedTimeFrame == timeFrame;
+    final isSelected = timeFrame.type == btnTimeFrame;
 
     return Expanded(
       child: GestureDetector(
-        onTap: () => onTimeFrameChanged(timeFrame),
+        onTap: () => onTimeFrameChanged(btnTimeFrame),
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
           decoration: BoxDecoration(
