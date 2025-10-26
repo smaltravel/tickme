@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
@@ -13,7 +12,6 @@ import 'package:tickme/views/widgets/common/analytics_filters.dart';
 import 'package:tickme/views/widgets/analytics/analytics_summary.dart';
 import 'package:tickme/views/widgets/analytics/analytics_time_frames.dart';
 
-@RoutePage(name: 'AnalyticsTab')
 class AnalyticsScreen extends ConsumerWidget {
   const AnalyticsScreen({super.key});
 
@@ -31,8 +29,8 @@ class AnalyticsScreen extends ConsumerWidget {
       ),
       body: categories.when(
         data: (categoriesData) => timeEntries.when(
-            data: (timeEntriesData) => _buildContent(
-                categoriesData, timeEntriesData, timeFrame, context, ref),
+            data: (timeEntriesData) =>
+                _buildContent(categoriesData, timeEntriesData, timeFrame, context, ref),
             error: (error, stack) => Center(child: Text('Error: $error')),
             loading: () => const Center(child: CircularProgressIndicator())),
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -41,12 +39,8 @@ class AnalyticsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildContent(
-      List<TickCategoryModel> categories,
-      List<TimeEntryModel> timeEntries,
-      TickFilterModel filter,
-      BuildContext context,
-      WidgetRef ref) {
+  Widget _buildContent(List<TickCategoryModel> categories, List<TimeEntryModel> timeEntries,
+      TickFilterModel filter, BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -55,9 +49,8 @@ class AnalyticsScreen extends ConsumerWidget {
           // Time frame toggles - always visible
           AnalyticsTimeFrames(
             timeFrame: filter,
-            onTimeFrameChanged: (timeFrameType) => ref
-                .read(tickFilterProvider.notifier)
-                .updateTimeFrame(type: timeFrameType),
+            onTimeFrameChanged: (timeFrameType) =>
+                ref.read(tickFilterProvider.notifier).updateTimeFrame(type: timeFrameType),
           ),
           const SizedBox(height: 16),
 
@@ -120,8 +113,7 @@ class AnalyticsScreen extends ConsumerWidget {
     );
   }
 
-  void _showFilterModal(
-      TickFilterModel filter, BuildContext context, WidgetRef ref) {
+  void _showFilterModal(TickFilterModel filter, BuildContext context, WidgetRef ref) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -129,16 +121,10 @@ class AnalyticsScreen extends ConsumerWidget {
           selectedCategories: filter.categories,
           startDate: filter.start,
           endDate: filter.end,
-          onFiltersChanged: (categories, startDate, endDate) =>
-              startDate == null || endDate == null
-                  ? ref
-                      .read(tickFilterProvider.notifier)
-                      .updateCategories(categories)
-                  : ref.read(tickFilterProvider.notifier).update(
-                      type: TimeFrameType.custom,
-                      start: startDate,
-                      end: endDate,
-                      categories: categories)),
+          onFiltersChanged: (categories, startDate, endDate) => startDate == null || endDate == null
+              ? ref.read(tickFilterProvider.notifier).updateCategories(categories)
+              : ref.read(tickFilterProvider.notifier).update(
+                  type: TimeFrameType.custom, start: startDate, end: endDate, categories: categories)),
     );
   }
 }

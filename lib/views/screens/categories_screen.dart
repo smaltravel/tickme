@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tickme/models/active_timer.dart';
@@ -10,7 +9,6 @@ import 'package:tickme/views/widgets/home/tick_app_bar.dart';
 import 'package:tickme/views/widgets/home/tick_category.dart';
 import 'package:tickme/views/dialogs/tick_category_builder.dart';
 
-@RoutePage(name: 'CategoriesTab')
 class CategoriesScreen extends ConsumerWidget {
   const CategoriesScreen({super.key});
 
@@ -24,16 +22,12 @@ class CategoriesScreen extends ConsumerWidget {
         appBar: TickAppBar(
           categories: categories,
           activeTimer: activeTimer,
-          onStopTimer: () => ref
-              .read(activeTickProvider.notifier)
-              .update(activeTimer?.categoryId),
+          onStopTimer: () => ref.read(activeTickProvider.notifier).update(activeTimer?.categoryId),
         ),
         body: _buildBody(context, ref, categories, activeTimer),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => showDialog(
-              context: context,
-              builder: (context) =>
-                  buildTickCategoryDialog(context, ref, null)),
+          onPressed: () =>
+              showDialog(context: context, builder: (context) => buildTickCategoryDialog(context, ref, null)),
           child: const Icon(Icons.add),
         ),
       ),
@@ -68,14 +62,12 @@ class CategoriesScreen extends ConsumerWidget {
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];
-          final isActive =
-              activeTimer != null && activeTimer.categoryId == category.id;
+          final isActive = activeTimer != null && activeTimer.categoryId == category.id;
 
           return TickCategoryCard(
             category: category,
             isSelected: isActive,
-            onTap: () =>
-                ref.read(activeTickProvider.notifier).update(category.id!),
+            onTap: () => ref.read(activeTickProvider.notifier).update(category.id!),
             onLongPress: () => showTickCategoryModal(context, ref, category),
           );
         },
