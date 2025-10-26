@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:moon_design/moon_design.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
 
@@ -63,9 +64,9 @@ class _AnalyticsFiltersState extends ConsumerState<AnalyticsFilters> {
                       fontWeight: FontWeight.bold,
                     ),
               ),
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.close),
+              MoonButton(
+                onTap: () => Navigator.pop(context),
+                leading: const Icon(Icons.close, size: 20),
               ),
             ],
           ),
@@ -113,8 +114,7 @@ class _AnalyticsFiltersState extends ConsumerState<AnalyticsFilters> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.all_inclusive,
-                      size: 16, color: Colors.grey.shade600),
+                  Icon(Icons.all_inclusive, size: 16, color: Colors.grey.shade600),
                   const SizedBox(width: 8),
                   Text(
                     context.loc.whole_time,
@@ -178,15 +178,12 @@ class _AnalyticsFiltersState extends ConsumerState<AnalyticsFilters> {
                           }
                         });
                       },
-                      selectedColor:
-                          Theme.of(context).primaryColor.withValues(alpha: 0.2),
+                      selectedColor: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                       checkmarkColor: Theme.of(context).primaryColor,
                     );
                   }).toList(),
-                  loading: () =>
-                      [const Center(child: CircularProgressIndicator())],
-                  error: (error, stack) =>
-                      [Center(child: Text('Error: $error'))],
+                  loading: () => [const Center(child: CircularProgressIndicator())],
+                  error: (error, stack) => [Center(child: Text('Error: $error'))],
                 ),
           ),
           const SizedBox(height: 32),
@@ -195,16 +192,18 @@ class _AnalyticsFiltersState extends ConsumerState<AnalyticsFilters> {
           Row(
             children: [
               Expanded(
-                child: OutlinedButton(
-                  onPressed: _resetFilters,
-                  child: Text(context.loc.reset),
+                child: MoonOutlinedButton(
+                  onTap: _resetFilters,
+                  isFullWidth: true,
+                  label: Text(context.loc.reset),
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: ElevatedButton(
-                  onPressed: _applyFilters,
-                  child: Text(context.loc.apply),
+                child: MoonFilledButton(
+                  onTap: _applyFilters,
+                  isFullWidth: true,
+                  label: Text(context.loc.apply),
                 ),
               ),
             ],
@@ -214,8 +213,7 @@ class _AnalyticsFiltersState extends ConsumerState<AnalyticsFilters> {
     );
   }
 
-  Widget _buildDateField(
-      String label, DateTime date, Function(DateTime) onChanged) {
+  Widget _buildDateField(String label, DateTime date, Function(DateTime) onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -236,8 +234,7 @@ class _AnalyticsFiltersState extends ConsumerState<AnalyticsFilters> {
             ),
             child: Row(
               children: [
-                Icon(Icons.calendar_today,
-                    size: 16, color: Colors.grey.shade600),
+                Icon(Icons.calendar_today, size: 16, color: Colors.grey.shade600),
                 const SizedBox(width: 8),
                 Text(
                   '${date.day}/${date.month}/${date.year}',
@@ -251,8 +248,7 @@ class _AnalyticsFiltersState extends ConsumerState<AnalyticsFilters> {
     );
   }
 
-  Future<void> _selectDate(
-      DateTime initialDate, Function(DateTime) onChanged) async {
+  Future<void> _selectDate(DateTime initialDate, Function(DateTime) onChanged) async {
     final now = DateTime.now();
     final firstDate = DateTime(2020);
     final lastDate = now;

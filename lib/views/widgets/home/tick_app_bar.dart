@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moon_design/moon_design.dart';
 import 'package:tickme/models/active_timer.dart';
 import 'package:tickme/models/tick_category.dart';
 import 'package:tickme/views/widgets/common/tick_avatar.dart';
@@ -18,9 +19,8 @@ class TickAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activeCategory = activeTimer != null
-        ? categories.firstWhere((e) => e.id == activeTimer!.categoryId)
-        : null;
+    final activeCategory =
+        activeTimer != null ? categories.firstWhere((e) => e.id == activeTimer!.categoryId) : null;
 
     return AppBar(
       elevation: 0,
@@ -57,13 +57,11 @@ class TickAppBar extends StatelessWidget implements PreferredSizeWidget {
         if (activeTimer != null)
           Container(
             margin: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              onPressed: onStopTimer,
-              icon: const Icon(Icons.stop),
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.red.shade50,
-                foregroundColor: Colors.red.shade700,
-              ),
+            child: MoonFilledButton(
+              onTap: onStopTimer,
+              backgroundColor: Colors.red.shade50,
+              leading: Icon(Icons.stop, color: Colors.red.shade700, size: 20),
+              buttonSize: MoonButtonSize.sm,
             ),
           ),
       ],

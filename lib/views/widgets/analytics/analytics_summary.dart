@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moon_design/moon_design.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 import 'package:tickme/models/time_entry.dart';
 
@@ -44,11 +45,10 @@ class AnalyticsSummary extends StatelessWidget {
                     ),
                     Text(
                       _formatDuration(totalDuration),
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColor,
-                              ),
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
                     ),
                   ],
                 ),
@@ -56,12 +56,9 @@ class AnalyticsSummary extends StatelessWidget {
                   children: [
                     if (activeFiltersCount > 0)
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .primaryColor
-                              .withValues(alpha: 0.1),
+                          color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
@@ -74,13 +71,10 @@ class AnalyticsSummary extends StatelessWidget {
                         ),
                       ),
                     const SizedBox(width: 8),
-                    IconButton(
-                      onPressed: onFilterPressed,
-                      icon: const Icon(Icons.filter_list),
-                      style: IconButton.styleFrom(
-                        backgroundColor: Colors.grey.shade100,
-                        foregroundColor: Colors.grey.shade700,
-                      ),
+                    MoonButton(
+                      onTap: onFilterPressed,
+                      leading: const Icon(Icons.filter_list, size: 20),
+                      buttonSize: MoonButtonSize.sm,
                     ),
                   ],
                 ),
@@ -121,12 +115,9 @@ class AnalyticsSummary extends StatelessWidget {
   }
 
   String _getDateRangeText() {
-    if (startDate.year == endDate.year &&
-        startDate.month == endDate.month &&
-        startDate.day == endDate.day) {
+    if (startDate.year == endDate.year && startDate.month == endDate.month && startDate.day == endDate.day) {
       return 'Today';
-    } else if (startDate.year == endDate.year &&
-        startDate.month == endDate.month) {
+    } else if (startDate.year == endDate.year && startDate.month == endDate.month) {
       return '${startDate.day} - ${endDate.day} ${_getMonthName(startDate.month)}';
     } else {
       return '${startDate.day}/${startDate.month} - ${endDate.day}/${endDate.month}';
@@ -134,20 +125,7 @@ class AnalyticsSummary extends StatelessWidget {
   }
 
   String _getMonthName(int month) {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return months[month - 1];
   }
 

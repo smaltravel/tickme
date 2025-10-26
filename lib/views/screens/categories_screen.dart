@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:moon_design/moon_design.dart';
 import 'package:tickme/models/active_timer.dart';
 import 'package:tickme/providers/tick_categories_provider.dart';
 import 'package:tickme/providers/active_timer_provider.dart';
@@ -25,10 +26,13 @@ class CategoriesScreen extends ConsumerWidget {
           onStopTimer: () => ref.read(activeTickProvider.notifier).update(activeTimer?.categoryId),
         ),
         body: _buildBody(context, ref, categories, activeTimer),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () =>
+        floatingActionButton: MoonFilledButton(
+          onTap: () =>
               showDialog(context: context, builder: (context) => buildTickCategoryDialog(context, ref, null)),
-          child: const Icon(Icons.add),
+          borderRadius: BorderRadius.circular(28),
+          height: 56,
+          width: 56,
+          label: const Icon(Icons.add, color: Colors.white),
         ),
       ),
       error: (error, stack) => Scaffold(

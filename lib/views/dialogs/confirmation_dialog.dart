@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moon_design/moon_design.dart';
 import 'package:tickme/l10n/app_localizations_context.dart';
 
 class ConfirmationDialog extends StatelessWidget {
@@ -23,20 +24,26 @@ class ConfirmationDialog extends StatelessWidget {
       title: Text(title),
       content: Text(message),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(context.loc.cancel),
+        MoonTextButton(
+          onTap: () => Navigator.of(context).pop(),
+          label: Text(context.loc.cancel),
         ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            onConfirm();
-          },
-          style: confirmColor != null
-              ? TextButton.styleFrom(foregroundColor: confirmColor)
-              : null,
-          child: Text(confirmText),
-        ),
+        confirmColor != null
+            ? MoonFilledButton(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  onConfirm();
+                },
+                backgroundColor: confirmColor,
+                label: Text(confirmText),
+              )
+            : MoonTextButton(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  onConfirm();
+                },
+                label: Text(confirmText),
+              ),
       ],
     );
   }
