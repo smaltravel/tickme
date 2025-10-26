@@ -23,6 +23,7 @@ class AnalyticsCharts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 8,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Category Distribution (Pie Chart)
@@ -35,7 +36,6 @@ class AnalyticsCharts extends StatelessWidget {
             categories: categories,
           ),
         ),
-        const SizedBox(height: 16),
 
         // Usage Frequency (Bar Chart)
         _buildChartCard(
@@ -47,7 +47,6 @@ class AnalyticsCharts extends StatelessWidget {
             categories: categories,
           ),
         ),
-        const SizedBox(height: 16),
 
         // Interruption Frequency (Line Chart)
         _buildChartCard(
@@ -60,7 +59,6 @@ class AnalyticsCharts extends StatelessWidget {
             endDate: endDate,
           ),
         ),
-        const SizedBox(height: 16),
 
         // Quick Stats
         _buildChartCard(
@@ -76,8 +74,7 @@ class AnalyticsCharts extends StatelessWidget {
     );
   }
 
-  Widget _buildChartCard(
-      BuildContext context, String title, IconData icon, Widget child) {
+  Widget _buildChartCard(BuildContext context, String title, IconData icon, Widget child) {
     return Card(
       elevation: 2,
       child: Padding(

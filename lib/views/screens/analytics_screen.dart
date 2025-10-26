@@ -10,57 +10,183 @@ import 'package:tickme/providers/tick_filter_provider.dart';
 import 'package:tickme/views/widgets/analytics/analytics_charts.dart';
 import 'package:tickme/views/widgets/common/analytics_filters.dart';
 import 'package:tickme/views/widgets/analytics/analytics_summary.dart';
-import 'package:tickme/views/widgets/analytics/analytics_time_frames.dart';
 
-class AnalyticsScreen extends ConsumerWidget {
+class AnalyticsScreen extends ConsumerStatefulWidget {
   const AnalyticsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AnalyticsScreen> createState() => _AnalyticsScreenState();
+}
+
+class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize TabController with the current time frame
+    final currentTimeFrame = ref.read(tickFilterProvider).type;
+    _tabController = TabController(
+      length: 4,
+      vsync: this,
+      initialIndex: _timeFrameTypeToIndex(currentTimeFrame),
+    );
+
+    // Listen to tab changes and update the time frame
+    _tabController.addListener(_handleTabChange);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  void _handleTabChange() {
+    if (!_tabController.indexIsChanging) {
+      final timeFrameType = _indexToTimeFrameType(_tabController.index);
+      ref.read(tickFilterProvider.notifier).updateTimeFrame(type: timeFrameType);
+    }
+  }
+
+  int _timeFrameTypeToIndex(TimeFrameType type) {
+    switch (type) {
+      case TimeFrameType.day:
+        return 0;
+      case TimeFrameType.week:
+        return 1;
+      case TimeFrameType.month:
+        return 2;
+      case TimeFrameType.custom:
+        return 3;
+    }
+  }
+
+  TimeFrameType _indexToTimeFrameType(int index) {
+    switch (index) {
+      case 0:
+        return TimeFrameType.day;
+      case 1:
+        return TimeFrameType.week;
+      case 2:
+        return TimeFrameType.month;
+      case 3:
+        return TimeFrameType.custom;
+      default:
+        return TimeFrameType.day;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final timeFrame = ref.watch(tickFilterProvider);
     final timeEntries = ref.watch(timeEntriesProvider);
     final categories = ref.watch(tickCategoriesProvider);
+
+    // Sync tab controller with external time frame changes
+    final expectedIndex = _timeFrameTypeToIndex(timeFrame.type);
+    if (_tabController.index != expectedIndex && !_tabController.indexIsChanging) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && _tabController.index != expectedIndex) {
+          _tabController.animateTo(expectedIndex);
+        }
+      });
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(context.loc.bottom_bar_stats),
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        bottom: TabBar(
+          controller: _tabController,
+          labelColor: Theme.of(context).primaryColor,
+          unselectedLabelColor: Colors.grey.shade600,
+          indicatorColor: Theme.of(context).primaryColor,
+          isScrollable: true,
+          tabAlignment: TabAlignment.start,
+          tabs: [
+            Tab(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.today, size: 20),
+                  const SizedBox(width: 8),
+                  Text(context.loc.day),
+                ],
+              ),
+            ),
+            Tab(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.date_range, size: 20),
+                  const SizedBox(width: 8),
+                  Text(context.loc.week),
+                ],
+              ),
+            ),
+            Tab(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.calendar_month, size: 20),
+                  const SizedBox(width: 8),
+                  Text(context.loc.month),
+                ],
+              ),
+            ),
+            Tab(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.tune, size: 20),
+                  const SizedBox(width: 8),
+                  Text(context.loc.custom),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-      body: categories.when(
-        data: (categoriesData) => timeEntries.when(
-            data: (timeEntriesData) =>
-                _buildContent(categoriesData, timeEntriesData, timeFrame, context, ref),
-            error: (error, stack) => Center(child: Text('Error: $error')),
-            loading: () => const Center(child: CircularProgressIndicator())),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error: $error')),
+      body: SafeArea(
+        child: categories.when(
+          data: (categoriesData) => timeEntries.when(
+              data: (timeEntriesData) => TabBarView(
+                    controller: _tabController,
+                    children: List.generate(
+                      4,
+                      (index) => _buildContent(
+                        categoriesData,
+                        timeEntriesData,
+                        timeFrame,
+                        context,
+                      ),
+                    ),
+                  ),
+              error: (error, stack) => Center(child: Text('Error: $error')),
+              loading: () => const Center(child: CircularProgressIndicator())),
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (error, stack) => Center(child: Text('Error: $error')),
+        ),
       ),
     );
   }
 
   Widget _buildContent(List<TickCategoryModel> categories, List<TimeEntryModel> timeEntries,
-      TickFilterModel filter, BuildContext context, WidgetRef ref) {
+      TickFilterModel filter, BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Time frame toggles - always visible
-          AnalyticsTimeFrames(
-            timeFrame: filter,
-            onTimeFrameChanged: (timeFrameType) =>
-                ref.read(tickFilterProvider.notifier).updateTimeFrame(type: timeFrameType),
-          ),
-          const SizedBox(height: 16),
-
           // Summary and filters - always visible
           AnalyticsSummary(
             timeEntries: timeEntries,
             startDate: filter.start,
             endDate: filter.end,
             selectedCategories: filter.categories,
-            onFilterPressed: () => _showFilterModal(filter, context, ref),
+            onFilterPressed: () => _showFilterModal(filter, context),
           ),
           const SizedBox(height: 24),
 
@@ -113,7 +239,7 @@ class AnalyticsScreen extends ConsumerWidget {
     );
   }
 
-  void _showFilterModal(TickFilterModel filter, BuildContext context, WidgetRef ref) {
+  void _showFilterModal(TickFilterModel filter, BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
